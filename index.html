@@ -951,152 +951,189 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
     </a>
   </div>
 
+  <!-- 1. WHY BUSINESS EXISTS + HOW BUSINESS RUNS -->
   <div class="biz-grid">
     <div class="biz-card">
-      <div class="biz-card-icon" style="background:rgba(59,130,246,.1)">📋</div>
-      <h3>ECRM Platform Overview</h3>
-      <p>ECRM (Enterprise Consumer Relationship Management) is a field-force management and consumer engagement system deployed on PostgreSQL (AWS RDS). It manages campaign execution, BR activities, supervisor oversight, and consumer surveys across a hierarchical location structure spanning Region → Area → Territory → Distributor Point → Route → Cluster → Outlet.</p>
+      <div class="biz-card-icon" style="background:rgba(239,68,68,.1)">🚫</div>
+      <h3>Why This Business Exists</h3>
+      <p>Smoking advertisements are not allowed in public media or billboards. Direct person-to-person consumer reach is mandatory. The only effective way to contact smokers is by <strong>visiting outlets</strong>.</p>
     </div>
     <div class="biz-card">
-      <div class="biz-card-icon" style="background:rgba(6,182,212,.1)">🗺️</div>
-      <h3>Location Hierarchy</h3>
-      <p>All geographic data is stored in a single self-referential table <code style="font-family:monospace;color:var(--accent)">ecrm.locations</code> with 7 type levels. Each level has a parent reference allowing traversal from Outlet (type=8) up to Region (type=1). Every contact event anchors to an outlet — except Call Center which anchors at Cluster (type=7).</p>
-    </div>
-    <div class="biz-card">
-      <div class="biz-card-icon" style="background:rgba(167,139,250,.1)">👤</div>
-      <h3>BR & Supervisor Roles</h3>
-      <p>Brand Representatives (BRs / Field Force) conduct consumer contacts. Supervisors perform two oversight activities: Live Observation (joint_calls — watching a BR work in real time) and Call Checkback (supervisor_contacts — calling consumers post-contact to verify BR performance). Both feed into the reporting pipeline.</p>
-    </div>
-    <div class="biz-card">
-      <div class="biz-card-icon" style="background:rgba(16,185,129,.1)">📊</div>
-      <h3>Survey Pivot Architecture</h3>
-      <p>Survey answers are stored as key-value rows in dedicated maps tables (one row per question per contact). All four reports use the <code style="font-family:monospace;color:var(--accent)">CASE WHEN + MAX()</code> pivot pattern to transpose these rows into columns — one row per contact with each question as a named column.</p>
-    </div>
-  </div>
-
-  <!-- Data Flow -->
-  <div class="flow-diagram">
-    <h3>📍 Consumer Engagement Data Flow</h3>
-    <div class="flow-steps">
-      <div class="flow-step">
-        <div class="flow-node primary">Campaign Created</div>
-        <div class="flow-arrow">→</div>
-      </div>
-      <div class="flow-step">
-        <div class="flow-node">BR Assigned</div>
-        <div class="flow-arrow">→</div>
-      </div>
-      <div class="flow-step">
-        <div class="flow-node primary">Consumer Contact</div>
-        <div class="flow-arrow">→</div>
-      </div>
-      <div class="flow-step">
-        <div class="flow-node">Survey Answers</div>
-        <div class="flow-arrow">→</div>
-      </div>
-      <div class="flow-step">
-        <div class="flow-node accent">Daily Contact Report</div>
-      </div>
-    </div>
-    <div class="divider"></div>
-    <div class="flow-steps">
-      <div class="flow-step">
-        <div class="flow-node">Supervisor + BR</div>
-        <div class="flow-arrow">→</div>
-      </div>
-      <div class="flow-step">
-        <div class="flow-node primary">Joint Call (Live Obs)</div>
-        <div class="flow-arrow">→</div>
-      </div>
-      <div class="flow-step">
-        <div class="flow-node">Compliance Check</div>
-        <div class="flow-arrow">→</div>
-      </div>
-      <div class="flow-step">
-        <div class="flow-node accent">Live Observation Report</div>
-      </div>
-    </div>
-    <div class="divider"></div>
-    <div class="flow-steps">
-      <div class="flow-step">
-        <div class="flow-node">Post-Contact</div>
-        <div class="flow-arrow">→</div>
-      </div>
-      <div class="flow-step">
-        <div class="flow-node primary">Supervisor Calls Consumer</div>
-        <div class="flow-arrow">→</div>
-      </div>
-      <div class="flow-step">
-        <div class="flow-node">Quality Audit</div>
-        <div class="flow-arrow">→</div>
-      </div>
-      <div class="flow-step">
-        <div class="flow-node accent">Call Checkback Report</div>
-      </div>
-    </div>
-    <div class="divider"></div>
-    <div class="flow-steps">
-      <div class="flow-step">
-        <div class="flow-node">Consumer Dialer List</div>
-        <div class="flow-arrow">→</div>
-      </div>
-      <div class="flow-step">
-        <div class="flow-node primary">Agent Outbound Call</div>
-        <div class="flow-arrow">→</div>
-      </div>
-      <div class="flow-step">
-        <div class="flow-node">Invitation Verification</div>
-        <div class="flow-arrow">→</div>
-      </div>
-      <div class="flow-step">
-        <div class="flow-node accent">Call Center Report</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Location Hierarchy Table -->
-  <div class="biz-card" style="margin-bottom:24px">
-    <h3 style="margin-bottom:16px">🗂️ Location Hierarchy (Bottom → Top)</h3>
-    <table class="hierarchy-table">
-      <thead><tr><th>Alias</th><th>Table</th><th>Type</th><th>Output Column</th><th>Notes</th></tr></thead>
-      <tbody>
-        <tr><td><code style="font-family:monospace;color:var(--primary)">r</code></td><td>ecrm.locations</td><td><span class="badge badge-blue">1</span></td><td>Region</td><td>Highest geography level</td></tr>
-        <tr><td><code style="font-family:monospace;color:var(--primary)">l_area</code></td><td>ecrm.locations</td><td><span class="badge badge-cyan">2</span></td><td>Area</td><td>Under Region</td></tr>
-        <tr><td><code style="font-family:monospace;color:var(--primary)">l_territory</code></td><td>ecrm.locations</td><td><span class="badge badge-green">3</span></td><td>Territory</td><td>Under Area</td></tr>
-        <tr><td><code style="font-family:monospace;color:var(--primary)">l_point</code></td><td>ecrm.locations</td><td><span class="badge badge-purple">5</span></td><td>Distributors Point</td><td>Distributor anchor</td></tr>
-        <tr><td><code style="font-family:monospace;color:var(--primary)">l_route</code></td><td>ecrm.locations</td><td><span class="badge badge-orange">6</span></td><td>Routes</td><td>Under Distributor Point</td></tr>
-        <tr><td><code style="font-family:monospace;color:var(--primary)">l_cluster</code></td><td>ecrm.locations</td><td><span class="badge badge-red">7</span></td><td>Cluster Name</td><td>Under Route</td></tr>
-        <tr><td><code style="font-family:monospace;color:var(--primary)">l_outlet</code></td><td>ecrm.locations</td><td><span class="badge badge-blue">8</span></td><td>Outlets Name</td><td>Lowest — join anchor for most reports</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <!-- Business Rules -->
-  <div class="biz-grid">
-    <div class="biz-card">
-      <div class="biz-card-icon" style="background:rgba(245,158,11,.1)">⚠️</div>
-      <h3>Cross-Schema Join Rules</h3>
-      <p>Two schemas are used: <code style="font-family:monospace;color:var(--accent)">ecrm</code> (primary CRM) and <code style="font-family:monospace;color:var(--accent)">apsis_data</code> (distributor master). Live Observation joins on <strong>name text match</strong> (fragile — spelling differences cause silent NULLs). Call Checkback joins on <strong>ID integer match</strong> (robust). Always verify name consistency when distributor data appears missing in Live Obs.</p>
-    </div>
-    <div class="biz-card">
-      <div class="biz-card-icon" style="background:rgba(239,68,68,.1)">🔑</div>
-      <h3>4-Key Composite Join (Checkback)</h3>
-      <p>Call Checkback links supervisor contacts back to the BR's original contact via 4 simultaneous keys: <strong>phone number + BR ID + campaign ID + contact date</strong>. A mismatch on any single key causes NULL location data for that row. If Region/Area/Territory columns are NULL, the 4-key join has failed — check date format mismatches or BR ID discrepancies.</p>
-    </div>
-    <div class="biz-card">
-      <div class="biz-card-icon" style="background:rgba(59,130,246,.1)">🔄</div>
-      <h3>Agency Derivation Logic</h3>
-      <p>The Call Center Report derives agency name from the region — no agency table join exists. Dhaka South &amp; Sylhet → Asiatic Trade Marketing Services Limited. Khulna, Barishal, Rajshahi → Integrated Marketing Service Ltd. All other regions → IMSL. This CASE expression is computed at query time.</p>
-    </div>
-    <div class="biz-card">
-      <div class="biz-card-icon" style="background:rgba(6,182,212,.1)">🕐</div>
-      <h3>Timezone Handling</h3>
-      <p>All timestamps are stored in UTC. The Daily Contact Report converts start and end times to <code style="font-family:monospace;color:var(--accent)">Asia/Dhaka (UTC+6)</code> using PostgreSQL's <code style="font-family:monospace;color:var(--accent)">AT TIME ZONE</code> clause inside <code style="font-family:monospace;color:var(--accent)">TO_CHAR()</code>. Other reports do not apply timezone conversion. Always use the read replica for SELECT queries — never run DML on production.</p>
+      <div class="biz-card-icon" style="background:rgba(16,185,129,.1)">⚙️</div>
+      <h3>How the Business is Run</h3>
+      <p>Multiple campaigns run with survey questions. RAs (Retail Agents) visit outlets & interact one-on-one with consumers (≥18 years). They collect data & preferences, which are used to understand behavior & drive future campaigns.</p>
     </div>
   </div>
 
   <div class="info-block">
-    <strong>ℹ️ Database Connection:</strong> Read Replica — <code style="font-family:monospace;font-size:12px">[Connection Host Hidden]</code> · Database: <code style="font-family:monospace;font-size:12px">ecrm_prod</code> · Engine: PostgreSQL (AWS RDS) · <strong style="color:var(--red)">SELECT only — never run INSERT / UPDATE / DELETE</strong>
+    <strong>🎯 Objectives:</strong> Collect consumer & product-related data · surveys as primary engagement & insight tool · collect & analyze historical data · competitor & internal product analysis · design and execute requirement-based, campaign-wise marketing flows.
+  </div>
+
+  <!-- 2. Data Collection Process + Market/Product Analysis -->
+  <h3 style="font-family:'Space Grotesk',sans-serif; margin:32px 0 16px; color:var(--text);">📊 Market & Product Analysis</h3>
+  <div class="biz-grid">
+    <div class="biz-card">
+      <div class="biz-card-icon" style="background:rgba(245,158,11,.1)">🏆</div>
+      <h3>Competitor Analysis</h3>
+      <p>Tracks competitor product offerings, promotions, & campaign trends. Identifies market positioning, gaps, and opportunities via eCRM.</p>
+    </div>
+    <div class="biz-card">
+      <div class="biz-card-icon" style="background:rgba(59,130,246,.1)">📦</div>
+      <h3>Own Product Analysis</h3>
+      <p>Tracks sales trends, customer engagement levels, survey feedback, and current product lifecycle stages.</p>
+    </div>
+    <div class="biz-card">
+      <div class="biz-card-icon" style="background:rgba(167,139,250,.1)">✨</div>
+      <h3>New Product Promotion</h3>
+      <p>Identifies target audiences, validates pre-launch via surveys, runs pilot campaigns, and tracks performance post-launch.</p>
+    </div>
+    <div class="biz-card">
+      <div class="biz-card-icon" style="background:rgba(6,182,212,.1)">📈</div>
+      <h3>Expected Benefits</h3>
+      <p>Better customer understanding, reduced dependency on traditional ads, data-driven decisions, improved product-market fit, & higher ROI.</p>
+    </div>
+  </div>
+
+  <!-- 3. User vs Consumer, Franchise & SOB -->
+  <div class="biz-grid" style="grid-template-columns: 1fr 1fr; gap: 24px;">
+    <div class="biz-card">
+      <h3>👥 User vs Consumer</h3>
+      <p style="margin-bottom:12px;"><strong>User:</strong> Person who uses the eCRM app to conduct surveys or manage campaigns (RA, AC, SUP).</p>
+      <p><strong>Consumer:</strong> Person whose data is collected through surveys.</p>
+    </div>
+    <div class="biz-card">
+      <h3>🏷️ Product Classifications</h3>
+      <p style="margin-bottom:12px;"><span class="badge badge-green">Franchise</span> Core BATB brands (British American Tobacco Bangladesh).</p>
+      <p><span class="badge badge-orange">SOB</span> Non-BATB products (competitor or external products).</p>
+    </div>
+  </div>
+
+  <!-- 4. JML Process -->
+  <div class="flow-diagram" style="margin-top:32px;">
+    <h3>🔄 Joiner‑Mover‑Leaver (JML) Process</h3>
+    <p style="color:var(--text2);font-size:14px;margin-bottom:16px;">Implemented to manage user lifecycle events securely. Applies to all management users (AC, SUP, RA). All actions require approval and are logged.</p>
+    <div class="flow-steps">
+      <div class="flow-step">
+        <div class="flow-node primary">Joiner<br/><small style="font-size:10px;opacity:.7">New account creation</small></div>
+        <div class="flow-arrow">→</div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-node primary">Mover<br/><small style="font-size:10px;opacity:.7">Role/Access modification</small></div>
+        <div class="flow-arrow">→</div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-node primary">Leaver<br/><small style="font-size:10px;opacity:.7">Deactivation on exit</small></div>
+        <div class="flow-arrow">→</div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-node accent">Audit Log<br/><small style="font-size:10px;opacity:.7">All actions auditable</small></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. REPORT MANAGER -->
+  <h3 style="font-family:'Space Grotesk',sans-serif; margin:32px 0 16px; color:var(--text);">📑 Report Manager – Operational Reports</h3>
+  <div class="biz-grid" style="grid-template-columns: repeat(3, 1fr);">
+    <div class="biz-card">
+      <h4>📄 Daily Raw</h4>
+      <p style="font-size:13px;">Provides raw campaign data generated daily.</p>
+    </div>
+    <div class="biz-card">
+      <h4>📞 Call Check Back</h4>
+      <p style="font-size:13px;">Follow-up calls to verify if consumers were contacted (quality checks).</p>
+    </div>
+    <div class="biz-card">
+      <h4>👁️ Live Observation</h4>
+      <p style="font-size:13px;">Captures live checks on RA to ensure proper process compliance.</p>
+    </div>
+    <div class="biz-card">
+      <h4>📞 Call Center</h4>
+      <p style="font-size:13px;">Second contact for follow-up announcements or gifts. Structured repeat communication.</p>
+    </div>
+    <div class="biz-card">
+      <h4>📅 Dynamic Report</h4>
+      <p style="font-size:13px;">Configurable parameters & custom date ranges for flexible ad-hoc analysis.</p>
+    </div>
+  </div>
+
+  <!-- 6. Core Tables, Location Hierarchy & PTR -->
+  <div class="info-block" style="background:rgba(59,130,246,.05); border-color:rgba(59,130,246,.2);">
+    🔑 <strong>3 most important tables for reporting:</strong> <code>ecrm.contacts</code> · <code>survey data maps</code> · <code>ecrm.locations</code>
+  </div>
+
+  <div class="biz-card" style="margin-bottom:24px;">
+    <h3 style="margin-bottom:16px;">🗂️ Location Hierarchy & PTR</h3>
+    <p style="margin-bottom:12px;"><strong>Hierarchy:</strong> Region → Area → Cluster → Outlet</p>
+    <ul style="color:var(--text2); font-size:14px; margin-left:20px; line-height:1.7; margin-bottom:16px;">
+      <li>Terminal point for contact: <strong>Outlet</strong> (all consumer/retailer contacts occur here).</li>
+      <li>Campaign terminal point: Typically POI; sometimes Cluster.</li>
+      <li>Outlet, Retailer, and POS (Point of Sale) refer to the same entity.</li>
+      <li>Location is assigned to a cluster.</li>
+    </ul>
+    <div style="background:var(--card2); padding:16px; border-radius:8px; border:1px solid var(--border2);">
+      <strong>🎁 PTR (Purchase Through Retail)</strong><br>
+      <p style="font-size:13px; color:var(--text2); margin-top:8px;">Represents rewards/gifts offered during a campaign. Gift = PTR = Reward. Stored in the <code>materials</code> table (linked to Contacts). Also defines Promotional Material Templates.</p>
+    </div>
+  </div>
+
+  <!-- 7. Brand Definitions & Data Mapping -->
+  <div class="biz-card" style="margin-bottom:24px; border-color:rgba(167,139,250,.3);">
+    <h3>🏷️ Brand Definitions & Database Mapping</h3>
+    <p style="color:var(--text2); font-size:14px; margin-bottom:12px;">Values are stored as IDs. You <strong>must join</strong> the contacts table with <code>sku_items</code> three separate times.</p>
+    <table class="hierarchy-table">
+      <thead><tr><th>Brand Type</th><th>Description</th><th>Column in <code>contacts</code></th></tr></thead>
+      <tbody>
+        <tr><td><strong>Primary Brand</strong></td><td>The brand the customer usually smokes</td><td><code style="color:var(--primary)">product</code></td></tr>
+        <tr><td><strong>Secondary Brand</strong></td><td>Smoked when primary is unavailable</td><td><code style="color:var(--primary)">secondary_brand</code></td></tr>
+        <tr><td><strong>Previous Brand</strong></td><td>Brand smoked in the past (NULL before Q1 2025)</td><td><code style="color:var(--primary)">previous_brand</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 8 & 9. User Roles & Agencies -->
+  <div class="biz-grid">
+    <div class="biz-card">
+      <h3>👥 User Types & Roles</h3>
+      <table class="hierarchy-table" style="margin-top:12px;">
+        <thead><tr><th>Role</th><th>Access</th></tr></thead>
+        <tbody>
+          <tr><td><strong>DC</strong> (District Coordinator)</td><td>Web</td></tr>
+          <tr><td><strong>AC</strong> (Area Coordinator)</td><td>Web</td></tr>
+          <tr><td><strong>SUP</strong> (Supervisor: Handles issues, assigns RAs)</td><td>Mobile + Web</td></tr>
+          <tr><td><strong>RA/BR/FF</strong> (Brand Rep / Field Force)</td><td>Mobile</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="biz-card">
+      <h3>🏢 Agencies & Coverage</h3>
+      <table class="hierarchy-table" style="margin-top:12px;">
+        <thead><tr><th>Agency</th><th>Coverage</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Madly</strong></td><td>Internal team</td></tr>
+          <tr><td><strong>ATMSL</strong></td><td>Sylhet, Dhaka South</td></tr>
+          <tr><td><strong>IMSL</strong></td><td>Dhaka North, Chittagong</td></tr>
+          <tr><td><strong>IMSR</strong></td><td>Rajshahi, Barishal, Khulna</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 10. Architecture -->
+  <div class="biz-grid">
+    <div class="biz-card">
+      <div class="biz-card-icon" style="background:rgba(59,130,246,.1)">🗄️</div>
+      <h3>Operational Data (RDS)</h3>
+      <p>Relational transactional database systems for day-to-day interactions and core application logic.</p>
+    </div>
+    <div class="biz-card">
+      <div class="biz-card-icon" style="background:rgba(245,158,11,.1)">⚡</div>
+      <h3>BigQuery (Analytics)</h3>
+      <p>Data is replicated here for scalable dashboards, reporting, and high-performance queries without impacting production.</p>
+    </div>
+  </div>
+
+  <div class="info-block" style="background:rgba(16,185,129,.05); border-color:rgba(16,185,129,.2);">
+    <strong>📌 Quick Summary:</strong> Outlet = POS = Retailer | PTR = reward/gift | eCRM tracks internal analysis & competitor surveys | JML manages compliance & security | <code>previous_brand</code> began Q1 2025.
   </div>
 </div>
 </section>
