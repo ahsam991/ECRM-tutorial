@@ -126,3 +126,22 @@ Brand values are stored as integer IDs in the database. To retrieve readable bra
 
 - **🗄️ Operational Data (AWS RDS):** Relational PostgreSQL databases manage day-to-day transactions, surveys, and core application logic.
 - **⚡ Analytics Layer (BigQuery):** Data is replicated to Google BigQuery to power dashboards, dynamic reports, and large-scale analytical processing. This separation ensures optimized performance for transactional operations without production bottlenecks.
+
+---
+
+## 11. Analytical Tasks & Questions (Question Paper)
+
+The following analytical challenges and SQL tasks are assigned for Data Engineering & Analytics (Campaign 161). These tasks require querying the primary `ecrm.contacts` table and related dimensions.
+
+1. **Find Count of Consumer (Priority: High)**
+   - **Task:** Query the total unique consumer count for campaign 161 from `ecrm.contacts` using JSONB cast to find fresh vs not-fresh consumers.
+2. **RA Wise Contact Duration and Interval (Priority: Medium)**
+   - **Task:** Calculate per-RA (user) contact duration and interval between contacts using the `LEAD()` window function on `ecrm.contacts` filtered by `campaign_id=161`.
+3. **Find Total Campaign Duration (Priority: Medium)**
+   - **Task:** Determine the overall campaign timeline from first contact to last contact for campaign 161. Use `MIN(contact_date)` and `MAX(contact_date)` from `ecrm.contacts`.
+4. **Date Wise PTR Achievement (Priority: High)**
+   - **Task:** Generate date-wise PTR (Points to Reach / target achievement) metrics for campaign 161. Split counts by gift materials (Lighter, Body Spray, etc.).
+5. **Outlet Wise PTR Count (Priority: Medium)**
+   - **Task:** Aggregate PTR counts grouped by outlet (`location type=8`) for campaign 161. Useful for identifying high-performing and low-performing outlets.
+
+*(A dedicated template file `questions.sql` has been added to the repository to write and test these queries.)*
