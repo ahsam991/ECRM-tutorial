@@ -113,6 +113,20 @@ h1 span{background:linear-gradient(135deg,var(--primary) 0%,var(--accent) 100%);
 .hero-card-text .label{font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;font-family:'JetBrains Mono',monospace}
 .hero-card-text .val{font-size:13px;font-weight:600;color:var(--text)}
 
+/* ── SIDEBAR ── */
+.sidebar{position:fixed;top:var(--nav-h);left:0;bottom:0;width:240px;background:var(--bg);border-right:1px solid var(--border);padding:24px 0;overflow-y:auto;z-index:900;display:flex;flex-direction:column;gap:8px;transition: background 0.3s, border-color 0.3s;}
+.sidebar-link{display:flex;align-items:center;padding:10px 24px;color:var(--text2);text-decoration:none;font-size:13px;font-weight:500;border-left:3px solid transparent;transition:all 0.2s;}
+.sidebar-link:hover{background:var(--card);color:var(--text);}
+.sidebar-link.active{background:rgba(59,130,246,.08);color:var(--primary);border-left-color:var(--primary);}
+.sidebar-label{font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.1em;color:var(--text3);padding:16px 24px 8px;}
+
+/* ── LAYOUT ── */
+.main-content{margin-left:240px;}
+@media (max-width: 900px) {
+  .sidebar{display:none;}
+  .main-content{margin-left:0;}
+}
+
 /* ── SECTION BASE ── */
 section{padding:96px 0;position:relative}
 section + section{border-top:1px solid var(--border)}
@@ -844,13 +858,6 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
 <nav>
   <div class="nav-logo">ECRM<span> / ONBOARDING</span></div>
   <div class="nav-links">
-    <a href="#business-explain" onclick="setActive(this)"><span class="dot"></span>Business</a>
-    <a href="#sql-reports" onclick="setActive(this)"><span class="dot"></span>SQL Reports</a>
-    <a href="#tasks" onclick="setActive(this)"><span class="dot"></span>Tasks & Questions</a>
-    <a href="#er-diagram" onclick="setActive(this)"><span class="dot"></span>ER Diagram</a>
-    <a href="#schema-viewer" onclick="setActive(this)"><span class="dot"></span>Relationships</a>
-    <a href="#db-explorer" onclick="setActive(this)"><span class="dot"></span>Schema Explorer</a>
-    <a href="#tutorial" onclick="setActive(this)"><span class="dot"></span>Tutorial</a>
     <a href="preview.html" target="_blank" class="nav-preview-btn"><span class="dot" style="background:var(--orange)"></span>Preview ↗</a>
   </div>
   <div class="nav-search search-wrap">
@@ -859,6 +866,19 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
   </div>
 </nav>
 
+<!-- ── SIDEBAR ── -->
+<div class="sidebar">
+  <div class="sidebar-label">Navigation</div>
+  <a href="#business-explain" class="sidebar-link">Business Explain</a>
+  <a href="#sql-reports" class="sidebar-link">SQL Reports</a>
+  <a href="#tasks" class="sidebar-link">Tasks & Questions</a>
+  <a href="#er-diagram" class="sidebar-link">ER Diagram</a>
+  <a href="#schema-viewer" class="sidebar-link">Relationships</a>
+  <a href="#db-explorer" class="sidebar-link">Schema Explorer</a>
+  <a href="#tutorial" class="sidebar-link">Tutorial</a>
+</div>
+
+<div class="main-content">
 <!-- ── HERO ── -->
 <div class="hero">
   <div class="hero-grid"></div>
@@ -1604,6 +1624,8 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
 <!-- PRISM JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+
+</div> <!-- End main-content -->
 
 <script>
 // ══════════════════════════════════════════
@@ -2907,12 +2929,34 @@ function selectTutorial(el) {
 }
 
 // ══════════════════════════════════════════
-// NAV ACTIVE
+// SCROLL SPY ACTIVE
 // ══════════════════════════════════════════
 function setActive(el) {
-  document.querySelectorAll('.nav-links a').forEach(a=>a.classList.remove('active'));
-  el.classList.add('active');
+  document.querySelectorAll('.sidebar-link').forEach(a=>a.classList.remove('active'));
+  if (el) el.classList.add('active');
 }
+
+const observerOptions = {
+  root: null,
+  rootMargin: '0px',
+  threshold: 0.3
+};
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const id = entry.target.getAttribute('id');
+      const activeLink = document.querySelector(`.sidebar-link[href="#${id}"]`);
+      setActive(activeLink);
+    }
+  });
+}, observerOptions);
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('section[id]').forEach(section => {
+    observer.observe(section);
+  });
+});
 
 // ══════════════════════════════════════════
 // GLOBAL SEARCH
