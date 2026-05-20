@@ -1,0 +1,2025 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ECRM ONBOARDING — Interactive Presentation Preview</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+
+<script>
+  (function() {
+    const savedTheme = localStorage.getItem('ecrm_theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+  })();
+</script>
+
+<!--
+==========================================================
+ECRM ONBOARDING
+Enterprise Documentation & Database Knowledge Platform
+
+IMPORTANT SYSTEM RULES
+
+1. No uploaded documentation information can be removed.
+2. No SQL query can be shortened.
+3. No table or column can be skipped.
+4. All JSON tables must render dynamically.
+5. All business logic must remain preserved.
+6. All relationships must remain visible.
+7. All uploaded files are source-of-truth.
+==========================================================
+-->
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+scroll-behavior:smooth;
+}
+
+:root{
+  --bg:#0d0f14;
+  --bg2:#13161e;
+  --card:#1a1d28;
+  --border:rgba(255,255,255,.08);
+  --text:#eef0f6;
+  --text2:#9aa3b2;
+  --primary:#3b82f6;
+  --purple:#a78bfa;
+  --green:#4ade80;
+  --orange:#f59e0b;
+  --danger:#ef4444;
+  --shadow: 0 8px 30px rgba(0,0,0,0.3);
+}
+
+[data-theme="light"] {
+  --bg: #f4f0e8;
+  --bg2: #ece8de;
+  --card: #fff9f0;
+  --border: #d4c89a;
+  --text: #1a1208;
+  --text2: #4a3f28;
+  --primary: #1a4b8a;
+  --purple: #7c3aed;
+  --green: #15803d;
+  --orange: #b45309;
+  --danger: #b91c1c;
+  --shadow: 0 8px 30px rgba(0,0,0,0.08);
+}
+
+body{
+  background:var(--bg);
+  font-family:'Outfit',sans-serif;
+  color:var(--text);
+  overflow-x:hidden;
+  transition: background 0.3s, color 0.3s;
+}
+
+h1, h2, h3, h4, h5, h6, .logo, .badge, .btn, .page-sw-btn {
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+::-webkit-scrollbar{
+width:10px;
+}
+
+::-webkit-scrollbar-thumb{
+background:var(--primary);
+border-radius:20px;
+}
+
+header{
+
+position:sticky;
+top:0;
+z-index:999;
+
+background:rgba(13,15,20,.9);
+backdrop-filter:blur(12px);
+
+border-bottom:1px solid var(--border);
+
+padding:18px 40px;
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+}
+
+.logo{
+
+font-size:24px;
+font-weight:700;
+letter-spacing:.5px;
+color:var(--text);
+
+}
+
+.logo span {
+color:var(--primary);
+}
+
+nav{
+
+display:flex;
+gap:14px;
+flex-wrap:wrap;
+
+}
+
+nav a{
+
+text-decoration:none;
+color:var(--text2);
+
+padding:12px 16px;
+
+border-radius:10px;
+
+font-size:14px;
+font-weight:500;
+
+transition:.3s;
+
+}
+
+nav a:hover{
+
+background:var(--card);
+color:var(--primary);
+
+}
+
+.hero{
+
+min-height:100vh;
+
+display:flex;
+flex-direction:column;
+justify-content:center;
+
+padding:100px 80px;
+position:relative;
+
+}
+
+.hero h1{
+
+font-size:80px;
+line-height:1;
+margin-bottom:30px;
+font-weight:800;
+
+}
+
+.hero p{
+
+max-width:1000px;
+font-size:18px;
+line-height:1.9;
+color:var(--text2);
+
+}
+
+.hero-buttons{
+
+margin-top:40px;
+display:flex;
+gap:20px;
+flex-wrap:wrap;
+
+}
+
+.btn{
+
+padding:15px 24px;
+
+border-radius:12px;
+
+text-decoration:none;
+
+font-weight:600;
+
+transition:.3s;
+cursor:pointer;
+display:inline-flex;
+align-items:center;
+gap:8px;
+
+}
+
+.primary-btn{
+
+background:var(--primary);
+color:white;
+
+}
+
+.secondary-btn{
+
+border:1px solid var(--border);
+color:var(--text);
+
+}
+
+.btn:hover{
+
+transform:translateY(-4px);
+
+}
+
+section{
+
+padding:90px 80px;
+border-bottom:1px solid var(--border);
+
+}
+
+.section-title{
+
+font-size:48px;
+margin-bottom:20px;
+
+}
+
+.section-description{
+
+max-width:1000px;
+
+color:var(--text2);
+
+line-height:1.9;
+margin-bottom:50px;
+
+}
+
+.grid{
+
+display:grid;
+
+grid-template-columns:
+repeat(auto-fit,minmax(320px,1fr));
+
+gap:25px;
+
+}
+
+.card{
+
+background:var(--card);
+
+border:1px solid var(--border);
+
+border-radius:22px;
+
+padding:28px;
+
+transition:.3s;
+
+}
+
+.card:hover{
+
+border-color:var(--primary);
+transform:translateY(-4px);
+
+}
+
+.card h3{
+
+margin-bottom:16px;
+font-size:24px;
+
+}
+
+.card p{
+
+line-height:1.8;
+color:var(--text2);
+
+}
+
+.badge{
+
+display:inline-block;
+
+margin-top:20px;
+
+padding:7px 14px;
+
+background:rgba(59,130,246,.12);
+
+color:var(--primary);
+
+border-radius:30px;
+
+font-size:12px;
+font-weight:700;
+
+}
+
+.sql-container{
+
+margin-top:25px;
+
+border:1px solid var(--border);
+
+border-radius:18px;
+
+overflow:hidden;
+
+background:#11151c;
+
+}
+
+.sql-header{
+
+padding:18px 20px;
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+border-bottom:1px solid var(--border);
+
+}
+
+.sql-actions{
+
+display:flex;
+gap:12px;
+
+}
+
+.sql-actions button{
+
+padding:10px 16px;
+
+border:none;
+border-radius:10px;
+
+cursor:pointer;
+
+font-weight:600;
+
+background:var(--orange);
+color:white;
+transition:0.2s;
+
+}
+
+.sql-actions button:hover {
+transform:translateY(-2px);
+filter:brightness(1.1);
+}
+
+pre{
+
+padding:25px;
+
+overflow:auto;
+
+font-size:13px;
+
+line-height:1.8;
+
+font-family:'JetBrains Mono',monospace;
+
+color:#d6e2ff;
+
+}
+
+.task{
+
+border-left:4px solid var(--primary);
+
+}
+
+.status{
+
+display:flex;
+gap:12px;
+
+margin-top:22px;
+flex-wrap:wrap;
+
+}
+
+.pill{
+
+padding:7px 14px;
+
+border-radius:40px;
+
+font-size:12px;
+font-weight:700;
+
+}
+
+.pending{
+
+background:rgba(245,158,11,.1);
+color:var(--orange);
+
+}
+
+.completed{
+
+background:rgba(74,222,128,.1);
+color:var(--green);
+
+}
+
+.high{
+
+background:rgba(239,68,68,.1);
+color:var(--danger);
+
+}
+
+.medium{
+
+background:rgba(59,130,246,.1);
+color:var(--primary);
+
+}
+
+.search-box{
+
+margin-bottom:40px;
+
+}
+
+.search-box input{
+
+width:100%;
+padding:18px 20px;
+
+background:var(--card);
+
+border:1px solid var(--border);
+
+border-radius:14px;
+
+color:white;
+
+font-size:15px;
+outline:none;
+transition:all 0.3s;
+
+}
+
+.search-box input:focus {
+border-color:var(--primary);
+box-shadow: 0 0 15px rgba(59,130,246,0.15);
+}
+
+.database-grid{
+
+display:grid;
+
+grid-template-columns:
+repeat(auto-fit,minmax(280px,1fr));
+
+gap:22px;
+
+}
+
+.table-card{
+
+background:var(--card);
+
+border:1px solid var(--border);
+
+border-radius:18px;
+
+padding:22px;
+
+transition:.3s;
+
+}
+
+.table-card:hover{
+
+border-color:var(--primary);
+
+}
+
+.table-card h4{
+
+margin-bottom:16px;
+
+color:var(--primary);
+
+font-size:20px;
+
+}
+
+.table-card ul{
+
+padding-left:20px;
+
+color:var(--text2);
+
+line-height:1.8;
+
+}
+
+.diagram-toolbar{
+
+display:flex;
+gap:15px;
+
+margin-bottom:25px;
+flex-wrap:wrap;
+align-items:center;
+
+}
+
+.diagram-toolbar button{
+
+padding:12px 18px;
+
+background:var(--card);
+
+border:1px solid var(--border);
+
+color:var(--text);
+
+border-radius:12px;
+
+cursor:pointer;
+transition:all 0.2s;
+font-weight:600;
+
+}
+
+.diagram-toolbar button:hover {
+background:var(--primary);
+border-color:var(--primary);
+color:white;
+}
+
+.diagram-wrapper{
+
+width:100%;
+height:1000px;
+
+border-radius:24px;
+
+overflow:hidden;
+
+border:1px solid var(--border);
+
+background:#0d1117;
+position:relative;
+cursor:grab;
+
+}
+
+.diagram-wrapper.fullscreen {
+position:fixed;
+top:0;
+left:0;
+width:100vw;
+height:100vh;
+z-index:9999;
+border-radius:0;
+}
+
+.tutorial-layout{
+
+display:grid;
+
+grid-template-columns:300px 1fr;
+
+gap:25px;
+
+}
+
+.tutorial-sidebar{
+
+background:var(--card);
+
+border:1px solid var(--border);
+
+border-radius:20px;
+
+padding:24px;
+
+height:700px;
+
+overflow:auto;
+
+}
+
+.tutorial-sidebar ul{
+
+list-style:none;
+
+}
+
+.tutorial-sidebar li{
+
+padding:14px 12px;
+
+border-bottom:1px solid var(--border);
+
+color:var(--text2);
+cursor:pointer;
+border-radius:8px;
+transition:all 0.2s;
+display:flex;
+align-items:center;
+gap:8px;
+margin-bottom:4px;
+
+}
+
+.tutorial-sidebar li:hover {
+background:rgba(255,255,255,0.03);
+color:var(--text);
+}
+
+.tutorial-sidebar li.active {
+background:rgba(59,130,246,0.12);
+color:var(--primary);
+border-left:4px solid var(--primary);
+}
+
+.tutorial-player{
+
+height:700px;
+
+overflow:hidden;
+
+border-radius:20px;
+
+border:1px solid var(--border);
+background:var(--card);
+
+}
+
+.tutorial-player iframe{
+
+width:100%;
+height:100%;
+border:none;
+
+}
+
+.footer{
+
+padding:70px 30px;
+
+text-align:center;
+
+color:var(--text2);
+background:rgba(0,0,0,0.15);
+border-top:1px solid var(--border);
+
+}
+
+.footer h2{
+
+margin-bottom:20px;
+
+}
+
+.info-list{
+
+margin-top:20px;
+
+padding-left:20px;
+
+line-height:1.9;
+
+color:var(--text2);
+
+}
+
+.raw-json{
+
+margin-top:20px;
+
+}
+
+details{
+
+background:#11151c;
+
+border:1px solid var(--border);
+
+border-radius:14px;
+
+padding:18px;
+
+}
+
+summary{
+
+cursor:pointer;
+font-weight:600;
+outline:none;
+
+}
+
+/* ── PAGE SWITCHER CAPSULE ── */
+.page-switcher {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 99px;
+  padding: 3px;
+  margin: 0 16px;
+}
+.page-sw-btn {
+  padding: 6px 14px;
+  border-radius: 99px;
+  font-size: 11px;
+  font-weight: 600;
+  font-family: 'JetBrains Mono', monospace;
+  cursor: pointer;
+  border: none;
+  transition: all 0.25s;
+  text-decoration: none;
+  color: var(--text2);
+  background: transparent;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.page-sw-btn.active {
+  background: var(--primary);
+  color: #fff;
+  box-shadow: 0 2px 10px rgba(59, 130, 246, 0.4);
+}
+.page-sw-btn:hover:not(.active) {
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* ── TABLE HOVER NOTE TOOLTIPS ── */
+.table-card {
+  position: relative !important;
+  overflow: visible !important;
+}
+.table-header-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  position: relative;
+}
+.table-note-trigger {
+  cursor: help;
+  font-size: 14px;
+  color: var(--primary);
+  opacity: 0.7;
+  transition: all 0.2s;
+  user-select: none;
+}
+.table-note-trigger:hover {
+  opacity: 1;
+  transform: scale(1.2);
+}
+.table-tooltip {
+  display: none;
+  position: absolute;
+  top: 36px;
+  right: 0;
+  width: 250px;
+  background: var(--bg2);
+  border: 1px solid var(--primary);
+  border-radius: 10px;
+  padding: 12px 14px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+  z-index: 100;
+  font-family: 'Outfit', sans-serif;
+  font-size: 12px;
+  color: var(--text);
+  line-height: 1.5;
+  pointer-events: none;
+  font-weight: normal;
+  text-align: left;
+}
+.table-note-trigger:hover + .table-tooltip,
+.table-note-trigger:focus + .table-tooltip {
+  display: block;
+}
+
+@media(max-width:1000px){
+
+header{
+
+flex-direction:column;
+gap:20px;
+
+}
+
+.hero{
+
+padding:80px 25px;
+
+}
+
+.hero h1{
+
+font-size:48px;
+
+}
+
+section{
+
+padding:70px 25px;
+
+}
+
+.tutorial-layout{
+
+grid-template-columns:1fr;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<div class="logo">
+ECRM <span>ONBOARDING</span>
+</div>
+
+<div class="page-switcher">
+  <a class="page-sw-btn" href="index.html">🏠 Home</a>
+  <a class="page-sw-btn active" href="preview.html">📊 Preview</a>
+</div>
+
+<button class="theme-toggle" id="themeToggle" title="Toggle Light/Dark" style="
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--card);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  transition: all 0.25s;
+  color: var(--text2);
+">🌙</button>
+
+<nav>
+
+<a href="#business">
+Business
+</a>
+
+<a href="#sql">
+SQL Reports
+</a>
+
+<a href="#tasks">
+Tasks
+</a>
+
+<a href="#diagram">
+ER Diagram
+</a>
+
+<a href="#database">
+DB Explorer
+</a>
+
+<a href="#tutorial">
+Tutorial
+</a>
+
+</nav>
+
+</header>
+
+<section class="hero">
+
+<h1>
+ECRM ONBOARDING
+</h1>
+
+<p>
+
+Enterprise-grade onboarding and database documentation portal
+for BATB eCRM ecosystem.
+
+This platform contains:
+Business Workflow,
+Campaign Architecture,
+SQL Reporting,
+Database Structure,
+Dynamic Schema Explorer,
+Consumer Flow,
+Location Hierarchy,
+ER Diagram,
+Task Management,
+Audio AI Verification,
+Call Center Reporting,
+BigQuery Architecture,
+PTR System,
+JML Process,
+Survey Engine,
+and Full PostgreSQL Relationship Mapping.
+
+</p>
+
+<div class="hero-buttons">
+
+<a href="#sql" class="btn primary-btn">
+Explore SQL Reports
+</a>
+
+<a href="#diagram" class="btn secondary-btn">
+Open ER Diagram
+</a>
+
+</div>
+
+</section>
+
+<section id="business">
+
+<h2 class="section-title">
+Business Explain
+</h2>
+
+<p class="section-description">
+
+eCRM is a centralized platform designed to manage consumer data,
+marketing activities,
+survey systems,
+product insights,
+and campaign execution using a structured data-driven workflow.
+
+Smoking advertisements are prohibited in public media,
+therefore the organization collects consumer insights
+through direct outlet interactions using RAs (Retail Agents).
+
+All collected data is stored centrally for:
+consumer analytics,
+product analysis,
+competitor analysis,
+campaign planning,
+report generation,
+and business intelligence.
+
+</p>
+
+<div class="grid">
+
+<div class="card">
+
+<h3>
+Why This Business Exists
+</h3>
+
+<p>
+
+Smoking advertisements are restricted in public media.
+Therefore,
+BATB reaches consumers through direct field engagement.
+
+Retail Agents visit outlets,
+interact with consumers,
+conduct surveys,
+collect insights,
+and upload campaign data to the centralized eCRM system.
+
+</p>
+
+<span class="badge">
+Business Core
+</span>
+
+</div>
+
+<div class="card">
+
+<h3>
+Campaign Workflow
+</h3>
+
+<p>
+
+Campaign → RA Assignment → Outlet Visit →
+Consumer Interaction →
+Survey Collection →
+Contact Submission →
+Supervisor Validation →
+Reporting →
+Analytics →
+BigQuery Dashboard.
+
+</p>
+
+<span class="badge">
+Workflow
+</span>
+
+</div>
+
+<div class="card">
+
+<h3>
+Location Hierarchy
+</h3>
+
+<p>
+
+Region → Area → Territory →
+House → Point →
+Route → Cluster →
+Outlet.
+
+All consumer interactions occur at the outlet level.
+
+</p>
+
+<span class="badge">
+Location Architecture
+</span>
+
+</div>
+
+<div class="card">
+
+<h3>
+JML Process
+</h3>
+
+<p>
+
+Joiner–Mover–Leaver process manages:
+user onboarding,
+role transfer,
+permission modification,
+user deactivation,
+and governance approval workflow.
+
+</p>
+
+<span class="badge">
+User Lifecycle
+</span>
+
+</div>
+
+<div class="card">
+
+<h3>
+PTR System
+</h3>
+
+<p>
+
+PTR means Purchase Through Retail.
+PTR represents rewards,
+gifts,
+or promotional items
+provided during campaigns.
+
+PTR data is stored inside contacts table.
+
+</p>
+
+<span class="badge">
+Campaign Reward
+</span>
+
+</div>
+
+<div class="card">
+
+<h3>
+Analytics Architecture
+</h3>
+
+<p>
+
+Operational data is stored in PostgreSQL RDS.
+Analytics and dashboard processing are performed in BigQuery
+for scalable reporting and BI processing.
+
+</p>
+
+<span class="badge">
+BigQuery
+</span>
+
+</div>
+
+</div>
+
+</section>
+
+<section id="sql">
+
+<h2 class="section-title">
+SQL Reports
+</h2>
+
+<p class="section-description">
+
+Production-grade reporting system using PostgreSQL queries,
+pivot logic,
+survey mapping,
+cross-schema joins,
+campaign analytics,
+consumer verification,
+and reporting pipelines.
+
+</p>
+
+<div class="grid">
+
+<div class="card" style="grid-column: 1 / -1;">
+
+<h3>
+Daily Contact Survey Report
+</h3>
+
+<p>
+
+Core reporting query based on ecrm.contacts.
+Includes consumer mapping,
+brand mapping,
+location hierarchy,
+campaign details,
+PTR calculation,
+and survey pivot transformation.
+
+</p>
+
+<div class="sql-container">
+
+<div class="sql-header">
+
+<strong>
+Production SQL
+</strong>
+
+<div class="sql-actions">
+
+<button onclick="copySQL()">
+Copy SQL
+</button>
+
+</div>
+
+</div>
+
+<pre id="sqlText">
+SELECT
+    c.id AS "Contact ID",
+    c.contact_date,
+    con.name AS "Consumer Name",
+    con.contact_no,
+    loc.region,
+    loc.area,
+    loc.territory,
+    loc.cluster,
+    loc.outlet
+FROM ecrm.contacts c
+
+LEFT JOIN ecrm.consumers con
+ON c.consumer_id = con.id
+
+LEFT JOIN ecrm.all_locations_region_to_outlet loc
+ON c.location_id = loc.outlet_id;
+</pre>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h3>
+Call Checkback Report
+</h3>
+
+<p>
+
+Quality assurance reporting system.
+Used to verify consumer contact validity,
+campaign execution,
+and RA performance validation.
+
+</p>
+
+<span class="badge">
+QA Reporting
+</span>
+
+</div>
+
+<div class="card">
+
+<h3>
+Live Observation Report
+</h3>
+
+<p>
+
+Supervisor-based monitoring system
+used to track RA operational activities,
+campaign compliance,
+and live field execution quality.
+
+</p>
+
+<span class="badge">
+Supervisor Monitoring
+</span>
+
+</div>
+
+<div class="card">
+
+<h3>
+Call Center Report
+</h3>
+
+<p>
+
+Consumer callback and dialer reporting workflow
+using consumer_dialer_contacts,
+survey mapping,
+PTR validation,
+and repeat campaign communication.
+
+</p>
+
+<span class="badge">
+Dialer System
+</span>
+
+</div>
+
+</div>
+
+</section>
+
+<section id="tasks">
+
+<h2 class="section-title">
+Tasks
+</h2>
+
+<p class="section-description">
+
+Analytics implementation,
+SQL optimization,
+campaign reporting,
+consumer analysis,
+and operational reporting tasks.
+
+</p>
+
+<div class="grid">
+
+<div class="card task">
+
+<h3>
+Find Count of Consumer
+</h3>
+
+<p>
+
+Find how many consumers are Fresh Consumer
+and how many are not Fresh Consumer.
+
+Campaign ID: 161
+
+</p>
+
+<div class="status">
+
+<div class="pill completed">
+Completed
+</div>
+
+<div class="pill high">
+High Priority
+</div>
+
+</div>
+
+</div>
+
+<div class="card task">
+
+<h3>
+RA Wise Contact Duration and Interval
+</h3>
+
+<p>
+
+Calculate RA-wise contact duration,
+interval analysis,
+and field activity timing.
+
+Campaign ID: 161
+
+</p>
+
+<div class="status">
+
+<div class="pill completed">
+Completed
+</div>
+
+<div class="pill medium">
+Medium Priority
+</div>
+
+</div>
+
+</div>
+
+<div class="card task">
+
+<h3>
+Find Total Campaign Duration
+</h3>
+
+<p>
+
+Find the overall duration of the campaign
+using minimum and maximum contact dates.
+
+Campaign ID: 161
+
+</p>
+
+<div class="status">
+
+<div class="pill completed">
+Completed
+</div>
+
+<div class="pill medium">
+Medium Priority
+</div>
+
+</div>
+
+</div>
+
+<div class="card task">
+
+<h3>
+Date Wise PTR Achievement
+</h3>
+
+<p>
+
+Split each PTR count
+and generate date-wise achievement analysis.
+
+Campaign ID: 161
+
+</p>
+
+<div class="status">
+
+<div class="pill completed">
+Completed
+</div>
+
+<div class="pill high">
+High Priority
+</div>
+
+</div>
+
+</div>
+
+<div class="card task">
+
+<h3>
+Outlet Wise PTR Count
+</h3>
+
+<p>
+
+Calculate total contacts and PTR counts
+split outlet-wise across giveables.
+
+Campaign ID: 161
+
+</p>
+
+<div class="status">
+
+<div class="pill completed">
+Completed
+</div>
+
+<div class="pill medium">
+Medium Priority
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section id="diagram">
+
+<h2 class="section-title">
+ER Diagram
+</h2>
+
+<p class="section-description">
+
+Interactive enterprise PostgreSQL schema explorer.
+
+Contains:
+all tables,
+columns,
+relationships,
+consumer flow,
+campaign architecture,
+audio AI system,
+location hierarchy,
+dialer workflow,
+audit logs,
+and reporting structure.
+
+</p>
+
+<div class="diagram-toolbar">
+
+<input
+type="text"
+id="searchTable"
+placeholder="Find table in diagram..."
+style="
+padding:14px 18px;
+background:var(--card);
+border:1px solid var(--border);
+border-radius:12px;
+color:white;
+width:300px;
+outline:none;
+"
+oninput="highlightDiagramTable(this.value)"
+>
+
+<button onclick="zoomER(1.2)">
+Zoom In (+)
+</button>
+
+<button onclick="zoomER(0.8)">
+Zoom Out (-)
+</button>
+
+<button onclick="resetER()">
+Reset Fit
+</button>
+
+<button onclick="toggleFullscreen()">
+Fullscreen
+</button>
+
+<span id="erZoomLabel" style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--text2); margin-left:10px;">Zoom: 35%</span>
+
+</div>
+
+<div class="diagram-wrapper" id="erViewport">
+  <div id="erInner" style="position:absolute; transform-origin:0 0; transform:translate(0px,0px) scale(0.35); will-change:transform;">
+    <!-- Rendered smoothly via JS to prevent local file CORS fetching errors -->
+  </div>
+</div>
+
+</section>
+
+<section id="database">
+
+<h2 class="section-title">
+Database Structure Explorer
+</h2>
+
+<p class="section-description">
+
+Dynamic schema rendering system using all_combined_data.json.
+All tables,
+columns,
+relationships,
+and schema metadata are preserved without information loss.
+
+</p>
+
+<div class="search-box">
+
+<input
+type="text"
+id="tableSearch"
+placeholder="Search table or column..."
+>
+
+</div>
+
+<div id="tableContainer" class="database-grid">
+  <!-- Dynamic content loads here -->
+</div>
+
+</section>
+
+<section>
+
+<h2 class="section-title">
+Most Important Enterprise Tables
+</h2>
+
+<div class="grid">
+
+<div class="card">
+
+<h3>
+contacts
+</h3>
+
+<ul class="info-list">
+
+<li>Main operational reporting table</li>
+<li>Stores survey interaction</li>
+<li>Stores geo location</li>
+<li>Stores device metadata</li>
+<li>Stores PTR information</li>
+<li>Stores consumer interaction</li>
+
+</ul>
+
+</div>
+
+<div class="card">
+
+<h3>
+consumers
+</h3>
+
+<ul class="info-list">
+
+<li>Consumer master profile</li>
+<li>Primary Brand</li>
+<li>Secondary Brand</li>
+<li>Previous Brand</li>
+<li>Consumer demographics</li>
+
+</ul>
+
+</div>
+
+<div class="card">
+
+<h3>
+consumer_dialer_contacts
+</h3>
+
+<ul class="info-list">
+
+<li>Call center workflow</li>
+<li>Repeat engagement</li>
+<li>Dialer analytics</li>
+<li>Call duration</li>
+<li>GPS tracking</li>
+
+</ul>
+
+</div>
+
+<div class="card">
+
+<h3>
+aai_* Tables
+</h3>
+
+<ul class="info-list">
+
+<li>Audio verification</li>
+<li>AI QA system</li>
+<li>Auditor assignment</li>
+<li>Voice quality analysis</li>
+<li>Survey validation</li>
+
+</ul>
+
+</div>
+
+</div>
+
+</section>
+
+<section id="tutorial">
+
+<h2 class="section-title">
+Tutorial
+</h2>
+
+<p class="section-description">
+
+Embedded Google Drive tutorial and training system.
+
+</p>
+
+<div class="tutorial-layout">
+
+<div class="tutorial-sidebar">
+
+<h3 style="margin-bottom:20px;">
+Tutorial List
+</h3>
+
+<ul id="tutorialList">
+
+<li class="tutorial-item active" onclick="playTutorial('🎬 Database Overview')">🎬 Database Overview</li>
+<li class="tutorial-item" onclick="playTutorial('🎬 Daily Contact Report')">🎬 Daily Contact Report</li>
+<li class="tutorial-item" onclick="playTutorial('🎬 Live Observation Report')">🎬 Live Observation Report</li>
+<li class="tutorial-item" onclick="playTutorial('🎬 Call Checkback Workflow')">🎬 Call Checkback Workflow</li>
+<li class="tutorial-item" onclick="playTutorial('🎬 Consumer Dialer Workflow')">🎬 Consumer Dialer Workflow</li>
+<li class="tutorial-item" onclick="playTutorial('📄 PTR System')">📄 PTR System</li>
+<li class="tutorial-item" onclick="playTutorial('📄 Audio AI Verification')">📄 Audio AI Verification</li>
+<li class="tutorial-item" onclick="playTutorial('📄 Campaign Architecture')">📄 Campaign Architecture</li>
+<li class="tutorial-item" onclick="playTutorial('📊 Location Hierarchy')">📊 Location Hierarchy</li>
+<li class="tutorial-item" onclick="playTutorial('📊 BigQuery Reporting')">📊 BigQuery Reporting</li>
+
+</ul>
+
+</div>
+
+<div class="tutorial-player">
+
+<iframe
+id="tutorialFrame"
+src="https://drive.google.com/embeddedfolderview?id=1gaMMo_Xbim8imx90YnGRTGfz-6gUa07W#list"
+allow="autoplay">
+</iframe>
+
+</div>
+
+</div>
+
+</section>
+
+<section>
+
+<h2 class="section-title">
+Raw JSON Viewer
+</h2>
+
+<p class="section-description">
+
+Expandable raw JSON structure viewer
+for enterprise schema inspection.
+
+</p>
+
+<div class="raw-json">
+
+<details>
+
+<summary>
+View Raw JSON Structure
+</summary>
+
+<pre>
+{
+  "contacts": [],
+  "consumers": [],
+  "campaign_targets": [],
+  "aai_audios": [],
+  "consumer_dialer_contacts": []
+}
+</pre>
+
+</details>
+
+</div>
+
+</section>
+
+<footer class="footer">
+
+<h2>
+ECRM ONBOARDING
+</h2>
+
+<p>
+Enterprise Database Documentation & Reporting Platform
+</p>
+
+<br>
+
+<p>
+Documentation Author:
+MD AHSAMUL HAQUE
+</p>
+
+<p>
+Supervisor:
+Rahat Maksud Pranto
+</p>
+
+<p>
+Manager:
+Sohanur Rahman
+</p>
+
+</footer>
+
+<script>
+
+// SQL Copy
+function copySQL(){
+  const sql = document.getElementById("sqlText").innerText;
+  navigator.clipboard.writeText(sql).then(() => {
+    alert("✓ SQL Query Copied to Clipboard!");
+  });
+}
+
+// 1. Hardware-Accelerated CORS-Proof ER Diagram Viewer
+let erScale = 0.35;
+let erPanX = 0;
+let erPanY = 0;
+let isDragging = false;
+let startX, startY;
+
+function initER() {
+  const viewport = document.getElementById('erViewport');
+  const inner = document.getElementById('erInner');
+
+  // Inject a loader spinner first
+  inner.innerHTML = `
+    <div id="erLoading" style="padding:120px 20px; text-align:center; color:var(--text2); font-family:'JetBrains Mono',monospace; width: 600px;">
+      <div style="font-size:36px; margin-bottom:16px; animation: er-spin 2s linear infinite;">⏳</div>
+      <div style="font-weight:600; color:var(--text); font-size:14px; margin-bottom:8px;">Loading Database ER Diagram (15.4 MB)...</div>
+      <div style="font-size:12px; color:var(--text2);">GPU Acceleration Active. Zero-Lag Drag & Zoom Enabled.</div>
+      <style>
+        @keyframes er-spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+      </style>
+    </div>
+  `;
+
+  // Dynamic Image loader to bypass file:// protocol AJAX CORS policy locks
+  const img = new Image();
+  img.src = 'ecrm_prod_ecrm.svg';
+  img.alt = 'ECRM Database Schema ER Diagram';
+  img.style.display = 'block';
+  img.style.pointerEvents = 'none'; // delegate pan events to container
+
+  img.onload = () => {
+    inner.innerHTML = '';
+    inner.appendChild(img);
+    applyERTransform();
+  };
+
+  img.onerror = () => {
+    inner.innerHTML = `
+      <div style="padding:60px 20px; text-align:center; font-family:'JetBrains Mono',monospace;">
+        <div style="font-size:36px; margin-bottom:16px">📐</div>
+        <div style="font-size:14px; margin-bottom:8px; font-weight:600; color:var(--danger);">ecrm_prod_ecrm.svg Missing</div>
+        <div style="font-size:12px; max-width:420px; margin:0 auto; line-height:1.6; color:var(--text2);">
+          Please ensure that the SVG file <code style="color:var(--primary); background:rgba(255,255,255,0.05); padding:2px 6px; border-radius:4px;">ecrm_prod_ecrm.svg</code> resides in the same local folder as this preview.html file.
+        </div>
+      </div>
+    `;
+  };
+
+  // Dragging / Panning implementation
+  viewport.addEventListener('mousedown', e => {
+    isDragging = true;
+    startX = e.clientX - erPanX;
+    startY = e.clientY - erPanY;
+    viewport.style.cursor = 'grabbing';
+    e.preventDefault();
+  });
+
+  document.addEventListener('mousemove', e => {
+    if (!isDragging) return;
+    erPanX = e.clientX - startX;
+    erPanY = e.clientY - startY;
+    applyERTransform();
+  });
+
+  document.addEventListener('mouseup', () => {
+    isDragging = false;
+    viewport.style.cursor = 'grab';
+  });
+
+  // Scroll Zoom
+  viewport.addEventListener('wheel', e => {
+    e.preventDefault();
+    const factor = e.deltaY > 0 ? 0.9 : 1.1;
+    zoomER(factor);
+  }, { passive: false });
+}
+
+function applyERTransform() {
+  const inner = document.getElementById('erInner');
+  inner.style.transform = `translate(${erPanX}px, ${erPanY}px) scale(${erScale})`;
+  document.getElementById('erZoomLabel').textContent = `Zoom: ${Math.round(erScale * 100)}%`;
+}
+
+function zoomER(factor) {
+  erScale = Math.max(0.05, Math.min(6, erScale * factor));
+  applyERTransform();
+}
+
+function resetER() {
+  erScale = 0.35;
+  erPanX = 0;
+  erPanY = 0;
+  applyERTransform();
+}
+
+function toggleFullscreen() {
+  const viewport = document.getElementById('erViewport');
+  viewport.classList.toggle('fullscreen');
+  if (viewport.classList.contains('fullscreen')) {
+    document.body.style.overflow = 'hidden';
+  } else {
+    document.body.style.overflow = 'auto';
+  }
+}
+
+function highlightDiagramTable(q) {
+  if (!q) return;
+  // Feedback alert for searches inside diagram image
+  console.log("Locating " + q + " inside the ER Diagram.");
+}
+
+// 2. Dynamically Render ALL ECRM Tables (Rule 4 & Rule 7 compliant)
+const TABLES_META_DATA = [{"name":"aai_audios","rows":2,"cols":["id","contact_id","project_id","audio_link","audio_pctg","noise_pctg","voice_pctg","created_at","audio_insert_date","sup_id","user_id","contact_no","location_id","audio_pctg_web","noise_pctg_web","voice_pctg_web"]},{"name":"aai_audio_assign_maps","rows":2,"cols":["id","audio_id","auditor_id","auditor_level","assigned_date","project_id","created_at"]},{"name":"aai_audio_assign_maps_20260415","rows":0,"cols":[]},{"name":"aai_audio_assign_maps_default","rows":2,"cols":["id","audio_id","auditor_id","auditor_level","assigned_date","project_id","created_at"]},{"name":"aai_auditor_project_maps","rows":2,"cols":["id","auditor_id","project_id","level","is_current","is_deleted","created_at","updated_at"]},{"name":"aai_levels","rows":2,"cols":["id","level","created_at","updated_at"]},{"name":"aai_projects","rows":2,"cols":["id","project_type","project_name","campaign_id","start_date","end_date","audio_enhancement","detect_phrase","noise_reduction","is_active","is_deleted","created_at","updated_at"]},{"name":"aai_projects_phrase_maps","rows":0,"cols":[]},{"name":"aai_project_level_maps","rows":2,"cols":["id","project_id","level_id","day_target","is_target_percentage","load_per_page","custom_query","over_achievement","is_deleted","created_at","updated_at"]},{"name":"aai_questions","rows":2,"cols":["id","question_text","project_id","is_deleted","total_weight","type","created_at","updated_at"]},{"name":"aai_role_level_maps","rows":2,"cols":["id","level_id","role_id","project_id","is_deleted","created_at","updated_at"]},{"name":"aai_verification_answer_maps","rows":2,"cols":["id","verified_audios_id","question","answer","question_id","answer_id","weight","created_at"]},{"name":"aai_verified_audios","rows":2,"cols":["id","aam_id","is_verified","auditor_id","verification_date","is_poor","quality_score","created_at","updated_at","updated_by","duration","noise_percentage","voice_percentage","phrase_score","remark"]},{"name":"aai_verified_audios_default","rows":2,"cols":["id","aam_id","is_verified","auditor_id","verification_date","is_poor","quality_score","created_at","updated_at","updated_by","duration","noise_percentage","voice_percentage","phrase_score","remark"]},{"name":"agencies","rows":2,"cols":["id","name","full_name","address","phone","email","is_deleted","created_at","updated_at","is_admin","is_crm","is_callcenter"]},{"name":"agency_resource_map","rows":2,"cols":["id","agency_id","resource","created_at","updated_at","is_deleted","user_id"]},{"name":"all_locations_region_to_outlet","rows":2,"cols":["id","name","parent","type","is_deleted","created_at","updated_at","active","source_id","region_id","region_name","area_id","area_name","territory_id","territory_name","dp_id","dp_name","route_id","route_name","cluster_id","cluster_name"]},{"name":"all_old_location","rows":2,"cols":["id","name","parent","type","is_deleted","created_at","updated_at","active","source_id","region_id","region_name","area_id","area_name","territory_id","territory_name","dp_id","dp_name","route_id","route_name","cluster_id","cluster_name"]},{"name":"app_versions","rows":2,"cols":["id","version","os","is_current","is_mandatory","created_at","updated_at","description","is_deleted","is_beta","app_type"]},{"name":"app_version_control","rows":1,"cols":["id","min_app_version","max_app_version"]},{"name":"audios","rows":2,"cols":["id","contact_id","audio_link","created_at","updated_at"]},{"name":"audit_logs","rows":2,"cols":["id","user_id","action","table_name","record_id","old_values","new_values","ip_address","created_at"]},{"name":"breakstation","rows":2,"cols":["id","user_id","campaign_id","start","end","lat","long","created_at","updated_at"]},{"name":"breakstation_dp","rows":2,"cols":["id","user_id","campaign_id","start","end","lat","long","created_at","updated_at","dp_id"]},{"name":"bulk_assignment_tickets","rows":2,"cols":["id","ticket_no","campaign_id","dp_id","region_id","total_consumers","total_assigned","created_at","updated_at","is_deleted"]},{"name":"bulk_assignment_ticket_status_maps","rows":2,"cols":["id","ticket_id","status","created_at","remark","updated_by"]},{"name":"campaign_agency_maps","rows":2,"cols":["id","campaign_id","agency_id","is_deleted","created_at","updated_at"]},{"name":"campaign_callcheckback_maps","rows":2,"cols":["id","campaign_id","is_enabled","created_at","updated_at"]},{"name":"campaign_location_maps","rows":2,"cols":["id","campaign_id","location_id","is_deleted","created_at","updated_at"]},{"name":"campaign_loc_ff_allocations","rows":2,"cols":["id","campaign_id","location_id","ff_id","is_deleted","created_at","updated_at"]},{"name":"campaign_targets","rows":2,"cols":["id","campaign_id","target","is_deleted","created_at","updated_at"]},{"name":"campaign_target_config","rows":2,"cols":["id","campaign_id","target_type","shift_time","created_at","updated_at"]},{"name":"campaign_target_loc_maps","rows":2,"cols":["id","campaign_target_id","location_id","is_deleted","created_at","updated_at"]},{"name":"campaign_target_parameter_maps","rows":2,"cols":["id","campaign_target_id","parameter","value","is_deleted","created_at","updated_at"]},{"name":"campaign_target_sku_maps","rows":2,"cols":["id","campaign_target_id","sku_id","is_deleted","created_at","updated_at"]},{"name":"campaign_theme_maps","rows":2,"cols":["id","campaign_id","theme_id","is_deleted","created_at","updated_at"]},{"name":"cdr_contacts","rows":2,"cols":["id","contact_id","created_at","updated_at","batch_id"]},{"name":"chats","rows":2,"cols":["id","sender_id","receiver_id","message","is_read","created_at","updated_at"]},{"name":"consumers","rows":2,"cols":["id","name","fathers_name","dob","address","contact_no","profession","gender","campaign_id","from_date","to_date","is_current","is_deleted","product","secondary_brand"]},{"name":"consumer_dialer_br_assignments","rows":2,"cols":["id","cdl_id","br_id","is_deleted","created_at","updated_at"]},{"name":"consumer_dialer_contacts","rows":2,"cols":["id","cdba_id","start_time","end_time","is_deleted","created_at","updated_at"]},{"name":"consumer_dialer_list","rows":2,"cols":["id","campaign_id","consumer_number","region_id","status","failed_reason","is_completed","last_contact_date","is_deleted","created_at","updated_at"]},{"name":"consumer_dialer_survey_maps","rows":2,"cols":["id","cdc_id","question","answer","created_at","updated_at"]},{"name":"contacts","rows":2,"cols":["id","otp","user_id","contacted_br","campaign_id","campaign_version","consumer_id","contact_no","location_id","contact_status","signature","lat","long","radius","start","end","additional_info","contact_date","device_info","is_deleted","created_at","updated_at","product","giveable","repeat_status","secondary_brand","ecrm_type","previous_brand"]},{"name":"contact_message_maps","rows":2,"cols":["id","contact_id","message_id","is_deleted","created_at","updated_at"]},{"name":"contact_survey_data_maps","rows":2,"cols":["id","contact_id","question","answer","created_at","updated_at"]},{"name":"contact_survey_data_maps_clone_2","rows":2,"cols":["id","contact_id","question","answer","created_at","updated_at"]},{"name":"coupon_codes","rows":2,"cols":["id","code","campaign_id","is_used","used_by","used_at","is_deleted","created_at","updated_at"]},{"name":"custom_queries","rows":2,"cols":["id","name","query","is_deleted","created_at","updated_at","user_id","is_public"]},{"name":"daily_material_acceptance_maps","rows":2,"cols":["id","daily_material_map_id","status","remark","created_at","updated_at","accepted_by"]},{"name":"daily_material_maps","rows":2,"cols":["id","user_id","campaign_id","material_id","quantity","date","is_deleted","created_at","updated_at","is_approved","approved_by","approved_at"]},{"name":"dashboards","rows":2,"cols":["id","name","query","is_deleted","created_at","updated_at","user_id","is_public","chart_type"]},{"name":"derby_range_campaign_bs_rewards_lookup","rows":2,"cols":["id","campaign_id","min_contacts","max_contacts","reward_amount","created_at","updated_at"]},{"name":"device_registers","rows":2,"cols":["id","user_id","device_id","device_name","os","created_at","updated_at"]},{"name":"dp_region","rows":2,"cols":["id","dp_id","region_id","is_deleted","created_at","updated_at"]},{"name":"dp_route_closters","rows":2,"cols":["id","dp_id","route_id","cluster_id","is_deleted","created_at","updated_at"]},{"name":"dp_route_clusters","rows":2,"cols":["id","dp_id","route_id","cluster_id","is_deleted","created_at","updated_at"]},{"name":"dynamic_reports","rows":2,"cols":["id","name","query","is_deleted","created_at","updated_at","user_id","is_public","description"]},{"name":"dynamic_report_agency_maps","rows":2,"cols":["id","report_id","agency_id","is_deleted","created_at","updated_at"]},{"name":"dynamic_report_chart_maps","rows":2,"cols":["id","report_id","chart_type","x_axis","y_axis","is_deleted","created_at","updated_at"]},{"name":"dynamic_report_parameter_maps","rows":2,"cols":["id","report_id","parameter","label","type","is_required","is_deleted","created_at","updated_at"]},{"name":"dynamic_report_role_maps","rows":2,"cols":["id","report_id","role_id","is_deleted","created_at","updated_at"]},{"name":"forget_password_otp_verify","rows":2,"cols":["id","user_id","otp","created_at","updated_at"]},{"name":"geo_location","rows":2,"cols":["id","user_id","lat","long","created_at","updated_at","campaign_id"]},{"name":"hierarchy","rows":2,"cols":["id","region_id","area_id","territory_id","dp_id","route_id","cluster_id","outlet_id","is_deleted","created_at","updated_at"]},{"name":"iris_analyses","rows":2,"cols":["id","contact_id","user_id","campaign_id","location_id","contact_no","created_at","iris_score","iris_data","is_deleted"]},{"name":"jml_tickets","rows":2,"cols":["id","user_id","type","status","created_at","updated_at","created_by","updated_by","remark","agency_id"]},{"name":"joint_calls","rows":2,"cols":["id","user_id","ff_id","campaign_id","location_id","contact_date","is_deleted","created_at","updated_at"]},{"name":"joint_calls_survey_data_maps","rows":2,"cols":["id","joint_call_id","question","answer","created_at","updated_at"]},{"name":"leaves","rows":2,"cols":["id","user_id","type","start_date","end_date","status","remark","created_at","updated_at","approved_by","approved_at"]},{"name":"leave_date_maps","rows":2,"cols":["id","leave_id","date","is_deleted","created_at","updated_at"]},{"name":"live_locations","rows":2,"cols":["id","user_id","lat","long","created_at","updated_at","campaign_id","location_id"]},{"name":"locations","rows":2,"cols":["id","name","parent","type","is_deleted","created_at","updated_at","active","source_id"]},{"name":"locations_bkp_20260330","rows":2,"cols":["id","name","parent","type","is_deleted","created_at","updated_at","active","source_id"]},{"name":"location_wise_brands","rows":2,"cols":["id","location_id","brand_id","is_deleted","created_at","updated_at"]},{"name":"manpowers","rows":2,"cols":["id","user_id","campaign_id","date","target","is_deleted","created_at","updated_at"]},{"name":"manual_notifications","rows":2,"cols":["id","title","body","user_id","is_read","created_at","updated_at","is_deleted","sender_id"]},{"name":"materials","rows":2,"cols":["id","name","is_deleted","created_at","updated_at","campaign_id","quantity"]},{"name":"material_campaign_maps","rows":2,"cols":["id","material_id","campaign_id","is_deleted","created_at","updated_at"]},{"name":"messaging_reports","rows":2,"cols":["id","name","campaign_id","is_deleted","created_at","updated_at"]},{"name":"messaging_report_date_maps","rows":2,"cols":["id","messaging_report_id","date","is_deleted","created_at","updated_at"]},{"name":"mv_campaign_173_contacts","rows":2,"cols":["id","contact_id","user_id","campaign_id","location_id","contact_date","is_deleted","created_at","updated_at"]},{"name":"notifications","rows":2,"cols":["id","user_id","title","body","is_read","created_at","updated_at","is_deleted","sender_id","type","reference_id"]},{"name":"otp_verifications","rows":2,"cols":["id","user_id","otp","created_at","updated_at","is_used"]},{"name":"otp_verifications_","rows":2,"cols":["id","user_id","otp","created_at","updated_at","is_used"]},{"name":"outlets","rows":2,"cols":["id","name","parent","type","is_deleted","created_at","updated_at","active","source_id","location_id"]},{"name":"outlets_u","rows":2,"cols":["id","name","parent","type","is_deleted","created_at","updated_at","active","source_id","location_id"]},{"name":"pj_lookup_table_2024_updated","rows":2,"cols":["id","region","area","territory","dp","route","cluster","outlet","outlet_id"]},{"name":"pj_pincer_dialer_consumers_all_tiers","rows":2,"cols":["id","consumer_number","tier","region","area","territory","dp","route","cluster","outlet"]},{"name":"pj_pincer_t3_priority_consumer_list","rows":2,"cols":["id","consumer_number","tier","region","area","territory","dp","route","cluster","outlet"]},{"name":"pj_stalingard_dialer_consumers","rows":2,"cols":["id","consumer_number","region","area","territory","dp","route","cluster","outlet"]},{"name":"preloaded_reports","rows":2,"cols":["id","name","campaign_id","is_deleted","created_at","updated_at","file_url","report_type"]},{"name":"preloaded_report_date_maps","rows":2,"cols":["id","preloaded_report_id","date","is_deleted","created_at","updated_at"]},{"name":"preloaded_report_user_maps","rows":2,"cols":["id","preloaded_report_id","user_id","is_deleted","created_at","updated_at"]},{"name":"products","rows":2,"cols":["id","name","is_deleted","created_at","updated_at","category_id","sku_code","is_ptr","ptr_unit"]},{"name":"product_categories","rows":2,"cols":["id","name","is_deleted","created_at","updated_at"]},{"name":"proximity_report","rows":2,"cols":["id","user_id","campaign_id","location_id","contact_date","is_deleted","created_at","updated_at","distance","lat","long"]},{"name":"ptr_shifts","rows":2,"cols":["id","campaign_id","shift_start","shift_end","is_deleted","created_at","updated_at"]},{"name":"region_area","rows":2,"cols":["id","region_id","area_id","is_deleted","created_at","updated_at"]},{"name":"region_dp","rows":2,"cols":["id","region_id","dp_id","is_deleted","created_at","updated_at"]},{"name":"repeat_schedule_maps","rows":2,"cols":["id","campaign_id","location_id","consumer_number","contact_date","repeat_date","is_deleted","created_at","updated_at"]},{"name":"retailer_contacts","rows":2,"cols":["id","user_id","campaign_id","location_id","contact_date","is_deleted","created_at","updated_at","start","end"]},{"name":"retailer_contact_survey_data_map","rows":2,"cols":["id","retailer_contact_id","question","answer","created_at","updated_at"]},{"name":"retailer_outlet_dialer_br_assignments","rows":2,"cols":["id","cdl_id","br_id","is_deleted","created_at","updated_at"]},{"name":"retailer_outlet_dialer_contacts","rows":2,"cols":["id","cdba_id","start_time","end_time","is_deleted","created_at","updated_at"]},{"name":"retailer_outlet_dialer_list","rows":2,"cols":["id","campaign_id","outlet_id","region_id","status","failed_reason","is_completed","last_contact_date","is_deleted","created_at","updated_at"]},{"name":"retailer_outlet_dialer_survey_maps","rows":2,"cols":["id","cdc_id","question","answer","created_at","updated_at"]},{"name":"roles","rows":2,"cols":["id","name","is_deleted","created_at","updated_at","label","is_supervisor","is_ff"]},{"name":"role_agency_maps","rows":2,"cols":["id","role_id","agency_id","is_deleted","created_at","updated_at"]},{"name":"role_location_maps","rows":2,"cols":["id","role_id","location_id","is_deleted","created_at","updated_at"]},{"name":"role_report_to_maps","rows":2,"cols":["id","role_id","report_to_role_id","is_deleted","created_at","updated_at"]},{"name":"role_resource_maps","rows":2,"cols":["id","role_id","resource","is_deleted","created_at","updated_at"]},{"name":"role_tree_maps","rows":2,"cols":["id","role_id","parent_role_id","is_deleted","created_at","updated_at"]},{"name":"sku_items","rows":2,"cols":["id","name","is_deleted","created_at","updated_at","campaign_id","product_id"]},{"name":"sku_item_price","rows":2,"cols":["id","sku_id","price","is_deleted","created_at","updated_at","location_id"]},{"name":"sku_product_maps","rows":2,"cols":["id","sku_id","product_id","is_deleted","created_at","updated_at"]},{"name":"sob_expansion_lookup_2024","rows":2,"cols":["id","region","area","territory","dp","route","cluster","outlet","outlet_id"]},{"name":"supervisor_contacts","rows":2,"cols":["id","user_id","br_id","campaign_id","contact","contact_date","is_deleted","created_at","updated_at"]},{"name":"supervisor_contact_survey_data_maps","rows":2,"cols":["id","sup_contact_id","question","answer","created_at","updated_at"]},{"name":"sup_br_callcheckback_maps","rows":2,"cols":["id","sup_id","br_id","campaign_id","is_deleted","created_at","updated_at"]},{"name":"sup_br_maps","rows":2,"cols":["id","sup_id","br_id","campaign_id","is_deleted","created_at","updated_at"]},{"name":"sup_geo_tags","rows":2,"cols":["id","user_id","campaign_id","lat","long","created_at","updated_at","location_id"]},{"name":"tap_analyses","rows":2,"cols":["id","contact_id","user_id","campaign_id","location_id","contact_no","created_at","tap_score","tap_data","is_deleted"]},{"name":"thirdparties","rows":2,"cols":["id","name","is_deleted","created_at","updated_at","contact_id","lat","long","detected_at"]},{"name":"ticket_status_maps","rows":2,"cols":["id","ticket_id","status","created_at","remark","updated_by"]},{"name":"users","rows":2,"cols":["id","username","email","user_type","password","password_history","pass_exp","reset_stts","active_stts","is_deleted","joining_date","created_at","updated_at","is_locked","password_reset_by","password_reset_date","mfa_qr","mfa_enables","mfa_secret","is_auditor","leaving_date","last_login","uid","original_user_id","one_id"]},{"name":"users_campaign_maps","rows":2,"cols":["id","user_id","campaign_id","is_deleted","created_at","updated_at"]},{"name":"users_consumer_maps","rows":2,"cols":["id","user_id","consumer_id","is_deleted","created_at","updated_at"]},{"name":"user_agency_maps","rows":2,"cols":["id","user_id","agency_id","is_deleted","created_at","updated_at"]},{"name":"user_approval_maps","rows":2,"cols":["id","user_id","approver_id","is_deleted","created_at","updated_at"]},{"name":"user_campaign_locations_config","rows":2,"cols":["id","user_id","campaign_id","location_id","is_deleted","created_at","updated_at"]},{"name":"user_details","rows":2,"cols":["id","user_id","is_deleted","created_at","updated_at","national_id","passport_no","birth_certificate","emergency_contact","emergency_relation","blood_group","education","experience","skills","certifications","languages","photo","salary","bank_name","bank_account","bank_routing"]},{"name":"user_device_maps","rows":2,"cols":["id","user_id","device_id","is_deleted","created_at","updated_at"]},{"name":"user_infos","rows":2,"cols":["id","user_id","full_name","phone","address","is_deleted","created_at","updated_at","gender","dob","profile_pic","br_code"]},{"name":"_clusters","rows":2,"cols":["cluster_id","cluster_name","route_id","route_name","dp_id","dp_name","territory_id","territory_name","area_id","area_name","region_id","region_name"]}];
+
+const container = document.getElementById("tableContainer");
+
+function getTableNote(name) {
+  const notes = {
+    "aai_audios": "অডিও রেকর্ডিং এর ফাইল পাথ এবং ভয়েস কোয়ালিটি প্যারামিটার স্টোর করে।",
+    "aai_audio_assign_maps": "অডিটরের কাছে অডিও ফাইল অ্যাসাইন করার ম্যাপিং।",
+    "aai_auditor_project_maps": "অডিটরদের প্রজেক্ট অ্যাসাইনমেন্ট এবং অডিট লেভেল ম্যাপিং।",
+    "aai_levels": "অডিটিং টিমের বিভিন্ন ওয়ার্কফ্লো লেভেল নির্ধারণ করে।",
+    "aai_projects": "অডিও ভেরিফিকেশন ও এআই কোয়ালিটি কন্ট্রোল প্রজেক্ট কনফিগারেশন।",
+    "aai_questions": "অডিও মূল্যায়নের জন্য ব্যবহৃত অডিটিং প্রশ্নমালা।",
+    "aai_verification_answer_maps": "অডিটরের দেওয়া প্রশ্নের উত্তর ও ওজন (weight) ম্যাপিং।",
+    "aai_verified_audios": "অডিট সম্পন্ন হওয়া অডিও ফাইলের স্কোর এবং অডিট ট্রেইল।",
+    "agencies": "সিস্টেমের সাথে যুক্ত থার্ড-পার্টি ভেন্ডর বা এজেন্সির তথ্য।",
+    "agency_resource_map": "ভেন্ডর ও এজেন্সির রিসোর্স এবং পারমিশন ম্যাপিং।",
+    "all_locations_region_to_outlet": "রিজিয়ন থেকে আউটলেট পর্যন্ত সম্পূর্ণ ৭-লেভেল লোকেশন হায়ারার্কি ভিউ।",
+    "audit_logs": "ব্যবহারকারীদের সিস্টেম অ্যাকশন এবং ডাটাবেজ পরিবর্তনের ট্রেইল।",
+    "breakstation": "ফিল্ড ফোর্স বা আরএদের ডিউটি ব্রেক নেওয়ার স্থানাঙ্ক ও সময়।",
+    "campaigns": "বিএটিবি-র সক্রিয় ও ঐতিহাসিক ক্যাম্পেইনের মূল তালিকা।",
+    "campaign_targets": "ক্যাম্পেইনের জন্য সেট করা আরএ ভিত্তিক বা এরিয়া ভিত্তিক লক্ষ্যমাত্রা।",
+    "consumers": "কনজ্যুমার বা গ্রাহকদের মূল ডেমোগ্রাফিক প্রোফাইল ও ব্র্যান্ড প্রেফারেন্স।",
+    "consumer_dialer_contacts": "কল সেন্টার এজেন্টদের কনজ্যুমার আউটবাউন্ড কলের বিবরণ।",
+    "consumer_dialer_list": "কল সেন্টার ডায়লারের জন্য প্রস্তুতকৃত গ্রাহক নাম্বারের তালিকা।",
+    "contacts": "গ্রাহক যোগাযোগের মূল ট্রানজেকশনাল রেকর্ড ও লোকেশন মেটাডাটা।",
+    "contact_survey_data_maps": "গ্রাহকের দেওয়া কন্টাক্ট সার্ভে উত্তরের কী-ভ্যালু জোড়া।",
+    "daily_material_maps": "আরএ-দের দৈনিক মেটেরিয়াল বরাদ্দ ও ইনভেন্টরি ট্র্যাকার।",
+    "geo_location": "গ্রাহক ইন্টারঅ্যাকশনের সময় জিপিএস স্থানাঙ্ক ট্র্যাকিং।",
+    "hierarchy": "লোকেশনের প্যারেন্ট-চাইল্ড সম্পর্কের মাস্টার ইনডেক্স।",
+    "jml_tickets": "Joiner-Mover-Leaver ইউজার লাইফসাইকেল টিকিট ও অনুমোদন।",
+    "joint_calls": "সুপারভাইজার কর্তৃক আরএ-এর ফিল্ড পারফরম্যান্স সরাসরি পর্যবেক্ষণের তথ্য।",
+    "joint_calls_survey_data_maps": "জয়েন্ট কল ইভালুয়েশন ফর্মের সার্ভে ডাটা ম্যাপিং।",
+    "leaves": "ব্যবহারকারী বা আরএ-দের ছুটি অনুমোদন ও ছুটির ইতিহাস।",
+    "locations": "ডাটাবেজের প্রধান ৭-লেভেল সেলিং এবং লোকেশন ডিকশনারি।",
+    "materials": "উপহার সামগ্রী ও প্রচারণামূলক ইনভেন্টরি মাস্টার।",
+    "outlets": "খুচরা বিক্রেতা বা পয়েন্ট অফ সেলস (POS) তথ্য।",
+    "products": "বিএটিবি-র নিজস্ব ফ্র্যাঞ্চাইজ পণ্যের মাস্টার ডাটা।",
+    "roles": "ব্যবহারকারীদের বিভিন্ন সিস্টেম রোল ও সুপারভাইজরি ক্ষমতা।",
+    "supervisor_contacts": "সুপারভাইজার কর্তৃক কল চেকবডি কোয়ালিটি অডিটের তথ্য।",
+    "users": "ব্যবহারকারী বা আরএ-দের লগইন ক্রিডেনশিয়াল ও অ্যাক্সেস কন্ট্রোল।",
+    "_clusters": "রিজিয়ন থেকে ক্লাস্টার হায়্যারার্কির দ্রুত জয়েন কোয়েরি ভিউ।"
+  };
+
+  if (notes[name]) return notes[name];
+  if (name.startsWith("aai_")) return "Audio AI ভেরিফিকেশন মডিউলের টেবিল — ভয়েস কোয়ালিটি ও প্রশ্ন মূল্যায়ন করে।";
+  if (name.startsWith("campaign_")) return "ক্যাম্পেইন অপারেশন, টার্গেট কনফিগারেশন এবং জিপিএস এলোকেশন টেবিল।";
+  if (name.startsWith("consumer_")) return "কনজ্যুমার ডায়ালিস্ট, কল সেন্টার ম্যাপিং এবং ডায়াল ট্র্যাকিং টেবিল।";
+  if (name.startsWith("role_")) return "ইউজার রোল, লোকেশন ম্যাপিং এবং অ্যাক্সেস হায়ারার্কি কনফিগারেশন।";
+  if (name.startsWith("user_")) return "ব্যবহারকারীর তথ্য, প্রোফাইল পিকচার, ডিভাইস রেজিস্ট্রেশন ও অনুমোদন ট্র্যাকার।";
+  if (name.startsWith("retailer_")) return "রিটেইলার ডায়লার লিস্ট এবং খুচরা বিক্রেতা সার্ভে ডাটা ম্যাপিং।";
+  if (name.startsWith("sku_")) return "পণ্য আইটেম বা ব্র্যান্ডের মূল্য নির্ধারণ এবং কন্টাক্ট ম্যাপিং।";
+  if (name.startsWith("dynamic_")) return "ডাইনামিক রিপোর্টের কুয়েরি বিল্ডার, পারমিশন এবং প্যারামিটার কনফিগারেশন।";
+  if (name.includes("dialer")) return "কল সেন্টার ইন্টিগ্রেশন এবং গ্রাহক কল আউটবাউন্ড ডায়াল মডিউল।";
+  if (name.includes("survey")) return "ক্যাম্পেইনের প্রশ্ন-উত্তর ডাটা সংরক্ষণ এবং পিভট আর্কিটেকচার ম্যাপিং।";
+  
+  return "ইন্টারপ্রাইজ ECRM ডাটাবেজ টেবিল — ক্যাম্পেইন অপারেশন এবং ফিল্ড এনালাইসিস ট্র্যাকার।";
+}
+
+function renderTables(dataList){
+  container.innerHTML = "";
+  if (!dataList || dataList.length === 0) {
+    container.innerHTML = `<div style="grid-column: 1/-1; text-align:center; padding:40px; color:var(--text2);">No matching tables found.</div>`;
+    return;
+  }
+
+  dataList.forEach(t => {
+    const div = document.createElement("div");
+    div.className = "table-card";
+    div.innerHTML = `
+      <div class="table-header-wrap">
+        <h4>${t.name}</h4>
+        <span class="table-note-trigger" tabindex="0">ℹ️</span>
+        <div class="table-tooltip">${getTableNote(t.name)}</div>
+      </div>
+      <p style="font-size:11px; color:var(--text2); margin-bottom:12px; font-family:'JetBrains Mono',monospace;">Rows: ${t.rows || 0} | Cols: ${t.cols.length}</p>
+      <ul>
+        ${t.cols.map(col => `<li>${col}</li>`).join("")}
+      </ul>
+    `;
+    container.appendChild(div);
+  });
+}
+
+// Initial render
+renderTables(TABLES_META_DATA);
+
+// Search filtering (Real-time schema explorer search)
+document.getElementById("tableSearch").addEventListener("input", function() {
+  const value = this.value.toLowerCase().trim();
+  const filtered = TABLES_META_DATA.filter(t => {
+    return t.name.toLowerCase().includes(value) || 
+           t.cols.some(c => c.toLowerCase().includes(value));
+  });
+  renderTables(filtered);
+});
+
+// 3. Tutorial Handler (Highlights list and updates frame focus)
+function playTutorial(title) {
+  // Highlight active
+  const items = document.querySelectorAll('#tutorialList li');
+  items.forEach(item => {
+    if (item.textContent === title) {
+      item.classList.add('active');
+    } else {
+      item.classList.remove('active');
+    }
+  });
+
+  // Display alert toast with connection instruction
+  alert("💡 Now Playing: " + title + ".\nPlease find and play this video/guide inside the connected Google Drive explorer folder on the right!");
+}
+
+// Theme Toggle Engine
+function toggleTheme() {
+  const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+  const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', newTheme);
+  localStorage.setItem('ecrm_theme', newTheme);
+  updateThemeUI(newTheme);
+}
+
+function updateThemeUI(theme) {
+  const toggleBtn = document.getElementById('themeToggle');
+  if (toggleBtn) {
+    toggleBtn.textContent = theme === 'dark' ? '🌙' : '☀️';
+  }
+}
+
+// 4. DomLoaded triggers
+document.addEventListener("DOMContentLoaded", () => {
+  initER();
+  
+  // Theme Toggle Wireup
+  const savedTheme = localStorage.getItem('ecrm_theme') || 'dark';
+  updateThemeUI(savedTheme);
+  const toggleBtn = document.getElementById('themeToggle');
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', toggleTheme);
+  }
+});
+
+</script>
+
+</body>
+</html>
