@@ -819,7 +819,18 @@ outline:none;
   display: block;
 }
 
+/* ── SIDEBAR ── */
+.sidebar{position:fixed;top:74px;left:0;bottom:0;width:240px;background:var(--bg);border-right:1px solid var(--border);padding:24px 0;overflow-y:auto;z-index:900;display:flex;flex-direction:column;gap:8px;transition: background 0.3s, border-color 0.3s;}
+.sidebar-link{display:flex;align-items:center;padding:10px 24px;color:var(--text2);text-decoration:none;font-size:13px;font-weight:500;border-left:3px solid transparent;transition:all 0.2s;}
+.sidebar-link:hover{background:var(--card);color:var(--text);}
+.sidebar-link.active{background:rgba(59,130,246,.08);color:var(--primary);border-left-color:var(--primary);}
+.sidebar-label{font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.1em;color:var(--text2);padding:16px 24px 8px;}
+.main-content{margin-left:240px;}
+
 @media(max-width:1000px){
+
+  .sidebar{display:none;}
+  .main-content{margin-left:0;}
 
 header{
 
@@ -915,6 +926,19 @@ Tutorial
 </nav>
 
 </header>
+
+<!-- ── SIDEBAR ── -->
+<div class="sidebar">
+  <div class="sidebar-label">Navigation</div>
+  <a href="#business" class="sidebar-link">Business Explain</a>
+  <a href="#sql" class="sidebar-link">SQL Reports</a>
+  <a href="#tasks" class="sidebar-link">Tasks & Questions</a>
+  <a href="#diagram" class="sidebar-link">ER Diagram</a>
+  <a href="#database" class="sidebar-link">DB Explorer</a>
+  <a href="#tutorial" class="sidebar-link">Tutorial</a>
+</div>
+
+<div class="main-content">
 
 <section class="hero">
 
@@ -1727,6 +1751,8 @@ View Raw JSON Structure
 
 </section>
 
+</div> <!-- End main-content -->
+
 <footer class="footer">
 
 <h2>
@@ -2006,8 +2032,36 @@ function updateThemeUI(theme) {
   }
 }
 
+// ══════════════════════════════════════════
+// SCROLL SPY ACTIVE
+// ══════════════════════════════════════════
+function setActive(el) {
+  document.querySelectorAll('.sidebar-link').forEach(a=>a.classList.remove('active'));
+  if (el) el.classList.add('active');
+}
+
+const observerOptions = {
+  root: null,
+  rootMargin: '0px',
+  threshold: 0.3
+};
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const id = entry.target.getAttribute('id');
+      const activeLink = document.querySelector(`.sidebar-link[href="#${id}"]`);
+      setActive(activeLink);
+    }
+  });
+}, observerOptions);
+
 // 4. DomLoaded triggers
 document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll('section[id]').forEach(section => {
+    observer.observe(section);
+  });
+  
   initER();
   
   // Theme Toggle Wireup
