@@ -584,7 +584,25 @@
     </style>
 </head>
 
-<body>
+<body style="overflow: hidden; background: #080b12;">
+
+    <!-- AUTH WRAPPER -->
+    <div id="quiz-auth" style="background:#080b12; position:fixed; inset:0; z-index:9999; display:flex; align-items:center; justify-content:center; padding:20px;">
+        <div style="background:#111620; border:1px solid #1e2a3a; border-radius:14px; padding:48px; max-width:500px; width:100%; text-align:center; box-shadow:0 12px 40px rgba(59,130,246,.08);">
+            <div style="font-size:40px; margin-bottom:16px;">🎓</div>
+            <h3 style="font-family:sans-serif; font-size:24px; margin-bottom:12px; color:#e2e8f0; font-weight:700;">Exam Access Restricted</h3>
+            <p style="color:#94a3b8; font-size:14px; margin-bottom:24px;">Please enter your credentials to access the PostgreSQL Assessment.</p>
+            <input type="email" id="quizEmail" placeholder="Email Address" style="width:100%; padding:12px 16px; margin-bottom:16px; border-radius:8px; border:1px solid #1e2a3a; background:#0d1117; color:#e2e8f0; outline:none; font-family:inherit;">
+            <input type="password" id="quizPassword" placeholder="Password" style="width:100%; padding:12px 16px; margin-bottom:24px; border-radius:8px; border:1px solid #1e2a3a; background:#0d1117; color:#e2e8f0; outline:none; font-family:inherit;">
+            <div style="display:flex; gap:12px; width:100%;">
+                <button onclick="cancelQuizAuth()" style="flex:1; padding:14px; font-size:14px; background:transparent; border:1px solid #243040; color:#94a3b8; border-radius:8px; cursor:pointer; font-weight:600;">Cancel</button>
+                <button onclick="unlockQuiz()" style="flex:1; padding:14px; font-size:14px; background:#3b82f6; border:none; color:#fff; border-radius:8px; cursor:pointer; font-weight:600;">Unlock Exam</button>
+            </div>
+            <p id="quizError" style="color:#ef4444; font-size:12px; margin-top:12px; display:none;">❌ Invalid email or password.</p>
+        </div>
+    </div>
+    
+    <div id="quiz-content" style="display:none; height:100%;">
 
     <header>
         <div class="logo">
@@ -944,6 +962,25 @@
 
         // ── init ──
         renderQuestions();
+    </script>
+    </div>
+    <script>
+        function cancelQuizAuth() {
+            document.getElementById('quizEmail').value = '';
+            document.getElementById('quizPassword').value = '';
+            document.getElementById('quizError').style.display = 'none';
+        }
+        function unlockQuiz() {
+            const email = document.getElementById('quizEmail').value;
+            const pwd = document.getElementById('quizPassword').value;
+            if(email === 'dbtask@v2.ltd' && pwd === 'examtest') {
+                document.getElementById('quiz-auth').style.display = 'none';
+                document.getElementById('quiz-content').style.display = 'block';
+                document.body.style.overflow = '';
+            } else {
+                document.getElementById('quizError').style.display = 'block';
+            }
+        }
     </script>
 </body>
 
