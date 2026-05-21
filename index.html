@@ -903,6 +903,43 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
     <a href="preview.html" target="_blank" class="nav-preview-btn"><span class="dot" style="background:var(--orange)"></span>Preview ↗</a>
     <a href="quiz.html" target="_blank" class="nav-preview-btn" style="color:var(--primary); border-color:rgba(59,130,246,0.3)"><span class="dot" style="background:var(--primary)"></span>Exam ↗</a>
   </div>
+  
+<style>
+.nav-team { display: flex; align-items: center; gap: 10px; margin-left: 24px; margin-right: 16px; }
+.nav-profile { display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 4px 14px 4px 4px; border-radius: 40px; cursor: pointer; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); text-decoration: none; }
+.nav-profile:hover { background: rgba(59,130,246,0.1); border-color: var(--primary); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+.nav-avatar { width: 30px; height: 30px; border-radius: 50%; object-fit: cover; border: 1px solid rgba(255,255,255,0.1); }
+.nav-info { display: flex; flex-direction: column; justify-content: center; }
+.nav-name { font-size: 11px; font-weight: 700; color: var(--text); line-height: 1.2; }
+.nav-role { font-size: 9px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text3); font-family: 'JetBrains Mono', monospace; line-height: 1; }
+@media (max-width: 1000px) {
+  .nav-team { display: none; }
+}
+</style>
+<div class="nav-team">
+  <div class="nav-profile" title="Ahsam - Author">
+    <img src="ahsam%20bhai.png" class="nav-avatar" alt="Ahsam">
+    <div class="nav-info">
+      <span class="nav-name">Ahsam</span>
+      <span class="nav-role">Author</span>
+    </div>
+  </div>
+  <div class="nav-profile" title="Pranto - Supervisor">
+    <img src="pranto%20bhai.png" class="nav-avatar" alt="Pranto">
+    <div class="nav-info">
+      <span class="nav-name">Pranto</span>
+      <span class="nav-role">Supervisor</span>
+    </div>
+  </div>
+  <div class="nav-profile" title="Shohan - Manager">
+    <img src="shohan%20bhai.png" class="nav-avatar" alt="Shohan">
+    <div class="nav-info">
+      <span class="nav-name">Shohan</span>
+      <span class="nav-role">Manager</span>
+    </div>
+  </div>
+</div>
+
   <div class="nav-search search-wrap">
     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
     <input type="text" id="globalSearch" placeholder="Search docs…" oninput="handleGlobalSearch(this.value)"/>
