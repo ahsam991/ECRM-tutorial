@@ -2184,6 +2184,18 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
 <!-- ══════════════════════════════════════════ -->
 <section id="tasks">
 <div class="container">
+  <!-- AUTH WRAPPER -->
+  <div id="exam-auth" style="background:var(--card); border:1px solid var(--border); border-radius:14px; padding:48px; max-width:500px; margin:40px auto; text-align:center; box-shadow:0 12px 40px rgba(59,130,246,.08);">
+    <div style="font-size:40px; margin-bottom:16px;">🎓</div>
+    <h3 style="font-family:'Syne',sans-serif; font-size:24px; margin-bottom:12px; color:var(--text);">Exam Access Restricted</h3>
+    <p style="color:var(--text2); font-size:14px; margin-bottom:24px;">Please enter your credentials to access the analytical tasks.</p>
+    <input type="email" id="examEmail" placeholder="Email Address" style="width:100%; padding:12px 16px; margin-bottom:16px; border-radius:8px; border:1px solid var(--border); background:var(--bg); color:var(--text); outline:none; transition:0.2s;">
+    <input type="password" id="examPassword" placeholder="Password" style="width:100%; padding:12px 16px; margin-bottom:24px; border-radius:8px; border:1px solid var(--border); background:var(--bg); color:var(--text); outline:none; transition:0.2s;">
+    <button onclick="unlockExam()" class="btn btn-primary" style="width:100%; padding:14px; font-size:14px; justify-content:center;">Unlock Exam</button>
+    <p id="examError" style="color:var(--red); font-size:12px; margin-top:12px; display:none;">❌ Invalid email or password.</p>
+  </div>
+  <!-- EXAM CONTENT -->
+  <div id="exam-content" style="display:none;">
   <div class="section-label" style="display:flex; justify-content:space-between; align-items:center; border:none;">
     <span style="display:flex; align-items:center; gap:8px;">
       <span style="width:20px; height:1px; background:var(--primary); display:inline-block;"></span>
@@ -2219,6 +2231,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
 
   <div class="task-board" id="taskBoard">
     <!-- Rendered by JS -->
+  </div>
   </div>
 </div>
 </section>
@@ -2498,6 +2511,18 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
 <!-- ══════════════════════════════════════════ -->
 <!-- SQL MODALS -->
 <!-- ══════════════════════════════════════════ -->
+<!-- ── SQL AUTH MODAL ── -->
+<div class="modal-overlay" id="sqlAuthModal" style="z-index:3000;">
+  <div class="modal" style="max-width:400px; padding:32px; text-align:center; margin-top: 10vh;">
+    <div style="font-size:32px; margin-bottom:12px;">🔒</div>
+    <h3 style="font-family:'Syne',sans-serif; font-size:20px; margin-bottom:8px; color:var(--text);">SQL Access Restricted</h3>
+    <p style="color:var(--text2); font-size:13px; margin-bottom:24px;">Enter decryption key to view SQL logic.</p>
+    <input type="password" id="sqlAuthKey" placeholder="Enter Security Key..." style="width:100%; padding:12px 16px; margin-bottom:16px; border-radius:8px; border:1px solid var(--border); background:var(--bg); color:var(--text); outline:none;">
+    <button onclick="unlockSqlModal()" class="btn btn-primary" style="width:100%; padding:12px; justify-content:center;">Decrypt SQL</button>
+    <p id="sqlAuthError" style="color:var(--red); font-size:12px; margin-top:12px; display:none;">❌ Incorrect Key.</p>
+  </div>
+</div>
+
 <div class="modal-overlay" id="sqlModal" onclick="closeModalIfOverlay(event)">
   <div class="modal">
     <div class="modal-header">
@@ -3347,7 +3372,41 @@ function filterTasks() {
 // ══════════════════════════════════════════
 // MODAL
 // ══════════════════════════════════════════
+let sqlUnlocked = false;
+let pendingReportKey = null;
+
 function openModal(reportKey) {
+  if(!sqlUnlocked) {
+      pendingReportKey = reportKey;
+      document.getElementById('sqlAuthModal').classList.add('open');
+      return;
+  }
+  _openModalImpl(reportKey);
+}
+
+function unlockSqlModal() {
+    const key = document.getElementById('sqlAuthKey').value;
+    if(key === 'rahat2026') {
+        document.getElementById('sqlAuthModal').classList.remove('open');
+        sqlUnlocked = true;
+        _openModalImpl(pendingReportKey);
+    } else {
+        document.getElementById('sqlAuthError').style.display = 'block';
+    }
+}
+
+function unlockExam() {
+    const email = document.getElementById('examEmail').value;
+    const pwd = document.getElementById('examPassword').value;
+    if(email === 'dbtask@v2.ltd' && pwd === 'examtest') {
+        document.getElementById('exam-auth').style.display = 'none';
+        document.getElementById('exam-content').style.display = 'block';
+    } else {
+        document.getElementById('examError').style.display = 'block';
+    }
+}
+
+function _openModalImpl(reportKey) {
   currentModal = reportKey;
   currentTab = 'sql';
   const data = SQL_DATA[reportKey];
