@@ -1160,6 +1160,909 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
 </section>
 
 <!-- ══════════════════════════════════════════ -->
+<!-- SECTION: CAMPAIGN FLOW -->
+<!-- ══════════════════════════════════════════ -->
+<section id="campaign-flow-components">
+
+  <div class="section-header">
+
+    <h2>
+      Campaign Flow Components
+    </h2>
+
+    <p>
+      This section explains the operational campaign blocks used inside the eCRM campaign engine.
+      These components are used by Business Teams, Campaign Managers, Supervisors, and Technical Teams
+      during campaign creation, survey design, consumer engagement flow configuration,
+      PTR execution, AV engagement, and reporting workflow management.
+    </p>
+
+  </div>
+
+  <div class="campaign-grid">
+
+    <!-- audio_start -->
+
+    <div class="campaign-card">
+
+      <h3>audio_start</h3>
+
+      <p class="purpose">
+        Starts audio recording automatically at the beginning of the consumer interaction session.
+      </p>
+
+      <div class="details">
+
+        <h4>Business Operation Purpose</h4>
+
+        <p>
+          Used for compliance monitoring, quality assurance,
+          supervisor validation, RA behavior analysis,
+          and campaign execution auditing.
+        </p>
+
+        <h4>Operational Usage</h4>
+
+        <ul>
+          <li>Starts audio capture before survey begins</li>
+          <li>Ensures full consumer interaction recording</li>
+          <li>Used for QA verification and dispute handling</li>
+          <li>Supports AI-based audio verification system</li>
+        </ul>
+
+        <h4>Related Systems</h4>
+
+        <ul>
+          <li>aai_audios</li>
+          <li>aai_verified_audios</li>
+          <li>Call Checkback</li>
+          <li>Supervisor Observation</li>
+        </ul>
+
+      </div>
+
+    </div>
+
+    <!-- dropdown -->
+
+    <div class="campaign-card">
+
+      <h3>dropdown</h3>
+
+      <p class="purpose">
+        Allows users to select a single predefined value from a configured option list.
+      </p>
+
+      <div class="details">
+
+        <h4>Business Operation Purpose</h4>
+
+        <p>
+          Standardizes data collection and prevents inconsistent user input
+          during campaign execution.
+        </p>
+
+        <h4>Operational Usage</h4>
+
+        <ul>
+          <li>Select Territory</li>
+          <li>Select Profession</li>
+          <li>Select Retail Type</li>
+          <li>Select Consumer Category</li>
+        </ul>
+
+      </div>
+
+    </div>
+
+    <!-- product -->
+
+    <div class="campaign-card">
+
+      <h3>product</h3>
+
+      <p class="purpose">
+        Used to select BATB or competitor product/brand information.
+      </p>
+
+      <div class="details">
+
+        <h4>Business Operation Purpose</h4>
+
+        <p>
+          Supports primary brand,
+          secondary brand,
+          previous brand,
+          and competitor product analysis.
+        </p>
+
+        <h4>Operational Usage</h4>
+
+        <ul>
+          <li>Consumer brand preference tracking</li>
+          <li>Competitor analysis</li>
+          <li>Campaign segmentation</li>
+          <li>PTR targeting</li>
+        </ul>
+
+      </div>
+
+    </div>
+
+    <!-- contactNo -->
+
+    <div class="campaign-card">
+
+      <h3>contactNo</h3>
+
+      <p class="purpose">
+        Captures and validates consumer mobile numbers.
+      </p>
+
+      <div class="details">
+
+        <h4>Business Operation Purpose</h4>
+
+        <p>
+          Ensures valid consumer contact information
+          for call center engagement,
+          PTR follow-up,
+          and repeat campaign communication.
+        </p>
+
+        <h4>Validation Logic</h4>
+
+        <ul>
+          <li>Regex validation</li>
+          <li>Prefix checking</li>
+          <li>Length verification</li>
+          <li>Duplicate prevention</li>
+        </ul>
+
+      </div>
+
+    </div>
+
+    <!-- date -->
+
+    <div class="campaign-card">
+
+      <h3>date</h3>
+
+      <p class="purpose">
+        Captures date-based inputs such as Date of Birth.
+      </p>
+
+      <div class="details">
+
+        <h4>Business Operation Purpose</h4>
+
+        <p>
+          Used mainly for legal age validation
+          because all consumers must be 18+ years old.
+        </p>
+
+        <h4>Operational Usage</h4>
+
+        <ul>
+          <li>DOB collection</li>
+          <li>Age validation</li>
+          <li>Campaign eligibility</li>
+          <li>Consumer segmentation</li>
+        </ul>
+
+      </div>
+
+    </div>
+
+    <!-- textInput -->
+
+    <div class="campaign-card">
+
+      <h3>textInput</h3>
+
+      <p class="purpose">
+        Captures free-text information from users.
+      </p>
+
+      <div class="details">
+
+        <h4>Operational Usage</h4>
+
+        <ul>
+          <li>Consumer Name</li>
+          <li>Address</li>
+          <li>Remarks</li>
+          <li>Supervisor Comment</li>
+          <li>Issue Explanation</li>
+        </ul>
+
+      </div>
+
+    </div>
+
+    <!-- terms -->
+
+    <div class="campaign-card">
+
+      <h3>terms</h3>
+
+      <p class="purpose">
+        Displays terms and conditions and captures consumer acknowledgment.
+      </p>
+
+      <div class="details">
+
+        <h4>Business Operation Purpose</h4>
+
+        <p>
+          Used for compliance,
+          legal acknowledgment,
+          and consent management.
+        </p>
+
+      </div>
+
+    </div>
+
+    <!-- otp -->
+
+    <div class="campaign-card">
+
+      <h3>otp</h3>
+
+      <p class="purpose">
+        Handles OTP-based verification process.
+      </p>
+
+      <div class="details">
+
+        <h4>Business Operation Purpose</h4>
+
+        <p>
+          Verifies consumer authenticity
+          and prevents fake survey submission.
+        </p>
+
+      </div>
+
+    </div>
+
+    <!-- camera -->
+
+    <div class="campaign-card">
+
+      <h3>camera</h3>
+
+      <p class="purpose">
+        Captures photos using mobile device camera.
+      </p>
+
+      <div class="details">
+
+        <h4>Operational Usage</h4>
+
+        <ul>
+          <li>Outlet image capture</li>
+          <li>PTR proof collection</li>
+          <li>Consumer interaction proof</li>
+          <li>Campaign execution validation</li>
+        </ul>
+
+      </div>
+
+    </div>
+
+    <!-- checklist -->
+
+    <div class="campaign-card">
+
+      <h3>checklist</h3>
+
+      <p class="purpose">
+        Allows multiple categorized selection flow.
+      </p>
+
+      <div class="details">
+
+        <h4>Business Operation Purpose</h4>
+
+        <p>
+          Used for operational verification,
+          supervisor checklist,
+          outlet compliance checking,
+          and audit workflow.
+        </p>
+
+      </div>
+
+    </div>
+
+    <!-- multipleChoice -->
+
+    <div class="campaign-card">
+
+      <h3>multipleChoice</h3>
+
+      <p class="purpose">
+        Allows selection of one answer from predefined options.
+      </p>
+
+      <div class="details">
+
+        <h4>Business Operation Purpose</h4>
+
+        <p>
+          Main survey interaction block used in campaign flows.
+        </p>
+
+        <h4>Operational Usage</h4>
+
+        <ul>
+          <li>Consumer feedback</li>
+          <li>Brand preference</li>
+          <li>Survey validation</li>
+          <li>Campaign decision flow</li>
+        </ul>
+
+      </div>
+
+    </div>
+
+    <!-- star_rating -->
+
+    <div class="campaign-card">
+
+      <h3>star_rating</h3>
+
+      <p class="purpose">
+        Collects rating input using star-based scoring.
+      </p>
+
+      <div class="details">
+
+        <h4>Business Operation Purpose</h4>
+
+        <p>
+          Used for consumer satisfaction measurement
+          and engagement quality analysis.
+        </p>
+
+      </div>
+
+    </div>
+
+    <!-- checkbox -->
+
+    <div class="campaign-card">
+
+      <h3>checkbox</h3>
+
+      <p class="purpose">
+        Allows multiple option selection simultaneously.
+      </p>
+
+      <div class="details">
+
+        <h4>Operational Usage</h4>
+
+        <ul>
+          <li>Multiple product selection</li>
+          <li>Campaign preference selection</li>
+          <li>Behavior analysis</li>
+        </ul>
+
+      </div>
+
+    </div>
+
+    <!-- interactive_gallery -->
+
+    <div class="campaign-card">
+
+      <h3>interactive_gallery</h3>
+
+      <p class="purpose">
+        Displays interactive image gallery content.
+      </p>
+
+      <div class="details">
+
+        <h4>Business Operation Purpose</h4>
+
+        <p>
+          Used for product awareness,
+          AV engagement,
+          campaign promotion,
+          and consumer interaction.
+        </p>
+
+      </div>
+
+    </div>
+
+    <!-- popup_message -->
+
+    <div class="campaign-card">
+
+      <h3>popup_message</h3>
+
+      <p class="purpose">
+        Displays informational or warning popup messages.
+      </p>
+
+      <div class="details">
+
+        <h4>Operational Usage</h4>
+
+        <ul>
+          <li>Campaign instruction</li>
+          <li>Compliance warning</li>
+          <li>PTR eligibility notice</li>
+          <li>Validation warning</li>
+        </ul>
+
+      </div>
+
+    </div>
+
+    <!-- image -->
+
+    <div class="campaign-card">
+
+      <h3>image</h3>
+
+      <p class="purpose">
+        Displays static image content inside campaign flow.
+      </p>
+
+      <div class="details">
+
+        <h4>Business Usage</h4>
+
+        <ul>
+          <li>Product branding</li>
+          <li>Instructional image</li>
+          <li>Campaign awareness</li>
+        </ul>
+
+      </div>
+
+    </div>
+
+    <!-- video -->
+
+    <div class="campaign-card">
+
+      <h3>video</h3>
+
+      <p class="purpose">
+        Plays AV/video content inside campaign flow.
+      </p>
+
+      <div class="details">
+
+        <h4>Business Operation Purpose</h4>
+
+        <p>
+          Used heavily for campaign engagement,
+          promotional AV,
+          awareness videos,
+          and consumer education.
+        </p>
+
+      </div>
+
+    </div>
+
+    <!-- emoji_rating -->
+
+    <div class="campaign-card">
+
+      <h3>emoji_rating</h3>
+
+      <p class="purpose">
+        Captures emotional or quick feedback using emoji reactions.
+      </p>
+
+      <div class="details">
+
+        <h4>Business Usage</h4>
+
+        <ul>
+          <li>Quick consumer sentiment</li>
+          <li>Campaign satisfaction</li>
+          <li>AV engagement scoring</li>
+        </ul>
+
+      </div>
+
+    </div>
+
+    <!-- giveable -->
+
+    <div class="campaign-card">
+
+      <h3>giveable</h3>
+
+      <p class="purpose">
+        Handles PTR/reward/gift allocation process.
+      </p>
+
+      <div class="details">
+
+        <h4>Business Operation Purpose</h4>
+
+        <p>
+          Used to distribute campaign gifts,
+          PTR rewards,
+          promotional items,
+          and incentive tracking.
+        </p>
+
+      </div>
+
+    </div>
+
+    <!-- lookup -->
+
+    <div class="campaign-card">
+
+      <h3>lookup</h3>
+
+      <p class="purpose">
+        Performs hidden or visible validation lookup processes.
+      </p>
+
+      <div class="details">
+
+        <h4>Operational Usage</h4>
+
+        <ul>
+          <li>Duplicate checking</li>
+          <li>Eligibility validation</li>
+          <li>Campaign condition checking</li>
+        </ul>
+
+      </div>
+
+    </div>
+
+    <!-- interactive_av -->
+
+    <div class="campaign-card">
+
+      <h3>interactive_av</h3>
+
+      <p class="purpose">
+        Plays an initial AV followed by selectable AV options.
+      </p>
+
+      <div class="details">
+
+        <h4>Business Operation Purpose</h4>
+
+        <p>
+          Used for interactive consumer engagement
+          and promotional content experience.
+        </p>
+
+      </div>
+
+    </div>
+
+    <!-- game -->
+
+    <div class="campaign-card">
+
+      <h3>game</h3>
+
+      <p class="purpose">
+        Launches 3rd-party APK/game experience.
+      </p>
+
+      <div class="details">
+
+        <h4>Business Operation Purpose</h4>
+
+        <p>
+          Used for engagement campaigns,
+          entertainment-based promotion,
+          and consumer interaction gamification.
+        </p>
+
+      </div>
+
+    </div>
+
+    <!-- uiux_video -->
+
+    <div class="campaign-card">
+
+      <h3>uiux_video</h3>
+
+      <p class="purpose">
+        Plays UI/UX-focused AV content.
+      </p>
+
+      <div class="details">
+
+        <h4>Business Usage</h4>
+
+        <ul>
+          <li>Brand engagement</li>
+          <li>Promotional storytelling</li>
+          <li>Campaign presentation</li>
+        </ul>
+
+      </div>
+
+    </div>
+
+    <!-- audio_end -->
+
+    <div class="campaign-card">
+
+      <h3>audio_end</h3>
+
+      <p class="purpose">
+        Stops audio recording at the end of interaction session.
+      </p>
+
+      <div class="details">
+
+        <h4>Business Operation Purpose</h4>
+
+        <p>
+          Finalizes audio verification workflow
+          and stores complete interaction recording
+          for audit and QA analysis.
+        </p>
+
+      </div>
+
+    </div>
+
+    <!-- jumping_logic -->
+
+    <div class="campaign-card">
+
+      <h3>jumping_logic</h3>
+
+      <p class="purpose">
+        Controls conditional navigation between survey groups and blocks.
+      </p>
+
+      <div class="details">
+
+        <h4>Business Operation Purpose</h4>
+
+        <p>
+          Enables dynamic survey flow,
+          campaign branching,
+          condition-based interaction,
+          and personalized consumer journey.
+        </p>
+
+      </div>
+
+    </div>
+
+    <!-- referTo -->
+
+    <div class="campaign-card">
+
+      <h3>referTo</h3>
+
+      <p class="purpose">
+        Defines next block or group navigation path.
+      </p>
+
+      <div class="details">
+
+        <h4>Operational Usage</h4>
+
+        <ul>
+          <li>Dynamic campaign routing</li>
+          <li>Survey branch navigation</li>
+          <li>Conditional interaction flow</li>
+        </ul>
+
+      </div>
+
+    </div>
+
+    <!-- skip -->
+
+    <div class="campaign-card">
+
+      <h3>skip</h3>
+
+      <p class="purpose">
+        Defines skip navigation behavior inside flow.
+      </p>
+
+      <div class="details">
+
+        <h4>Business Operation Purpose</h4>
+
+        <p>
+          Optimizes consumer interaction
+          by skipping irrelevant blocks
+          based on previous responses.
+        </p>
+
+      </div>
+
+    </div>
+
+    <!-- validations -->
+
+    <div class="campaign-card">
+
+      <h3>validations</h3>
+
+      <p class="purpose">
+        Applies input validation rules.
+      </p>
+
+      <div class="details">
+
+        <h4>Validation Types</h4>
+
+        <ul>
+          <li>Regex validation</li>
+          <li>Min/Max value</li>
+          <li>Age validation</li>
+          <li>Mandatory field validation</li>
+        </ul>
+
+      </div>
+
+    </div>
+
+    <!-- options -->
+
+    <div class="campaign-card">
+
+      <h3>options</h3>
+
+      <p class="purpose">
+        Stores selectable values for interactive blocks.
+      </p>
+
+      <div class="details">
+
+        <h4>Business Operation Purpose</h4>
+
+        <p>
+          Standardizes campaign survey answers
+          and ensures reporting consistency.
+        </p>
+
+      </div>
+
+    </div>
+
+    <!-- required -->
+
+    <div class="campaign-card">
+
+      <h3>required</h3>
+
+      <p class="purpose">
+        Marks blocks as mandatory.
+      </p>
+
+      <div class="details">
+
+        <h4>Business Operation Purpose</h4>
+
+        <p>
+          Prevents incomplete campaign submission
+          and ensures mandatory data collection.
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<style>
+
+#campaign-flow-components{
+  padding:96px 0;
+  position:relative;
+}
+
+#campaign-flow-components .section-header{
+  max-width:1200px;
+  margin:0 auto 50px;
+  padding:0 32px;
+}
+
+#campaign-flow-components .section-header h2{
+  font-family:'Syne',sans-serif;
+  font-size:clamp(26px,3.5vw,40px);
+  font-weight:700;
+  margin-bottom:12px;
+  color:var(--text);
+}
+
+#campaign-flow-components .section-header p{
+  max-width:1100px;
+  line-height:1.7;
+  color:var(--text2);
+  font-size:15px;
+}
+
+#campaign-flow-components .campaign-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
+  gap:24px;
+  max-width:1200px;
+  margin:0 auto;
+  padding:0 32px;
+}
+
+#campaign-flow-components .campaign-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:28px;
+  transition:all .2s;
+}
+
+#campaign-flow-components .campaign-card:hover{
+  border-color:var(--primary);
+  transform:translateY(-2px);
+  box-shadow:0 12px 40px rgba(59,130,246,.08);
+}
+
+#campaign-flow-components .campaign-card h3{
+  font-family:'Syne',sans-serif;
+  font-size:20px;
+  margin-bottom:12px;
+  color:var(--primary);
+}
+
+#campaign-flow-components .purpose{
+  color:var(--text);
+  line-height:1.6;
+  margin-bottom:20px;
+  font-weight:500;
+  font-size:14px;
+}
+
+#campaign-flow-components .details h4{
+  margin-top:16px;
+  margin-bottom:8px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;
+  letter-spacing:.05em;
+  text-transform:uppercase;
+  color:var(--accent2);
+}
+
+#campaign-flow-components .details p{
+  line-height:1.6;
+  color:var(--text2);
+  font-size:13px;
+}
+
+#campaign-flow-components .details ul{
+  padding-left:18px;
+  line-height:1.6;
+  color:var(--text2);
+  font-size:13px;
+}
+</style>
+
+
+<!-- ══════════════════════════════════════════ -->
 <!-- SECTION 2: SQL REPORTS -->
 <!-- ══════════════════════════════════════════ -->
 <section id="sql-reports">
@@ -1559,6 +2462,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
       <div class="footer-col">
         <h5>Sections</h5>
         <a href="#business-explain">Business Explain</a>
+        <a href="#campaign-flow-components">Campaign Flow</a>
         <a href="#sql-reports">SQL Reports</a>
         <a href="#tasks">Tasks & Questions</a>
         <a href="#er-diagram">ER Diagram</a>
