@@ -854,6 +854,44 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
   justify-content: flex-end;
   gap: 8px;
 }
+
+/* Reveal Animations */
+.reveal { opacity: 0; transform: translateY(24px); transition: all 0.7s cubic-bezier(0.2, 0.8, 0.2, 1); }
+.reveal.active { opacity: 1; transform: translateY(0); }
+
+/* Number Badges for Campaign Flow */
+.campaign-card { position: relative; }
+.card-number {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--primary);
+  background: rgba(59,130,246,0.1);
+  border: 1px solid rgba(59,130,246,0.2);
+  padding: 4px 8px;
+  border-radius: 8px;
+}
+
+/* Database Explorer Responsive Fixes */
+.db-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 380px;
+  gap: 28px;
+  align-items: start;
+}
+.db-inspector-panel {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+@media (max-width: 900px) {
+  .db-layout {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -978,12 +1016,12 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
 
   <!-- 1. WHY BUSINESS EXISTS + HOW BUSINESS RUNS -->
   <div class="biz-grid">
-    <div class="biz-card">
+    <div class="biz-card reveal">
       <div class="biz-card-icon" style="background:rgba(239,68,68,.1)">🚫</div>
       <h3>Why This Business Exists</h3>
       <p>Smoking advertisements are not allowed in public media or billboards. Direct person-to-person consumer reach is mandatory. The only effective way to contact smokers is by <strong>visiting outlets</strong>.</p>
     </div>
-    <div class="biz-card">
+    <div class="biz-card reveal">
       <div class="biz-card-icon" style="background:rgba(16,185,129,.1)">⚙️</div>
       <h3>How the Business is Run</h3>
       <p>Multiple campaigns run with survey questions. RAs (Retail Agents) visit outlets & interact one-on-one with consumers (≥18 years). They collect data & preferences, which are used to understand behavior & drive future campaigns.</p>
@@ -997,22 +1035,22 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
   <!-- 2. Data Collection Process + Market/Product Analysis -->
   <h3 style="font-family:'Space Grotesk',sans-serif; margin:32px 0 16px; color:var(--text);">📊 Market & Product Analysis</h3>
   <div class="biz-grid">
-    <div class="biz-card">
+    <div class="biz-card reveal">
       <div class="biz-card-icon" style="background:rgba(245,158,11,.1)">🏆</div>
       <h3>Competitor Analysis</h3>
       <p>Tracks competitor product offerings, promotions, & campaign trends. Identifies market positioning, gaps, and opportunities via eCRM.</p>
     </div>
-    <div class="biz-card">
+    <div class="biz-card reveal">
       <div class="biz-card-icon" style="background:rgba(59,130,246,.1)">📦</div>
       <h3>Own Product Analysis</h3>
       <p>Tracks sales trends, customer engagement levels, survey feedback, and current product lifecycle stages.</p>
     </div>
-    <div class="biz-card">
+    <div class="biz-card reveal">
       <div class="biz-card-icon" style="background:rgba(167,139,250,.1)">✨</div>
       <h3>New Product Promotion</h3>
       <p>Identifies target audiences, validates pre-launch via surveys, runs pilot campaigns, and tracks performance post-launch.</p>
     </div>
-    <div class="biz-card">
+    <div class="biz-card reveal">
       <div class="biz-card-icon" style="background:rgba(6,182,212,.1)">📈</div>
       <h3>Expected Benefits</h3>
       <p>Better customer understanding, reduced dependency on traditional ads, data-driven decisions, improved product-market fit, & higher ROI.</p>
@@ -1021,12 +1059,12 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
 
   <!-- 3. User vs Consumer, Franchise & SOB -->
   <div class="biz-grid" style="grid-template-columns: 1fr 1fr; gap: 24px;">
-    <div class="biz-card">
+    <div class="biz-card reveal">
       <h3>👥 User vs Consumer</h3>
       <p style="margin-bottom:12px;"><strong>User:</strong> Person who uses the eCRM app to conduct surveys or manage campaigns (RA, AC, SUP).</p>
       <p><strong>Consumer:</strong> Person whose data is collected through surveys.</p>
     </div>
-    <div class="biz-card">
+    <div class="biz-card reveal">
       <h3>🏷️ Product Classifications</h3>
       <p style="margin-bottom:12px;"><span class="badge badge-green">Franchise</span> Core BATB brands (British American Tobacco Bangladesh).</p>
       <p><span class="badge badge-orange">SOB</span> Non-BATB products (competitor or external products).</p>
@@ -1059,23 +1097,23 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
   <!-- 5. REPORT MANAGER -->
   <h3 style="font-family:'Space Grotesk',sans-serif; margin:32px 0 16px; color:var(--text);">📑 Report Manager – Operational Reports update classification</h3>
   <div class="biz-grid" style="grid-template-columns: repeat(3, 1fr);">
-    <div class="biz-card">
+    <div class="biz-card reveal">
       <h4>📄 Daily Raw</h4>
       <p style="font-size:13px;">Provides raw campaign data generated daily.</p>
     </div>
-    <div class="biz-card">
+    <div class="biz-card reveal">
       <h4>📞 Call Check Back</h4>
       <p style="font-size:13px;">Follow-up calls to verify if consumers were contacted (quality checks).</p>
     </div>
-    <div class="biz-card">
+    <div class="biz-card reveal">
       <h4>👁️ Live Observation</h4>
       <p style="font-size:13px;">Captures live checks on RA to ensure proper process compliance.</p>
     </div>
-    <div class="biz-card">
+    <div class="biz-card reveal">
       <h4>📞 Call Center</h4>
       <p style="font-size:13px;">Second contact for follow-up announcements or gifts. Structured repeat communication.</p>
     </div>
-    <div class="biz-card">
+    <div class="biz-card reveal">
       <h4>📅 Dynamic Report</h4>
       <p style="font-size:13px;">Configurable parameters & custom date ranges for flexible ad-hoc analysis.</p>
     </div>
@@ -1086,7 +1124,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
     🔑 <strong>3 most important tables for reporting:</strong> <code>ecrm.contacts</code> · <code>survey data maps</code> · <code>ecrm.locations</code>
   </div>
 
-  <div class="biz-card" style="margin-bottom:24px;">
+  <div class="biz-card reveal" style="margin-bottom:24px;">
     <h3 style="margin-bottom:16px;">🗂️ Location Hierarchy & PTR</h3>
     <p style="margin-bottom:12px;"><strong>Hierarchy:</strong> Region → Area → Cluster → Outlet</p>
     <ul style="color:var(--text2); font-size:14px; margin-left:20px; line-height:1.7; margin-bottom:16px;">
@@ -1102,7 +1140,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
   </div>
 
   <!-- 7. Brand Definitions & Data Mapping -->
-  <div class="biz-card" style="margin-bottom:24px; border-color:rgba(167,139,250,.3);">
+  <div class="biz-card reveal" style="margin-bottom:24px; border-color:rgba(167,139,250,.3);">
     <h3>🏷️ previous brand implemented after 2025 march >> Brand Definitions & Database Mapping</h3>
     <p style="color:var(--text2); font-size:14px; margin-bottom:12px;">Values are stored as IDs. You <strong>must join</strong> the contacts table with <code>sku_items</code> three separate times.</p>
     <table class="hierarchy-table">
@@ -1117,7 +1155,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
 
   <!-- 8 & 9. User Roles & Agencies -->
   <div class="biz-grid">
-    <div class="biz-card">
+    <div class="biz-card reveal">
       <h3>👥 User Types & Roles</h3>
       <table class="hierarchy-table" style="margin-top:12px;">
         <thead><tr><th>Role</th><th>Access</th></tr></thead>
@@ -1129,7 +1167,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
         </tbody>
       </table>
     </div>
-    <div class="biz-card">
+    <div class="biz-card reveal">
       <h3>🏢 Agencies & Coverage</h3>
       <table class="hierarchy-table" style="margin-top:12px;">
         <thead><tr><th>Agency</th><th>Coverage</th></tr></thead>
@@ -1145,12 +1183,12 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
 
   <!-- 10. Architecture -->
   <div class="biz-grid">
-    <div class="biz-card">
+    <div class="biz-card reveal">
       <div class="biz-card-icon" style="background:rgba(59,130,246,.1)">🗄️</div>
       <h3>Operational Data (RDS)</h3>
       <p>Relational transactional database systems for day-to-day interactions and core application logic.</p>
     </div>
-    <div class="biz-card">
+    <div class="biz-card reveal">
       <div class="biz-card-icon" style="background:rgba(245,158,11,.1)">⚡</div>
       <h3>BigQuery (Analytics)</h3>
       <p>Data is replicated here for scalable dashboards, reporting, and high-performance queries without impacting production.</p>
@@ -1196,8 +1234,8 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
 
     <!-- audio_start -->
 
-    <div class="campaign-card">
-
+    <div class="campaign-card reveal">
+      <div class="card-number">01</div>
       <h3>audio_start</h3>
 
       <p class="purpose">
@@ -1238,8 +1276,8 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
 
     <!-- dropdown -->
 
-    <div class="campaign-card">
-
+    <div class="campaign-card reveal">
+      <div class="card-number">02</div>
       <h3>dropdown</h3>
 
       <p class="purpose">
@@ -1270,8 +1308,8 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
 
     <!-- product -->
 
-    <div class="campaign-card">
-
+    <div class="campaign-card reveal">
+      <div class="card-number">03</div>
       <h3>product</h3>
 
       <p class="purpose">
@@ -1304,8 +1342,8 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
 
     <!-- contactNo -->
 
-    <div class="campaign-card">
-
+    <div class="campaign-card reveal">
+      <div class="card-number">04</div>
       <h3>contactNo</h3>
 
       <p class="purpose">
@@ -1338,8 +1376,8 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
 
     <!-- date -->
 
-    <div class="campaign-card">
-
+    <div class="campaign-card reveal">
+      <div class="card-number">05</div>
       <h3>date</h3>
 
       <p class="purpose">
@@ -1370,8 +1408,8 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
 
     <!-- textInput -->
 
-    <div class="campaign-card">
-
+    <div class="campaign-card reveal">
+      <div class="card-number">06</div>
       <h3>textInput</h3>
 
       <p class="purpose">
@@ -1396,8 +1434,8 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
 
     <!-- terms -->
 
-    <div class="campaign-card">
-
+    <div class="campaign-card reveal">
+      <div class="card-number">07</div>
       <h3>terms</h3>
 
       <p class="purpose">
@@ -1420,8 +1458,8 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
 
     <!-- otp -->
 
-    <div class="campaign-card">
-
+    <div class="campaign-card reveal">
+      <div class="card-number">08</div>
       <h3>otp</h3>
 
       <p class="purpose">
@@ -1443,8 +1481,8 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
 
     <!-- camera -->
 
-    <div class="campaign-card">
-
+    <div class="campaign-card reveal">
+      <div class="card-number">09</div>
       <h3>camera</h3>
 
       <p class="purpose">
@@ -1468,8 +1506,8 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
 
     <!-- checklist -->
 
-    <div class="campaign-card">
-
+    <div class="campaign-card reveal">
+      <div class="card-number">10</div>
       <h3>checklist</h3>
 
       <p class="purpose">
@@ -1493,8 +1531,8 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
 
     <!-- multipleChoice -->
 
-    <div class="campaign-card">
-
+    <div class="campaign-card reveal">
+      <div class="card-number">11</div>
       <h3>multipleChoice</h3>
 
       <p class="purpose">
@@ -1524,8 +1562,8 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
 
     <!-- star_rating -->
 
-    <div class="campaign-card">
-
+    <div class="campaign-card reveal">
+      <div class="card-number">12</div>
       <h3>star_rating</h3>
 
       <p class="purpose">
@@ -1547,8 +1585,8 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
 
     <!-- checkbox -->
 
-    <div class="campaign-card">
-
+    <div class="campaign-card reveal">
+      <div class="card-number">13</div>
       <h3>checkbox</h3>
 
       <p class="purpose">
@@ -1571,8 +1609,8 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
 
     <!-- interactive_gallery -->
 
-    <div class="campaign-card">
-
+    <div class="campaign-card reveal">
+      <div class="card-number">14</div>
       <h3>interactive_gallery</h3>
 
       <p class="purpose">
@@ -1596,8 +1634,8 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
 
     <!-- popup_message -->
 
-    <div class="campaign-card">
-
+    <div class="campaign-card reveal">
+      <div class="card-number">15</div>
       <h3>popup_message</h3>
 
       <p class="purpose">
@@ -1621,8 +1659,8 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
 
     <!-- image -->
 
-    <div class="campaign-card">
-
+    <div class="campaign-card reveal">
+      <div class="card-number">16</div>
       <h3>image</h3>
 
       <p class="purpose">
@@ -1645,8 +1683,8 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
 
     <!-- video -->
 
-    <div class="campaign-card">
-
+    <div class="campaign-card reveal">
+      <div class="card-number">17</div>
       <h3>video</h3>
 
       <p class="purpose">
@@ -1670,8 +1708,8 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
 
     <!-- emoji_rating -->
 
-    <div class="campaign-card">
-
+    <div class="campaign-card reveal">
+      <div class="card-number">18</div>
       <h3>emoji_rating</h3>
 
       <p class="purpose">
@@ -1694,8 +1732,8 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
 
     <!-- giveable -->
 
-    <div class="campaign-card">
-
+    <div class="campaign-card reveal">
+      <div class="card-number">19</div>
       <h3>giveable</h3>
 
       <p class="purpose">
@@ -1719,8 +1757,8 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
 
     <!-- lookup -->
 
-    <div class="campaign-card">
-
+    <div class="campaign-card reveal">
+      <div class="card-number">20</div>
       <h3>lookup</h3>
 
       <p class="purpose">
@@ -1743,8 +1781,8 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
 
     <!-- interactive_av -->
 
-    <div class="campaign-card">
-
+    <div class="campaign-card reveal">
+      <div class="card-number">21</div>
       <h3>interactive_av</h3>
 
       <p class="purpose">
@@ -1766,8 +1804,8 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
 
     <!-- game -->
 
-    <div class="campaign-card">
-
+    <div class="campaign-card reveal">
+      <div class="card-number">22</div>
       <h3>game</h3>
 
       <p class="purpose">
@@ -1790,8 +1828,8 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
 
     <!-- uiux_video -->
 
-    <div class="campaign-card">
-
+    <div class="campaign-card reveal">
+      <div class="card-number">23</div>
       <h3>uiux_video</h3>
 
       <p class="purpose">
@@ -1814,8 +1852,8 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
 
     <!-- audio_end -->
 
-    <div class="campaign-card">
-
+    <div class="campaign-card reveal">
+      <div class="card-number">24</div>
       <h3>audio_end</h3>
 
       <p class="purpose">
@@ -1838,8 +1876,8 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
 
     <!-- jumping_logic -->
 
-    <div class="campaign-card">
-
+    <div class="campaign-card reveal">
+      <div class="card-number">25</div>
       <h3>jumping_logic</h3>
 
       <p class="purpose">
@@ -1863,8 +1901,8 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
 
     <!-- referTo -->
 
-    <div class="campaign-card">
-
+    <div class="campaign-card reveal">
+      <div class="card-number">26</div>
       <h3>referTo</h3>
 
       <p class="purpose">
@@ -1887,8 +1925,8 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
 
     <!-- skip -->
 
-    <div class="campaign-card">
-
+    <div class="campaign-card reveal">
+      <div class="card-number">27</div>
       <h3>skip</h3>
 
       <p class="purpose">
@@ -1911,8 +1949,8 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
 
     <!-- validations -->
 
-    <div class="campaign-card">
-
+    <div class="campaign-card reveal">
+      <div class="card-number">28</div>
       <h3>validations</h3>
 
       <p class="purpose">
@@ -1936,8 +1974,8 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
 
     <!-- options -->
 
-    <div class="campaign-card">
-
+    <div class="campaign-card reveal">
+      <div class="card-number">29</div>
       <h3>options</h3>
 
       <p class="purpose">
@@ -1959,8 +1997,8 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
 
     <!-- required -->
 
-    <div class="campaign-card">
-
+    <div class="campaign-card reveal">
+      <div class="card-number">30</div>
       <h3>required</h3>
 
       <p class="purpose">
@@ -2087,7 +2125,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
   <div class="report-grid">
 
     <!-- Report 1: Daily Contact -->
-    <div class="report-card" onclick="openModal('daily')">
+    <div class="report-card reveal" onclick="openModal('daily')">
       <div class="report-card-header">
         <div class="report-card-icon" style="background:rgba(59,130,246,.1)">📋</div>
         <div class="report-card-actions" onclick="event.stopPropagation()">
@@ -2105,7 +2143,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
     </div>
 
     <!-- Report 2: Live Observation -->
-    <div class="report-card" onclick="openModal('live')">
+    <div class="report-card reveal" onclick="openModal('live')">
       <div class="report-card-header">
         <div class="report-card-icon" style="background:rgba(6,182,212,.1)">👁️</div>
         <div class="report-card-actions" onclick="event.stopPropagation()">
@@ -2123,7 +2161,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
     </div>
 
     <!-- Report 3: Call Checkback -->
-    <div class="report-card" onclick="openModal('checkback')">
+    <div class="report-card reveal" onclick="openModal('checkback')">
       <div class="report-card-header">
         <div class="report-card-icon" style="background:rgba(167,139,250,.1)">📞</div>
         <div class="report-card-actions" onclick="event.stopPropagation()">
@@ -2141,7 +2179,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
     </div>
 
     <!-- Report 4: Call Center -->
-    <div class="report-card" onclick="openModal('callcenter')">
+    <div class="report-card reveal" onclick="openModal('callcenter')">
       <div class="report-card-header">
         <div class="report-card-icon" style="background:rgba(16,185,129,.1)">☎️</div>
         <div class="report-card-actions" onclick="event.stopPropagation()">
@@ -2197,7 +2235,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
   <div style="margin-top:40px">
     <h3 style="font-family:'Syne',sans-serif;font-size:18px;font-weight:700;margin-bottom:20px">📌 Report-to-Table Reference</h3>
     <div class="biz-grid">
-      <div class="biz-card">
+      <div class="biz-card reveal">
         <h3 style="color:var(--primary);margin-bottom:14px">📋 Daily Contact Survey</h3>
         <table class="join-table">
           <thead><tr><th>Table / Alias</th><th>Join Type</th><th>Join Key</th></tr></thead>
@@ -2213,7 +2251,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
           </tbody>
         </table>
       </div>
-      <div class="biz-card">
+      <div class="biz-card reveal">
         <h3 style="color:var(--accent);margin-bottom:14px">👁️ Live Observation</h3>
         <table class="join-table">
           <thead><tr><th>Table / Alias</th><th>Join Type</th><th>Join Key</th></tr></thead>
@@ -2229,7 +2267,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
           </tbody>
         </table>
       </div>
-      <div class="biz-card">
+      <div class="biz-card reveal">
         <h3 style="color:var(--accent2);margin-bottom:14px">📞 Call Checkback</h3>
         <table class="join-table">
           <thead><tr><th>Table / Alias</th><th>Join Type</th><th>Join Key</th></tr></thead>
@@ -2244,7 +2282,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
           </tbody>
         </table>
       </div>
-      <div class="biz-card">
+      <div class="biz-card reveal">
         <h3 style="color:var(--green);margin-bottom:14px">☎️ Call Center</h3>
         <table class="join-table">
           <thead><tr><th>Table / Alias</th><th>Join Type</th><th>Join Key</th></tr></thead>
@@ -3990,5 +4028,20 @@ document.addEventListener('DOMContentLoaded', () => {
   loadDriveEmbed();
 });
 </script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  });
+</script>
+
 </body>
 </html>
