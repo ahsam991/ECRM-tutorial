@@ -1053,7 +1053,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
   </div>
 
   <!-- 5. REPORT MANAGER -->
-  <h3 style="font-family:'Space Grotesk',sans-serif; margin:32px 0 16px; color:var(--text);">📑 Report Manager – Operational Reports</h3>
+  <h3 style="font-family:'Space Grotesk',sans-serif; margin:32px 0 16px; color:var(--text);">📑 Report Manager – Operational Reports update classification</h3>
   <div class="biz-grid" style="grid-template-columns: repeat(3, 1fr);">
     <div class="biz-card">
       <h4>📄 Daily Raw</h4>
@@ -1099,7 +1099,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
 
   <!-- 7. Brand Definitions & Data Mapping -->
   <div class="biz-card" style="margin-bottom:24px; border-color:rgba(167,139,250,.3);">
-    <h3>🏷️ Brand Definitions & Database Mapping</h3>
+    <h3>🏷️ previous brand implemented after 2025 march >> Brand Definitions & Database Mapping</h3>
     <p style="color:var(--text2); font-size:14px; margin-bottom:12px;">Values are stored as IDs. You <strong>must join</strong> the contacts table with <code>sku_items</code> three separate times.</p>
     <table class="hierarchy-table">
       <thead><tr><th>Brand Type</th><th>Description</th><th>Column in <code>contacts</code></th></tr></thead>
@@ -1130,7 +1130,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
       <table class="hierarchy-table" style="margin-top:12px;">
         <thead><tr><th>Agency</th><th>Coverage</th></tr></thead>
         <tbody>
-          <tr><td><strong>Madly</strong></td><td>Internal team</td></tr>
+          <tr><td><strong>v2 tech</strong></td><td>Internal team</td></tr>
           <tr><td><strong>ATMSL</strong></td><td>Sylhet, Dhaka South</td></tr>
           <tr><td><strong>IMSL</strong></td><td>Dhaka North, Chittagong</td></tr>
           <tr><td><strong>IMSR</strong></td><td>Rajshahi, Barishal, Khulna</td></tr>
@@ -1167,7 +1167,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
   <div class="section-header">
 
     <h2>
-      Campaign Flow Components
+      How campaign flow works
     </h2>
 
     <p>
@@ -1177,6 +1177,15 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
       PTR execution, AV engagement, and reporting workflow management.
     </p>
 
+  </div>
+<div style="background:rgba(59,130,246,0.1); border-left:4px solid var(--primary); padding:16px; margin:24px 0; border-radius:4px;">
+    <h4 style="margin-bottom:8px; color:var(--text); font-family:'Syne', sans-serif;">Step-by-step logic:</h4>
+    <ol style="margin:0; padding-left:20px; color:var(--text2); font-size:14px; line-height:1.6;">
+      <li><strong>Initial Setup:</strong> The system automatically triggers the <code>audio_start</code> to log compliance.</li>
+      <li><strong>Consumer Input:</strong> Logic gates like <code>dropdown</code>, <code>radio</code>, or <code>contactNo</code> capture target demographics.</li>
+      <li><strong>Validation:</strong> Verification steps (like age checking) block invalid flows.</li>
+      <li><strong>Execution:</strong> Successful targets receive rewards/PTRs via the final outcome components.</li>
+    </ol>
   </div>
 
   <div class="campaign-grid">
@@ -2180,6 +2189,80 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
 </section>
 
 <!-- ══════════════════════════════════════════ -->
+<!-- Table Relationship Guide -->
+  <div style="margin-top:40px">
+    <h3 style="font-family:'Syne',sans-serif;font-size:18px;font-weight:700;margin-bottom:20px">📌 Report-to-Table Reference</h3>
+    <div class="biz-grid">
+      <div class="biz-card">
+        <h3 style="color:var(--primary);margin-bottom:14px">📋 Daily Contact Survey</h3>
+        <table class="join-table">
+          <thead><tr><th>Table / Alias</th><th>Join Type</th><th>Join Key</th></tr></thead>
+          <tbody>
+            <tr><td>ecrm.contacts (c)</td><td>PRIMARY</td><td>—</td></tr>
+            <tr><td>ecrm.locations l_outlet</td><td>INNER</td><td>c.location_id = l_outlet.id, type=8</td></tr>
+            <tr><td>ecrm.locations l_cluster…r</td><td>LEFT ×6</td><td>parent chain traversal</td></tr>
+            <tr><td>ecrm.user_infos (ui)</td><td>LEFT</td><td>c.user_id = ui.user_id</td></tr>
+            <tr><td>ecrm.campaigns (ca)</td><td>LEFT</td><td>c.campaign_id = ca.id</td></tr>
+            <tr><td>ecrm.consumers (co)</td><td>LEFT</td><td>c.contact_no = co.contact_no</td></tr>
+            <tr><td>ecrm.products (pr, sr)</td><td>LEFT ×2</td><td>c.product = pr.id, c.secondary_brand = sr.id</td></tr>
+            <tr><td>contact_survey_data_maps (cs)</td><td>INNER</td><td>c.id = cs.contact_id</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="biz-card">
+        <h3 style="color:var(--accent);margin-bottom:14px">👁️ Live Observation</h3>
+        <table class="join-table">
+          <thead><tr><th>Table / Alias</th><th>Join Type</th><th>Join Key</th></tr></thead>
+          <tbody>
+            <tr><td>ecrm.joint_calls (jc)</td><td>PRIMARY</td><td>—</td></tr>
+            <tr><td>ecrm.locations (all)</td><td>LEFT ×7</td><td>parent chain from l_outlet</td></tr>
+            <tr><td>ecrm.campaigns (ca)</td><td>LEFT</td><td>jc.campaign_id = ca.id</td></tr>
+            <tr><td>apsis_data.distributorspoint</td><td>LEFT</td><td>l_point.name = dp.name ⚠️ name-match</td></tr>
+            <tr><td>ecrm.users sup</td><td>LEFT</td><td>jc.user_id = sup.id (SUPERVISOR)</td></tr>
+            <tr><td>ecrm.users br</td><td>LEFT</td><td>jc.ff_id = br.id (BR/FF)</td></tr>
+            <tr><td>ecrm.user_infos sup_i, br_i</td><td>LEFT ×2</td><td>sup.id / br.id = ui.user_id</td></tr>
+            <tr><td>joint_calls_survey_data_maps</td><td>LEFT</td><td>jc.id = jcs.joint_call_id</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="biz-card">
+        <h3 style="color:var(--accent2);margin-bottom:14px">📞 Call Checkback</h3>
+        <table class="join-table">
+          <thead><tr><th>Table / Alias</th><th>Join Type</th><th>Join Key</th></tr></thead>
+          <tbody>
+            <tr><td>ecrm.supervisor_contacts (sc)</td><td>PRIMARY</td><td>—</td></tr>
+            <tr><td>ecrm.contacts (c)</td><td>LEFT</td><td>4-key: contact_no + br_id + campaign_id + contact_date</td></tr>
+            <tr><td>ecrm.locations (all)</td><td>LEFT ×7</td><td>via c.location_id</td></tr>
+            <tr><td>apsis_data.distributorspoint</td><td>LEFT</td><td>po.source_id = dp.id ✓ ID-match</td></tr>
+            <tr><td>ecrm.users sup, br</td><td>LEFT ×2</td><td>sc.user_id / sc.br_id</td></tr>
+            <tr><td>ecrm.campaigns (cm)</td><td>LEFT</td><td>sc.campaign_id = cm.id</td></tr>
+            <tr><td>supervisor_contact_survey_data_maps</td><td>LEFT</td><td>sc.id = scs.sup_contact_id</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="biz-card">
+        <h3 style="color:var(--green);margin-bottom:14px">☎️ Call Center</h3>
+        <table class="join-table">
+          <thead><tr><th>Table / Alias</th><th>Join Type</th><th>Join Key</th></tr></thead>
+          <tbody>
+            <tr><td>consumer_dialer_contacts (cdc)</td><td>PRIMARY</td><td>—</td></tr>
+            <tr><td>consumer_dialer_br_assignments</td><td>LEFT</td><td>cdc.cdba_id = cdba.id</td></tr>
+            <tr><td>consumer_dialer_list (cdl)</td><td>LEFT</td><td>cdba.cdl_id = cdl.id</td></tr>
+            <tr><td>ecrm.campaigns (cam)</td><td>LEFT</td><td>cdl.campaign_id = cam.id</td></tr>
+            <tr><td>consumer_dialer_survey_maps</td><td>LEFT</td><td>cdc.id = cdsm.cdc_id</td></tr>
+            <tr><td>ecrm.users br</td><td>LEFT</td><td>cdba.br_id = br.id</td></tr>
+            <tr><td>ecrm.locations cl (type=7)</td><td>LEFT</td><td>cdl.region_id = cl.id ⚠️ cluster, not region</td></tr>
+            <tr><td>ecrm.locations ro…re</td><td>LEFT ×5</td><td>parent chain from cluster up</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ══════════════════════════════════════════ -->
+
 <!-- SECTION 3: TASKS -->
 <!-- ══════════════════════════════════════════ -->
 <section id="tasks">
@@ -2285,80 +2368,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
     </div>
   </div>
 
-  <!-- Table Relationship Guide -->
-  <div style="margin-top:40px">
-    <h3 style="font-family:'Syne',sans-serif;font-size:18px;font-weight:700;margin-bottom:20px">📌 Report-to-Table Reference</h3>
-    <div class="biz-grid">
-      <div class="biz-card">
-        <h3 style="color:var(--primary);margin-bottom:14px">📋 Daily Contact Survey</h3>
-        <table class="join-table">
-          <thead><tr><th>Table / Alias</th><th>Join Type</th><th>Join Key</th></tr></thead>
-          <tbody>
-            <tr><td>ecrm.contacts (c)</td><td>PRIMARY</td><td>—</td></tr>
-            <tr><td>ecrm.locations l_outlet</td><td>INNER</td><td>c.location_id = l_outlet.id, type=8</td></tr>
-            <tr><td>ecrm.locations l_cluster…r</td><td>LEFT ×6</td><td>parent chain traversal</td></tr>
-            <tr><td>ecrm.user_infos (ui)</td><td>LEFT</td><td>c.user_id = ui.user_id</td></tr>
-            <tr><td>ecrm.campaigns (ca)</td><td>LEFT</td><td>c.campaign_id = ca.id</td></tr>
-            <tr><td>ecrm.consumers (co)</td><td>LEFT</td><td>c.contact_no = co.contact_no</td></tr>
-            <tr><td>ecrm.products (pr, sr)</td><td>LEFT ×2</td><td>c.product = pr.id, c.secondary_brand = sr.id</td></tr>
-            <tr><td>contact_survey_data_maps (cs)</td><td>INNER</td><td>c.id = cs.contact_id</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="biz-card">
-        <h3 style="color:var(--accent);margin-bottom:14px">👁️ Live Observation</h3>
-        <table class="join-table">
-          <thead><tr><th>Table / Alias</th><th>Join Type</th><th>Join Key</th></tr></thead>
-          <tbody>
-            <tr><td>ecrm.joint_calls (jc)</td><td>PRIMARY</td><td>—</td></tr>
-            <tr><td>ecrm.locations (all)</td><td>LEFT ×7</td><td>parent chain from l_outlet</td></tr>
-            <tr><td>ecrm.campaigns (ca)</td><td>LEFT</td><td>jc.campaign_id = ca.id</td></tr>
-            <tr><td>apsis_data.distributorspoint</td><td>LEFT</td><td>l_point.name = dp.name ⚠️ name-match</td></tr>
-            <tr><td>ecrm.users sup</td><td>LEFT</td><td>jc.user_id = sup.id (SUPERVISOR)</td></tr>
-            <tr><td>ecrm.users br</td><td>LEFT</td><td>jc.ff_id = br.id (BR/FF)</td></tr>
-            <tr><td>ecrm.user_infos sup_i, br_i</td><td>LEFT ×2</td><td>sup.id / br.id = ui.user_id</td></tr>
-            <tr><td>joint_calls_survey_data_maps</td><td>LEFT</td><td>jc.id = jcs.joint_call_id</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="biz-card">
-        <h3 style="color:var(--accent2);margin-bottom:14px">📞 Call Checkback</h3>
-        <table class="join-table">
-          <thead><tr><th>Table / Alias</th><th>Join Type</th><th>Join Key</th></tr></thead>
-          <tbody>
-            <tr><td>ecrm.supervisor_contacts (sc)</td><td>PRIMARY</td><td>—</td></tr>
-            <tr><td>ecrm.contacts (c)</td><td>LEFT</td><td>4-key: contact_no + br_id + campaign_id + contact_date</td></tr>
-            <tr><td>ecrm.locations (all)</td><td>LEFT ×7</td><td>via c.location_id</td></tr>
-            <tr><td>apsis_data.distributorspoint</td><td>LEFT</td><td>po.source_id = dp.id ✓ ID-match</td></tr>
-            <tr><td>ecrm.users sup, br</td><td>LEFT ×2</td><td>sc.user_id / sc.br_id</td></tr>
-            <tr><td>ecrm.campaigns (cm)</td><td>LEFT</td><td>sc.campaign_id = cm.id</td></tr>
-            <tr><td>supervisor_contact_survey_data_maps</td><td>LEFT</td><td>sc.id = scs.sup_contact_id</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="biz-card">
-        <h3 style="color:var(--green);margin-bottom:14px">☎️ Call Center</h3>
-        <table class="join-table">
-          <thead><tr><th>Table / Alias</th><th>Join Type</th><th>Join Key</th></tr></thead>
-          <tbody>
-            <tr><td>consumer_dialer_contacts (cdc)</td><td>PRIMARY</td><td>—</td></tr>
-            <tr><td>consumer_dialer_br_assignments</td><td>LEFT</td><td>cdc.cdba_id = cdba.id</td></tr>
-            <tr><td>consumer_dialer_list (cdl)</td><td>LEFT</td><td>cdba.cdl_id = cdl.id</td></tr>
-            <tr><td>ecrm.campaigns (cam)</td><td>LEFT</td><td>cdl.campaign_id = cam.id</td></tr>
-            <tr><td>consumer_dialer_survey_maps</td><td>LEFT</td><td>cdc.id = cdsm.cdc_id</td></tr>
-            <tr><td>ecrm.users br</td><td>LEFT</td><td>cdba.br_id = br.id</td></tr>
-            <tr><td>ecrm.locations cl (type=7)</td><td>LEFT</td><td>cdl.region_id = cl.id ⚠️ cluster, not region</td></tr>
-            <tr><td>ecrm.locations ro…re</td><td>LEFT ×5</td><td>parent chain from cluster up</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-</div>
-</section>
-
-<!-- ══════════════════════════════════════════ -->
-<!-- SECTION 5: RELATIONSHIP EXPLORER -->
+  <!-- SECTION 5: RELATIONSHIP EXPLORER -->
 <!-- ══════════════════════════════════════════ -->
 <section id="schema-viewer">
 <div class="container">
@@ -2415,8 +2425,8 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
 <section id="tutorial">
 <div class="container">
   <div class="section-label">Section 07 / Tutorial</div>
-  <h2 class="section-title">Tutorial Resources</h2>
-  <p class="section-desc">Embed your Google Drive tutorial folder to view videos, PDFs, and training materials directly in this portal.</p>
+  <h2 class="section-title" style="color:var(--text);">Tutorial Resources</h2>
+  <p class="section-desc" style="color:var(--text2);">Embed your Google Drive tutorial folder to view videos, PDFs, and training materials directly in this portal.</p>
 
   <div class="tutorial-layout">
     <div class="tutorial-sidebar">
