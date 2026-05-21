@@ -498,45 +498,68 @@ gap:22px;
 
 }
 
-.table-card{
 
-background:var(--card);
-
-border:1px solid var(--border);
-
-border-radius:18px;
-
-padding:22px;
-
-transition:.3s;
-
+.table-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-top: 4px solid var(--primary);
+  border-radius: 16px;
+  padding: 24px;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  display: flex;
+  flex-direction: column;
+}
+.table-card:hover {
+  border-color: var(--primary);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px var(--glow, rgba(59,130,246,0.15));
+}
+.table-header-wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.table-header-wrap h4 {
+  color: var(--text);
+  font-size: 16px;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0;
+}
+.table-meta-row {
+  font-size: 12px;
+  color: var(--text3);
+  font-family: 'Space Grotesk', sans-serif;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+.table-cols-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.table-col-chip {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 11px;
+  color: var(--text2);
+  font-family: 'JetBrains Mono', monospace;
+  transition: all 0.2s;
+}
+.table-card:hover .table-col-chip {
+  background: rgba(59,130,246,0.08);
+  border-color: rgba(59,130,246,0.3);
+  color: var(--primary);
 }
 
-.table-card:hover{
-
-border-color:var(--primary);
-
-}
-
-.table-card h4{
-
-margin-bottom:16px;
-
-color:var(--primary);
-
-font-size:20px;
-
-}
-
-.table-card ul{
-
-padding-left:20px;
-
-color:var(--text2);
-
-line-height:1.8;
-
-}
 
 .diagram-toolbar{
 
@@ -2014,17 +2037,19 @@ function renderTables(dataList){
 
   dataList.forEach(t => {
     const div = document.createElement("div");
-    div.className = "table-card";
+    div.className = "table-card reveal";
     div.innerHTML = `
-      <div class="table-header-wrap">
+      <div class="table-header-wrap" title="${t.name}">
         <h4>${t.name}</h4>
-        <span class="table-note-trigger" tabindex="0">ℹ️</span>
-        <div class="table-tooltip">${getTableNote(t.name)}</div>
+        <div style="position:relative;">
+          <span class="table-note-trigger" tabindex="0" style="cursor:pointer; font-size:16px;">ℹ️</span>
+          <div class="table-tooltip">${getTableNote(t.name)}</div>
+        </div>
       </div>
-      <p style="font-size:11px; color:var(--text2); margin-bottom:12px; font-family:'JetBrains Mono',monospace;">Rows: ${t.rows || 0} | Cols: ${t.cols.length}</p>
-      <ul>
-        ${t.cols.map(col => `<li>${col}</li>`).join("")}
-      </ul>
+      <div class="table-meta-row">Rows: ${t.rows || 0} &nbsp;|&nbsp; Columns: ${t.cols.length}</div>
+      <div class="table-cols-grid">
+        ${t.cols.map(col => `<span class="table-col-chip">${col}</span>`).join("")}
+      </div>
     `;
     container.appendChild(div);
   });
