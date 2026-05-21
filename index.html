@@ -3531,21 +3531,22 @@ function initER() {
     </div>
   `;
   
-  const img = new Image();
-  img.src = 'ecrm_prod_ecrm.svg';
-  img.alt = 'Database ER Diagram';
-  img.style.display = 'block';
-  img.style.background = '#0d1117';
-  img.style.maxWidth = 'none';
-  img.style.pointerEvents = 'none'; // delegation for panning
+  const obj = document.createElement('object');
+  obj.type = 'image/svg+xml';
+  obj.data = 'ecrm_prod_ecrm.svg';
+  obj.style.display = 'block';
+  obj.style.width = '100%';
+  obj.style.height = '1000px';
+  obj.style.pointerEvents = 'none'; // delegation for panning
   
-  img.onload = () => {
+  // Object usually loads it successfully without crashing the image decoder
+  obj.onload = () => {
     inner.innerHTML = '';
-    inner.appendChild(img);
+    inner.appendChild(obj);
     applyErTransform();
   };
   
-  img.onerror = () => {
+  obj.onerror = () => {
     inner.innerHTML = `<div style="padding:60px 20px; text-align:center; color:var(--text3); font-family:'JetBrains Mono',monospace;">
       <div style="font-size:36px; margin-bottom:16px">📐</div>
       <div style="font-size:14px; margin-bottom:8px; font-weight:600; color:var(--text);">ER Diagram SVG File Missing</div>
