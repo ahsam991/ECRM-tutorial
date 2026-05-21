@@ -595,7 +595,7 @@
             <input type="email" id="quizEmail" placeholder="Email Address" style="width:100%; padding:12px 16px; margin-bottom:16px; border-radius:8px; border:1px solid #1e2a3a; background:#0d1117; color:#e2e8f0; outline:none; font-family:inherit;">
             <input type="password" id="quizPassword" placeholder="Password" style="width:100%; padding:12px 16px; margin-bottom:24px; border-radius:8px; border:1px solid #1e2a3a; background:#0d1117; color:#e2e8f0; outline:none; font-family:inherit;">
             <div style="display:flex; gap:12px; width:100%;">
-                <button onclick="cancelQuizAuth()" style="flex:1; padding:14px; font-size:14px; background:transparent; border:1px solid #243040; color:#94a3b8; border-radius:8px; cursor:pointer; font-weight:600;">Cancel</button>
+                <a href="index.html" style="flex:1; padding:14px; font-size:14px; background:transparent; border:1px solid #243040; color:#94a3b8; border-radius:8px; cursor:pointer; font-weight:600; text-decoration:none; display:inline-flex; align-items:center; justify-content:center;">⬅ Back to Portal</a>
                 <button onclick="unlockQuiz()" style="flex:1; padding:14px; font-size:14px; background:#3b82f6; border:none; color:#fff; border-radius:8px; cursor:pointer; font-weight:600;">Unlock Exam</button>
             </div>
             <p id="quizError" style="color:#ef4444; font-size:12px; margin-top:12px; display:none;">❌ Invalid email or password.</p>
@@ -613,6 +613,7 @@
             </div>
         </div>
         <div class="header-stats">
+            <a href="index.html" class="stat-pill" style="text-decoration:none; color:inherit; cursor:pointer; background:rgba(59,130,246,0.15); border-color:rgba(59,130,246,0.4); font-weight:600;">⬅ Back to Portal</a>
             <div class="stat-pill">📝 <span id="answered-count">0</span> / 60 answered</div>
             <div class="stat-pill">⏱ <span id="timer">00:00</span></div>
         </div>
