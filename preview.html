@@ -869,6 +869,44 @@ grid-template-columns:1fr;
 
 }
 
+
+/* Reveal Animations */
+.reveal { opacity: 0; transform: translateY(24px); transition: all 0.7s cubic-bezier(0.2, 0.8, 0.2, 1); }
+.reveal.active { opacity: 1; transform: translateY(0); }
+
+/* Number Badges for Campaign Flow */
+.campaign-card { position: relative; }
+.card-number {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--primary);
+  background: rgba(59,130,246,0.1);
+  border: 1px solid rgba(59,130,246,0.2);
+  padding: 4px 8px;
+  border-radius: 8px;
+}
+
+/* Database Explorer Responsive Fixes */
+.db-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 380px;
+  gap: 28px;
+  align-items: start;
+}
+.db-inspector-panel {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+@media (max-width: 900px) {
+  .db-layout {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+}
+
 </style>
 
 </head>
@@ -2078,6 +2116,21 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
+</script>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  });
 </script>
 
 </body>
