@@ -2190,8 +2190,12 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
     <h3 style="font-family:'Syne',sans-serif; font-size:24px; margin-bottom:12px; color:var(--text);">Exam Access Restricted</h3>
     <p style="color:var(--text2); font-size:14px; margin-bottom:24px;">Please enter your credentials to access the analytical tasks.</p>
     <input type="email" id="examEmail" placeholder="Email Address" style="width:100%; padding:12px 16px; margin-bottom:16px; border-radius:8px; border:1px solid var(--border); background:var(--bg); color:var(--text); outline:none; transition:0.2s;">
-    <input type="password" id="examPassword" placeholder="Password" style="width:100%; padding:12px 16px; margin-bottom:24px; border-radius:8px; border:1px solid var(--border); background:var(--bg); color:var(--text); outline:none; transition:0.2s;">
-    <button onclick="unlockExam()" class="btn btn-primary" style="width:100%; padding:14px; font-size:14px; justify-content:center;">Unlock Exam</button>
+    <input type="password" id="examPassword" placeholder="Password" style="width:100%; padding:12px 16px; margin-bottom:16px; border-radius:8px; border:1px solid var(--border); background:var(--bg); color:var(--text); outline:none; transition:0.2s;">
+    <input type="password" id="examKey" placeholder="Encryption Key (rahat2026)" style="width:100%; padding:12px 16px; margin-bottom:24px; border-radius:8px; border:1px solid var(--border); background:var(--bg); color:var(--text); outline:none; transition:0.2s;">
+    <div style="display:flex; gap:12px; width:100%;">
+      <button onclick="cancelExamAuth()" class="btn btn-ghost" style="flex:1; padding:14px; font-size:14px; justify-content:center;">Cancel</button>
+      <button onclick="unlockExam()" class="btn btn-primary" style="flex:1; padding:14px; font-size:14px; justify-content:center;">Unlock Exam</button>
+    </div>
     <p id="examError" style="color:var(--red); font-size:12px; margin-top:12px; display:none;">❌ Invalid email or password.</p>
   </div>
   <!-- EXAM CONTENT -->
@@ -2518,7 +2522,10 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
     <h3 style="font-family:'Syne',sans-serif; font-size:20px; margin-bottom:8px; color:var(--text);">SQL Access Restricted</h3>
     <p style="color:var(--text2); font-size:13px; margin-bottom:24px;">Enter decryption key to view SQL logic.</p>
     <input type="password" id="sqlAuthKey" placeholder="Enter Security Key..." style="width:100%; padding:12px 16px; margin-bottom:16px; border-radius:8px; border:1px solid var(--border); background:var(--bg); color:var(--text); outline:none;">
-    <button onclick="unlockSqlModal()" class="btn btn-primary" style="width:100%; padding:12px; justify-content:center;">Decrypt SQL</button>
+    <div style="display:flex; gap:12px; width:100%;">
+      <button onclick="cancelSqlAuth()" class="btn btn-ghost" style="flex:1; padding:12px; justify-content:center;">Cancel</button>
+      <button onclick="unlockSqlModal()" class="btn btn-primary" style="flex:1; padding:12px; justify-content:center;">Decrypt SQL</button>
+    </div>
     <p id="sqlAuthError" style="color:var(--red); font-size:12px; margin-top:12px; display:none;">❌ Incorrect Key.</p>
   </div>
 </div>
@@ -3395,10 +3402,23 @@ function unlockSqlModal() {
     }
 }
 
+function cancelSqlAuth() {
+    document.getElementById('sqlAuthModal').classList.remove('open');
+    pendingReportKey = null;
+}
+
+function cancelExamAuth() {
+    document.getElementById('examEmail').value = '';
+    document.getElementById('examPassword').value = '';
+    document.getElementById('examKey').value = '';
+    document.getElementById('examError').style.display = 'none';
+}
+
 function unlockExam() {
     const email = document.getElementById('examEmail').value;
     const pwd = document.getElementById('examPassword').value;
-    if(email === 'dbtask@v2.ltd' && pwd === 'examtest') {
+    const key = document.getElementById('examKey').value;
+    if(email === 'dbtask@v2.ltd' && pwd === 'examtest' && key === 'rahat2026') {
         document.getElementById('exam-auth').style.display = 'none';
         document.getElementById('exam-content').style.display = 'block';
     } else {
