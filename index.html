@@ -3789,7 +3789,7 @@ function initER() {
         @keyframes er-spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
       </style>
     </div>
-    <object id="er-obj" type="image/svg+xml" data="img/ecrm_prod_ecrm.svg" style="width:100%; height:1000px; opacity:0; transition:opacity 0.3s; pointer-events:none;"></object>
+    <img id="er-obj" src="img/ecrm_prod_ecrm.svg" draggable="false" style="width:100%; height:1000px; opacity:0; transition:opacity 0.3s; pointer-events:none;">
   `;
   
   const obj = document.getElementById('er-obj');
@@ -3805,7 +3805,7 @@ function initER() {
     const loader = document.getElementById('erLoading');
     if (loader) loader.style.display = 'none';
     obj.style.opacity = '1';
-    obj.innerHTML = `<div style="padding:60px 20px; text-align:center; color:var(--text3); font-family:'JetBrains Mono',monospace;">
+    obj.outerHTML = `<div style="padding:60px 20px; text-align:center; color:var(--text3); font-family:'JetBrains Mono',monospace;">
       <div style="font-size:36px; margin-bottom:16px">📐</div>
       <div style="font-size:14px; margin-bottom:8px; font-weight:600; color:var(--text);">ER Diagram SVG File Missing</div>
       <div style="font-size:12px; max-width:400px; margin:0 auto; line-height:1.6;">Please make sure the file <code style="color:var(--accent); background:var(--card2); padding:2px 6px; border-radius:4px;">ecrm_prod_ecrm.svg</code> is present in the same folder as <code style="color:var(--accent); background:var(--card2); padding:2px 6px; border-radius:4px;">index.html</code>.</div>
