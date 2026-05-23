@@ -1,7 +1,7 @@
 import os
 import glob
 
-favicon_tag = '    <link rel="icon" type="image/svg+xml" href="ECRM_Logo.aa055d6f9939ac675c4fe4f3451220f2.svg">\n'
+favicon_tag = '    <link rel="icon" type="image/svg+xml" href="img/ECRM_Logo.aa055d6f9939ac675c4fe4f3451220f2.svg">\n'
 
 for html_file in glob.glob('*.html'):
     with open(html_file, 'r', encoding='utf-8') as f:

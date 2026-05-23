@@ -5,8 +5,8 @@ with open('index.html', 'r', encoding='utf-8') as f:
 
 # ER Diagram SVG -> embed
 content = re.sub(
-    r'<img\s+src="ecrm_prod_ecrm\.svg"[^>]*>',
-    r'<embed type="image/svg+xml" src="ecrm_prod_ecrm.svg" style="width:100%; height:800px; border-radius:12px; border:1px solid rgba(255,255,255,.1); box-shadow:0 20px 40px rgba(0,0,0,.3); background:#fff;">',
+    r'<img\s+src="img/ecrm_prod_ecrm\.svg"[^>]*>',
+    r'<embed type="image/svg+xml" src="img/ecrm_prod_ecrm.svg" style="width:100%; height:800px; border-radius:12px; border:1px solid rgba(255,255,255,.1); box-shadow:0 20px 40px rgba(0,0,0,.3); background:#fff;">',
     content
 )
 
