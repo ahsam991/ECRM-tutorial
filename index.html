@@ -892,9 +892,172 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
   }
 }
 
+/* ── PREMIUM ANIMATED BACKGROUND ── */
+.animated-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -100;
+  overflow: hidden;
+  background: var(--bg);
+  pointer-events: none;
+}
+
+.animated-bg::before,
+.animated-bg::after {
+  content: "";
+  position: absolute;
+  width: 700px;
+  height: 700px;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.08;
+  transition: opacity 0.5s ease, background 0.5s ease;
+  will-change: transform;
+}
+
+.animated-bg::before {
+  background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+  top: -10%;
+  left: -10%;
+  animation: float-bg-1 20s infinite alternate ease-in-out;
+}
+
+.animated-bg::after {
+  background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+  bottom: -10%;
+  right: -10%;
+  animation: float-bg-2 25s infinite alternate ease-in-out;
+}
+
+@keyframes float-bg-1 {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(150px, 100px) scale(1.1); }
+  100% { transform: translate(80px, -40px) scale(0.95); }
+}
+
+@keyframes float-bg-2 {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-100px, -150px) scale(0.9); }
+  100% { transform: translate(-40px, 80px) scale(1.1); }
+}
+
+/* ── INTERACTIVE PROFILE HOVER CARDS ── */
+.nav-profile {
+  position: relative;
+  overflow: visible !important;
+}
+
+.profile-card-popup {
+  position: absolute;
+  top: calc(100% + 14px);
+  left: 50%;
+  transform: translateX(-50%) translateY(10px) scale(0.9);
+  background: var(--card2);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px 20px;
+  width: 240px;
+  text-align: center;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  z-index: 9999;
+}
+
+.profile-card-popup::before {
+  content: "";
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  width: 12px;
+  height: 12px;
+  background: var(--card2);
+  border-left: 1px solid var(--border);
+  border-top: 1px solid var(--border);
+}
+
+.nav-profile:hover .profile-card-popup,
+.profile-card-popup.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0) scale(1);
+}
+
+.popup-glow {
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  background: radial-gradient(circle at 50% 0%, rgba(59, 130, 246, 0.12), transparent 70%);
+  pointer-events: none;
+}
+
+.popup-avatar {
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--primary);
+  box-shadow: 0 8px 24px rgba(59, 130, 246, 0.25);
+  margin: 0 auto 14px;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.nav-profile:hover .popup-avatar {
+  transform: scale(1.06) rotate(2deg);
+}
+
+.popup-name {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.popup-role {
+  font-size: 11px;
+  color: var(--text2);
+  margin-bottom: 12px;
+  line-height: 1.3;
+}
+
+.popup-badge {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+  background: rgba(59, 130, 246, 0.1);
+  color: var(--primary);
+  border: 1px solid rgba(59, 130, 246, 0.25);
+  padding: 3px 10px;
+  border-radius: 100px;
+}
+
+[data-theme="light"] .profile-card-popup {
+  background: var(--card);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,0.05);
+}
+
+[data-theme="light"] .profile-card-popup::before {
+  background: var(--card);
+}
+
 </style>
 </head>
 <body>
+
+<!-- Premium Animated Background -->
+<div class="animated-bg"></div>
 
 <!-- ── NAV ── -->
 <nav>
@@ -923,6 +1086,13 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
       <span class="nav-name">Ahsam</span>
       <span class="nav-role">Author</span>
     </div>
+    <div class="profile-card-popup">
+      <div class="popup-glow"></div>
+      <img src="ahsam-bhai.png" class="popup-avatar" alt="Ahsam">
+      <div class="popup-name">MD AHSAMUL HAQUE</div>
+      <div class="popup-role">Junior DB Engineer Intern</div>
+      <div class="popup-badge">Author</div>
+    </div>
   </div>
   <div class="nav-profile" title="Pranto - Supervisor">
     <img src="pranto-bhai.png" class="nav-avatar" alt="Pranto">
@@ -930,12 +1100,26 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
       <span class="nav-name">Pranto</span>
       <span class="nav-role">Supervisor</span>
     </div>
+    <div class="profile-card-popup">
+      <div class="popup-glow"></div>
+      <img src="pranto-bhai.png" class="popup-avatar" alt="Pranto">
+      <div class="popup-name">Rahat Maksud Pranto</div>
+      <div class="popup-role">Junior Data Analyst</div>
+      <div class="popup-badge">Supervisor</div>
+    </div>
   </div>
   <div class="nav-profile" title="Shohan - Manager">
     <img src="shohan-bhai.png" class="nav-avatar" alt="Shohan">
     <div class="nav-info">
       <span class="nav-name">Shohan</span>
       <span class="nav-role">Manager</span>
+    </div>
+    <div class="profile-card-popup">
+      <div class="popup-glow"></div>
+      <img src="shohan-bhai.png" class="popup-avatar" alt="Shohan">
+      <div class="popup-name">Sohanur Rahman</div>
+      <div class="popup-role">Senior Data Analyst</div>
+      <div class="popup-badge">Manager</div>
     </div>
   </div>
 </div>
@@ -2264,8 +2448,6 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
     </table>
     </div>
   </div>
-</div>
-</section>
 
 <!-- ══════════════════════════════════════════ -->
 <!-- Table Relationship Guide -->
@@ -2600,6 +2782,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
     </div>
   </div>
 </footer>
+</div> <!-- End main-content -->
 
 <!-- ══════════════════════════════════════════ -->
 <!-- SQL MODALS -->
@@ -4063,6 +4246,28 @@ document.addEventListener('DOMContentLoaded', () => {
   // Set default drive URL and load it
   document.getElementById('driveUrlInput').value = DEFAULT_DRIVE_URL;
   loadDriveEmbed();
+
+  // Profile Popups Toggle on Click
+  document.querySelectorAll('.nav-profile').forEach(profile => {
+    profile.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const popup = profile.querySelector('.profile-card-popup');
+      if (!popup) return;
+      const wasActive = popup.classList.contains('active');
+      
+      // Close all other popups
+      document.querySelectorAll('.profile-card-popup').forEach(p => p.classList.remove('active'));
+      
+      if (!wasActive) {
+        popup.classList.add('active');
+      }
+    });
+  });
+  
+  // Close popups on click outside
+  document.addEventListener('click', () => {
+    document.querySelectorAll('.profile-card-popup').forEach(p => p.classList.remove('active'));
+  });
 });
 </script>
 
