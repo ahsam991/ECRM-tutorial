@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 // Use environment variable for JWT secret, fallback to default for development
 const JWT_SECRET = process.env.JWT_SECRET || 'super-secret-key-for-ecrm';
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
