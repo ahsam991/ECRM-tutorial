@@ -2791,7 +2791,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
 <!-- ── SYSTEM AUTH MODAL ── -->
 <div class="modal-overlay open" id="systemAuthModal" style="z-index:9999; background: radial-gradient(circle at center, #0f172a 0%, #020617 100%); display: flex; align-items: center; justify-content: center; overflow: hidden; perspective: 1000px;">
   <!-- Futuristic grid/particle animated background -->
-  <div class="auth-grid-bg" style="position: absolute; inset: 0; background-image: linear-gradient(rgba(59, 130, 246, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(59, 130, 246, 0.05) 1px, transparent 1px); background-size: 30px 30px; transform: rotateX(60deg) scale(2); transform-origin: top; opacity: 0.8; animation: gridTravel 20s linear infinite;"></div>
+  <div class="auth-grid-bg" style="position: absolute; inset: 0; background-image: linear-gradient(rgba(59, 130, 246, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(59, 130, 246, 0.05) 1px, transparent 1px); background-size: 30px 30px; transform: rotateX(60deg) scale(2); transform-origin: top; opacity: 0.8;"></div>
   
   <style>
     @keyframes gridTravel {
@@ -2838,8 +2838,6 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
       border-radius: 26px;
       padding: 2px;
       background: linear-gradient(135deg, #3b82f6, #8b5cf6, #ec4899, #10b981);
-      background-size: 300% 300%;
-      animation: waveBorder 6s ease infinite;
       -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
       -webkit-mask-composite: xor;
       mask-composite: exclude;
@@ -2859,7 +2857,6 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
       height: 100%;
       position: absolute;
       transform-style: preserve-3d;
-      animation: rotate3D 8s linear infinite;
     }
     .lock-3d-face {
       position: absolute;
@@ -3148,28 +3145,10 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
     document.getElementById('systemAuthError').style.display = 'none';
   }
 
-  // 3D Tilt Effect on hover
-  const authCard = document.getElementById('authCard');
-  if (authCard) {
-    authCard.parentNode.addEventListener('mousemove', (e) => {
-      const rect = authCard.getBoundingClientRect();
-      const x = e.clientX - rect.left - rect.width / 2;
-      const y = e.clientY - rect.top - rect.height / 2;
-      
-      const tiltX = -(y / (rect.height / 2)) * 12; // cap max tilt to 12deg
-      const tiltY = (x / (rect.width / 2)) * 12;
-      
-      authCard.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg) translateZ(10px)`;
-      authCard.style.animation = 'none'; // pause default float animation
-    });
-    
-    authCard.parentNode.addEventListener('mouseleave', () => {
-      authCard.style.transform = 'rotateX(0deg) rotateY(0deg) translateZ(0deg)';
-    });
-  }
 
   async function handleAuth(e) {
     e.preventDefault();
+    const authCard = document.getElementById('authCard');
     const username = document.getElementById('authUsername').value.trim();
     const password = document.getElementById('authPassword').value;
     const role = document.getElementById('authRole').value;
