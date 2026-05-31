@@ -2877,7 +2877,17 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
         setTimeout(() => { document.getElementById('systemAuthError').style.color = 'var(--red)'; }, 3000);
       }
     } catch (err) {
-      document.getElementById('systemAuthError').innerText = '❌ Network error';
+      console.error('Auth network error:', err);
+      let errorMsg = '❌ Network error';
+      
+      // Provide more helpful error messages
+      if (err.message && err.message.includes('Failed to fetch')) {
+        errorMsg = '❌ Cannot connect to server. Please check your internet connection or try again later.';
+      } else if (err.name === 'TypeError' && err.message.includes('fetch')) {
+        errorMsg = '❌ Connection failed. The server may be unavailable.';
+      }
+      
+      document.getElementById('systemAuthError').innerText = errorMsg;
       document.getElementById('systemAuthError').style.display = 'block';
     }
   }

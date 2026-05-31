@@ -51,6 +51,10 @@ export default async function handler(req, res) {
     res.status(200).json({ message: 'Login successful', token, role: user.role, username: user.username });
   } catch (error) {
     console.error('Login error:', error);
+    // Provide more specific error message for network issues
+    if (error.code === 'ENETUNREACH' || error.message.includes('ENETUNREACH')) {
+      return res.status(503).json({ error: 'Database connection unavailable. Please check your network configuration or contact support.' });
+    }
     res.status(500).json({ error: 'Internal server error' });
   } finally {
     await client.end();
