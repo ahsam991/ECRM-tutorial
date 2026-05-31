@@ -2,23 +2,35 @@ const { Client } = require('pg');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-const JWT_SECRET = 'super-secret-key-for-ecrm'; // In production, this should be an environment variable
+// Use environment variable for JWT secret, fallback to default for development
+const JWT_SECRET = process.env.JWT_SECRET || 'super-secret-key-for-ecrm';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
-
+  
   const { username, password } = req.body;
-
+  
   if (!username || !password) {
     return res.status(400).json({ error: 'Username and password are required' });
   }
 
-  const client = new Client({
-    connectionString: 'postgresql://postgres:Tlvbx74QwdAwIx4x@db.jhfzdtacfedbpktkfabm.supabase.co:5432/postgres',
-  });
+  // Use environment variable for database connection string
+  const connectionString = process.env.DATABASE_URL;
+  
+  if (!connectionString) {
+    console.error('DATABASE_URL is not set in environment variables');
+    return res.status(500).json({ error: 'Database configuration error' });
+  }
 
+  const client = new Client({
+    connectionString: connectionString,
+    ssl: {
+      rejectUnauthorized: false // Required for Supabase connections
+    },
+  });
+  
   try {
     await client.connect();
 
