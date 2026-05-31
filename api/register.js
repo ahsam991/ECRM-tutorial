@@ -12,8 +12,19 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Username and password are required' });
   }
 
+  // Use environment variable for database connection
+  const connectionString = process.env.DATABASE_URL;
+  
+  if (!connectionString) {
+    console.error('DATABASE_URL is not set in environment variables');
+    return res.status(500).json({ error: 'Database configuration error' });
+  }
+
   const client = new Client({
-    connectionString: 'postgresql://postgres:Tlvbx74QwdAwIx4x@db.jhfzdtacfedbpktkfabm.supabase.co:5432/postgres',
+    connectionString: connectionString,
+    ssl: {
+      rejectUnauthorized: false // Required for Supabase connections
+    },
   });
 
   try {
@@ -42,6 +53,10 @@ export default async function handler(req, res) {
     res.status(201).json({ message: 'User created successfully', role: userRole });
   } catch (error) {
     console.error('Registration error:', error);
+    // Provide more specific error message for network issues
+    if (error.code === 'ENETUNREACH' || error.message.includes('ENETUNREACH')) {
+      return res.status(503).json({ error: 'Database connection unavailable. Please check your network configuration or contact support.' });
+    }
     res.status(500).json({ error: 'Internal server error' });
   } finally {
     await client.end();
