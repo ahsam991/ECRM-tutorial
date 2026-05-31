@@ -18,16 +18,16 @@ This file contains the complete visual and architectural map of all features imp
 
 ---
 
-## 📌 Part 2: Premium 3D Interactive Login Modal
-- **Scope**: Responsive 3D landing gate, holographic glassmorphism design, floating parallax animation.
+## 📌 Part 2: Static Premium Login Modal
+- **Scope**: Responsive landing gate, holographic glassmorphism design, zero-distraction layout.
 - **Code Locations**:
-  - `index.html` (Modal markup, CSS variables, styles, and animation frames)
+  - `index.html` (Modal markup, CSS variables, static styles)
 - **Key Features**:
-  - 🌀 **Futuristic 3D Grid Space**: Dynamic, moving perspective grid lines acting as a particle-like backdrop.
-  - 🛡️ **3D Rotating Key Emblem**: Fully CSS-rendered rotating key with deep shadow projections.
-  - 💎 **Vibrant Holographic Glassmorphism**: Glass border using multi-colored moving linear gradients (`#3b82f6`, `#8b5cf6`, `#ec4899`, `#10b981`) and heavy background blur.
-  - 🔄 **3D Card Mouse-Tilt Parallax**: Real-time JavaScript event listeners tracking cursor coordinates to tilt the modal box in 3D perspective (`rotateX`, `rotateY`).
-  - 🎯 **Credential Guidance Panel**: Dedicated hint box displaying default seeded login profiles for rapid access.
+  - 🌌 **Calm Radial Space Background**: Quiet, deep space visual frame providing a stable, elegant context.
+  - 🛡️ **Static Security Key Emblem**: A gorgeous stationary lock/key indicator confirming system lock state.
+  - 💎 **Vibrant Glassmorphism Frame**: Beautiful glass container utilizing linear gradient highlights (`#3b82f6` to `#10b981`) and heavy backdrop-blur.
+  - 🎯 **Credential Guidance Panel**: Dedicated hints listing seeded admin, supervisor, and user accounts.
+  - 🔏 **Zero Jitter Typing Experience**: All float, rotate, scale, and 3D hover tilt animations are fully deactivated to provide a quiet, comfortable input form.
 
 ---
 
@@ -62,7 +62,7 @@ This file contains the complete visual and architectural map of all features imp
 - **Code Locations**:
   - `index.html` (Dynamic catch-handlers in `handleAuth` and stylesheet inputs)
 - **Key Features**:
-  - 🛠️ **Stable Card Styling (No Jitter)**: Disabled the automated float keyframes on the main login modal box to prevent jittering while typing. Inputs remain 100% steady and comfortable.
+  - 🛠️ **Stable Card Styling (No Jitter)**: Fully deactivated all 3D tilting, rotating, grid traveling, and card floating animations. The entire layout is static, comfortable, and silent.
   - 💡 **Unreachable API Sandbox Routing**: If the website is opened locally (e.g., as a static file or without the Vercel API backend server running), a network fetch failure triggers the elegant client-side credential checker.
   - 🏆 **Credentials Checklist Validation**: Validates user inputs against standard seed accounts (`admin` / `management` / `ahsam`) to immediately allow accessing the full onboarding layout.
   - ⚠️ **Elegant warning banners**: Renders a custom colored banner notifying that the app is in offline preview mode, bypassing blocking connection errors.
