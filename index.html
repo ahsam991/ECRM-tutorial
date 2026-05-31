@@ -2829,7 +2829,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
       box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
       transform-style: preserve-3d;
       transition: transform 0.1s ease-out, box-shadow 0.3s ease;
-      animation: floatCard 6s ease-in-out infinite;
+      /* Animation disabled to keep input fields perfectly stable and comfortable for typing */
     }
     .premium-3d-card::before {
       content: '';
@@ -3165,18 +3165,24 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
     
     authCard.parentNode.addEventListener('mouseleave', () => {
       authCard.style.transform = 'rotateX(0deg) rotateY(0deg) translateZ(0deg)';
-      authCard.style.animation = 'floatCard 6s ease-in-out infinite';
     });
   }
 
   async function handleAuth(e) {
     e.preventDefault();
-    const username = document.getElementById('authUsername').value;
+    const username = document.getElementById('authUsername').value.trim();
     const password = document.getElementById('authPassword').value;
     const role = document.getElementById('authRole').value;
     
     const url = authMode === 'login' ? '/api/login' : '/api/register';
     const body = authMode === 'login' ? { username, password } : { username, password, role };
+    
+    // Seeded credentials map for local preview sandbox mode when Vercel backend is offline
+    const SEEDED_CREDENTIALS = {
+      'admin': { password: 'Admin@1234', role: 'admin' },
+      'management': { password: 'Mgmt@1234', role: 'management' },
+      'ahsam': { password: 'User@1234', role: 'user' }
+    };
     
     try {
       const res = await fetch(url, {
@@ -3188,6 +3194,9 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
       const data = await res.json();
       
       if (!res.ok) {
+        document.getElementById('systemAuthError').style.color = '#ef4444'; 
+        document.getElementById('systemAuthError').style.background = 'rgba(239, 68, 68, 0.08)';
+        document.getElementById('systemAuthError').style.borderColor = 'rgba(239, 68, 68, 0.15)';
         document.getElementById('systemAuthError').innerText = '❌ ' + (data.error || 'Authentication failed');
         document.getElementById('systemAuthError').style.display = 'block';
         return;
@@ -3226,9 +3235,72 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
         }, 5000);
       }
     } catch (err) {
-      console.error(err);
-      document.getElementById('systemAuthError').innerText = '❌ Network connection error. Make sure Vercel api endpoints are running.';
-      document.getElementById('systemAuthError').style.display = 'block';
+      console.warn("Backend API offline or unreachable. Engaging Sandbox Mode fallback.", err);
+      
+      if (authMode === 'login') {
+        const lowerUser = username.toLowerCase();
+        if (SEEDED_CREDENTIALS[lowerUser]) {
+          if (SEEDED_CREDENTIALS[lowerUser].password === password) {
+            // Log in successfully in Local Sandbox Mode
+            const mockUser = SEEDED_CREDENTIALS[lowerUser];
+            localStorage.setItem('ecrm_token', 'local-sandbox-token-' + lowerUser);
+            localStorage.setItem('ecrm_user', JSON.stringify({ username: lowerUser, role: mockUser.role }));
+            
+            // Show yellow warning banner
+            document.getElementById('systemAuthError').style.color = '#eab308'; // Amber yellow
+            document.getElementById('systemAuthError').style.background = 'rgba(234, 179, 8, 0.08)';
+            document.getElementById('systemAuthError').style.borderColor = 'rgba(234, 179, 8, 0.25)';
+            document.getElementById('systemAuthError').innerText = '⚠️ API Unreachable. Logged in successfully via Local Preview Sandbox!';
+            document.getElementById('systemAuthError').style.display = 'block';
+            
+            // Proceed to dashboard after a short delay
+            setTimeout(() => {
+              authCard.style.transform = 'scale(0.9) rotateY(90deg)';
+              authCard.style.opacity = '0';
+              authCard.style.transition = 'all 0.6s cubic-bezier(0.18, 0.89, 0.32, 1.28)';
+              
+              setTimeout(() => {
+                document.getElementById('systemAuthModal').style.display = 'none';
+                document.body.style.overflow = 'auto'; // restore scrolling
+                setupUserUI(lowerUser, mockUser.role);
+                
+                // Show offline status inside realtime feed
+                const feed = document.getElementById('realtimeFeed');
+                if (feed) {
+                  const entry = document.createElement('div');
+                  entry.className = 'feed-item';
+                  entry.style.borderLeftColor = '#eab308';
+                  entry.innerHTML = `
+                    <span class="feed-user">SYSTEM</span>
+                    <span class="feed-action">OFFLINE PREVIEW</span>
+                    <span>Running in local preview mode. Supabase live pooling disabled.</span>
+                    <span class="feed-time">Just now</span>
+                  `;
+                  feed.prepend(entry);
+                }
+              }, 550);
+            }, 1200);
+          } else {
+            document.getElementById('systemAuthError').style.color = '#ef4444'; 
+            document.getElementById('systemAuthError').style.background = 'rgba(239, 68, 68, 0.08)';
+            document.getElementById('systemAuthError').style.borderColor = 'rgba(239, 68, 68, 0.15)';
+            document.getElementById('systemAuthError').innerText = '❌ Invalid credentials for offline local profile.';
+            document.getElementById('systemAuthError').style.display = 'block';
+          }
+        } else {
+          document.getElementById('systemAuthError').style.color = '#ef4444'; 
+          document.getElementById('systemAuthError').style.background = 'rgba(239, 68, 68, 0.08)';
+          document.getElementById('systemAuthError').style.borderColor = 'rgba(239, 68, 68, 0.15)';
+          document.getElementById('systemAuthError').innerText = '❌ Network error. Account not found in local offline seed profiles.';
+          document.getElementById('systemAuthError').style.display = 'block';
+        }
+      } else {
+        document.getElementById('systemAuthError').style.color = '#ef4444'; 
+        document.getElementById('systemAuthError').style.background = 'rgba(239, 68, 68, 0.08)';
+        document.getElementById('systemAuthError').style.borderColor = 'rgba(239, 68, 68, 0.15)';
+        document.getElementById('systemAuthError').innerText = '❌ API Offline: Account registration is disabled in local preview.';
+        document.getElementById('systemAuthError').style.display = 'block';
+      }
     }
   }
 
