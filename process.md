@@ -54,3 +54,15 @@ This file contains the complete visual and architectural map of all features imp
 - **Key Features**:
   - 📑 **Action Tracking**: Automatically inserts records into `audit_logs` whenever a user inputs a key to view decrypted source SQL codes.
   - 🔴 **Failed Attempt Logging**: Captures incorrect keys as `DECRYPT_FAIL` events, providing real-time security insights directly to the dashboard monitor!
+
+---
+
+## 📌 Part 5: Smart Local Preview Sandbox Fallback
+- **Scope**: Local developer resilience, automatic offline routing, and distraction-free workspace.
+- **Code Locations**:
+  - `index.html` (Dynamic catch-handlers in `handleAuth` and stylesheet inputs)
+- **Key Features**:
+  - 🛠️ **Stable Card Styling (No Jitter)**: Disabled the automated float keyframes on the main login modal box to prevent jittering while typing. Inputs remain 100% steady and comfortable.
+  - 💡 **Unreachable API Sandbox Routing**: If the website is opened locally (e.g., as a static file or without the Vercel API backend server running), a network fetch failure triggers the elegant client-side credential checker.
+  - 🏆 **Credentials Checklist Validation**: Validates user inputs against standard seed accounts (`admin` / `management` / `ahsam`) to immediately allow accessing the full onboarding layout.
+  - ⚠️ **Elegant warning banners**: Renders a custom colored banner notifying that the app is in offline preview mode, bypassing blocking connection errors.
