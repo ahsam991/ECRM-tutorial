@@ -11,7 +11,7 @@ const DB_URL = 'postgresql://postgres:Tlvbx74QwdAwIx4x@db.jhfzdtacfedbpktkfabm.s
 
 app.use(express.json());
 // Serve all static files from this directory
-app.use(express.static(__dirname));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // ── POST /api/register ──
 app.post('/api/register', async (req, res) => {
@@ -122,6 +122,131 @@ app.post('/api/realtime', async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   } finally {
     await client.end();
+  }
+});
+// ── GET & POST /api/tasks ──
+app.get('/api/tasks', async (req, res) => {
+  const client = new Client({
+    connectionString: DB_URL,
+    ssl: { rejectUnauthorized: false }
+  });
+  try {
+    await client.connect();
+    const result = await client.query('SELECT * FROM tasks ORDER BY id ASC');
+    res.status(200).json(result.rows);
+  } catch (err) {
+    console.error('Fetch tasks error:', err.message);
+    res.status(500).json({ error: 'Internal server error' });
+  } finally {
+    await client.end();
+  }
+});
+
+app.post('/api/tasks', async (req, res) => {
+  const authHeader = req.headers.authorization;
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({ error: 'Unauthorized credentials' });
+  }
+  const token = authHeader.split(' ')[1];
+  try {
+    const decoded = jwt.verify(token, JWT_SECRET);
+    if (decoded.role !== 'admin' && decoded.role !== 'management') {
+      return res.status(403).json({ error: 'Access forbidden' });
+    }
+
+    const { title, description, priority, campaign, assignee } = req.body;
+    if (!title || !description) return res.status(400).json({ error: 'Title and description required' });
+
+    const client = new Client({
+      connectionString: DB_URL,
+      ssl: { rejectUnauthorized: false }
+    });
+    await client.connect();
+    const result = await client.query(
+      'INSERT INTO tasks (title, description, priority, campaign, status, assignee) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *',
+      [title, description, priority || 'Medium', campaign || '161', 'Pending', assignee || 'All Users']
+    );
+
+    // Audit Log
+    try {
+      await client.query('INSERT INTO audit_logs (username, action, details) VALUES ($1, $2, $3)', [decoded.username, 'CREATE_TASK', `Created task: ${title}`]);
+    } catch (logErr) {
+      console.error(logErr);
+    }
+
+    res.status(201).json(result.rows[0]);
+    await client.end();
+  } catch (err) {
+    console.error('Create task error:', err.message);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// ── GET & POST /api/submissions ──
+app.get('/api/submissions', async (req, res) => {
+  const authHeader = req.headers.authorization;
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({ error: 'Unauthorized credentials' });
+  }
+  const token = authHeader.split(' ')[1];
+  try {
+    const decoded = jwt.verify(token, JWT_SECRET);
+    if (decoded.role !== 'admin' && decoded.role !== 'management') {
+      return res.status(403).json({ error: 'Access forbidden' });
+    }
+
+    const client = new Client({
+      connectionString: DB_URL,
+      ssl: { rejectUnauthorized: false }
+    });
+    await client.connect();
+    const result = await client.query(`
+      SELECT ts.*, t.title as task_title 
+      FROM task_submissions ts
+      JOIN tasks t ON ts.task_id = t.id
+      ORDER BY ts.submitted_at DESC
+    `);
+    res.status(200).json(result.rows);
+    await client.end();
+  } catch (err) {
+    console.error('Fetch submissions error:', err.message);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+app.post('/api/submissions', async (req, res) => {
+  const authHeader = req.headers.authorization;
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({ error: 'Unauthorized credentials' });
+  }
+  const token = authHeader.split(' ')[1];
+  try {
+    const decoded = jwt.verify(token, JWT_SECRET);
+    const { task_id, submission_content } = req.body;
+    if (!task_id || !submission_content) return res.status(400).json({ error: 'Task ID and solution are required' });
+
+    const client = new Client({
+      connectionString: DB_URL,
+      ssl: { rejectUnauthorized: false }
+    });
+    await client.connect();
+    const result = await client.query(
+      'INSERT INTO task_submissions (task_id, username, submission_content) VALUES ($1, $2, $3) RETURNING *',
+      [task_id, decoded.username, submission_content]
+    );
+
+    // Audit Log
+    try {
+      await client.query('INSERT INTO audit_logs (username, action, details) VALUES ($1, $2, $3)', [decoded.username, 'SUBMIT_TASK', `Submitted solution for task ID: ${task_id}`]);
+    } catch (logErr) {
+      console.error(logErr);
+    }
+
+    res.status(201).json(result.rows[0]);
+    await client.end();
+  } catch (err) {
+    console.error('Create submission error:', err.message);
+    res.status(500).json({ error: 'Internal server error' });
   }
 });
 

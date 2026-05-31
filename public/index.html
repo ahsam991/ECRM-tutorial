@@ -1063,7 +1063,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
 <nav>
   <div class="nav-logo">ECRM<span> / ONBOARDING</span></div>
   <div class="nav-links">
-    <a href="preview.html" target="_blank" class="nav-preview-btn"><span class="dot" style="background:var(--orange)"></span>Preview ↗</a>
+
     <a href="quiz.html" target="_blank" class="nav-preview-btn" style="color:var(--primary); border-color:rgba(59,130,246,0.3)"><span class="dot" style="background:var(--primary)"></span>Exam ↗</a>
   </div>
   
@@ -1222,18 +1222,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
   <p class="section-desc">Complete overview of the ECRM consumer engagement platform — campaign operations, field force activities, supervisor monitoring, and data reporting pipeline.</p>
 
   <!-- Quick Portal Preview Card -->
-  <div style="background:linear-gradient(135deg, rgba(245,158,11,0.06) 0%, rgba(59,130,246,0.06) 100%); border:1px solid rgba(245,158,11,0.2); border-radius:12px; padding:20px 24px; margin-bottom:32px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);">
-    <div style="flex: 1; min-width: 280px;">
-      <h3 style="font-family:'Syne',sans-serif; font-size:16px; font-weight:700; color:var(--text); margin-bottom:6px; display:flex; align-items:center; gap:8px;">
-        <span style="font-size:18px;">🚀</span> Simplified Presentation Preview
-      </h3>
-      <p style="color:var(--text2); font-size:13px; line-height:1.6; margin:0;">Launch a lightweight, high-speed presentation preview model of the ECRM onboarding portal, complete with interactive mock grids, quick statistics, and key reports.</p>
-    </div>
-    <a href="preview.html" target="_blank" class="btn" style="background:var(--orange); color:var(--bg); font-weight:700; text-decoration:none; padding:10px 18px; border-radius:6px; display:inline-flex; align-items:center; gap:8px; box-shadow:0 4px 12px rgba(245,158,11,0.25); transition:all 0.2s ease; border: none; font-size: 11px; font-family:'JetBrains Mono',monospace;">
-      <span>Launch Preview</span>
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/></svg>
-    </a>
-  </div>
+
 
   <!-- 1. WHY BUSINESS EXISTS + HOW BUSINESS RUNS -->
   <div class="biz-grid">
@@ -2740,6 +2729,139 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0 3
 <!-- ══════════════════════════════════════════ -->
 <!-- FOOTER -->
 <!-- ══════════════════════════════════════════ -->
+
+<style>
+/* Merged styles for preview content */
+.info-list { padding-left:20px; line-height:1.9; color:var(--text2); }
+.raw-json { margin-top:20px; }
+details { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:18px; }
+summary { cursor:pointer; font-weight:600; outline:none; }
+</style>
+
+
+<!-- ── MERGED FROM PREVIEW.HTML ── -->
+<section>
+
+<h2 class="section-title">
+Most Important Enterprise Tables
+</h2>
+
+<div class="grid">
+
+<div class="card">
+
+<h3>
+contacts
+</h3>
+
+<ul class="info-list">
+
+<li>Main operational reporting table</li>
+<li>Stores survey interaction</li>
+<li>Stores geo location</li>
+<li>Stores device metadata</li>
+<li>Stores PTR information</li>
+<li>Stores consumer interaction</li>
+
+</ul>
+
+</div>
+
+<div class="card">
+
+<h3>
+consumers
+</h3>
+
+<ul class="info-list">
+
+<li>Consumer master profile</li>
+<li>Primary Brand</li>
+<li>Secondary Brand</li>
+<li>Previous Brand</li>
+<li>Consumer demographics</li>
+
+</ul>
+
+</div>
+
+<div class="card">
+
+<h3>
+consumer_dialer_contacts
+</h3>
+
+<ul class="info-list">
+
+<li>Call center workflow</li>
+<li>Repeat engagement</li>
+<li>Dialer analytics</li>
+<li>Call duration</li>
+<li>GPS tracking</li>
+
+</ul>
+
+</div>
+
+<div class="card">
+
+<h3>
+aai_* Tables
+</h3>
+
+<ul class="info-list">
+
+<li>Audio verification</li>
+<li>AI QA system</li>
+<li>Auditor assignment</li>
+<li>Voice quality analysis</li>
+<li>Survey validation</li>
+
+</ul>
+
+</div>
+
+</div>
+
+</section>
+
+<section>
+
+<h2 class="section-title">
+Raw JSON Viewer
+</h2>
+
+<p class="section-description">
+
+Expandable raw JSON structure viewer
+for enterprise schema inspection.
+
+</p>
+
+<div class="raw-json">
+
+<details>
+
+<summary>
+View Raw JSON Structure
+</summary>
+
+<pre>
+{
+  "contacts": [],
+  "consumers": [],
+  "campaign_targets": [],
+  "aai_audios": [],
+  "consumer_dialer_contacts": []
+}
+</pre>
+
+</details>
+
+</div>
+
+</section>
+
 <footer>
   <div class="footer-inner">
     <div class="footer-top">
