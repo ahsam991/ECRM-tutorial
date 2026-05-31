@@ -16,14 +16,9 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Username and password are required' });
   }
 
-  // Use environment variable for database connection string
-  const connectionString = process.env.DATABASE_URL;
+  // Use environment variable for database connection string, fallback to hardcoded URL
+  const connectionString = process.env.DATABASE_URL || 'postgresql://postgres:Tlvbx74QwdAwIx4x@db.jhfzdtacfedbpktkfabm.supabase.co:5432/postgres';
   
-  if (!connectionString) {
-    console.error('DATABASE_URL is not set in environment variables');
-    return res.status(500).json({ error: 'Database configuration error' });
-  }
-
   const client = new Client({
     connectionString: connectionString,
     ssl: {
@@ -47,6 +42,16 @@ export default async function handler(req, res) {
     }
 
     const token = jwt.sign({ id: user.id, username: user.username, role: user.role }, JWT_SECRET, { expiresIn: '1d' });
+
+    // Insert audit log
+    try {
+      await client.query(
+        'INSERT INTO audit_logs (username, action, details) VALUES ($1, $2, $3)',
+        [user.username, 'Login', `Logged in successfully as role: ${user.role}`]
+      );
+    } catch (logErr) {
+      console.error('Failed to write login audit log:', logErr);
+    }
 
     res.status(200).json({ message: 'Login successful', token, role: user.role, username: user.username });
   } catch (error) {

@@ -14,6 +14,9 @@ export default async function handler(req, res) {
 
   const client = new Client({
     connectionString: 'postgresql://postgres:Tlvbx74QwdAwIx4x@db.jhfzdtacfedbpktkfabm.supabase.co:5432/postgres',
+    ssl: {
+      rejectUnauthorized: false
+    }
   });
 
   try {
@@ -38,6 +41,16 @@ export default async function handler(req, res) {
       'INSERT INTO users (username, password_hash, role) VALUES ($1, $2, $3)',
       [username, passwordHash, userRole]
     );
+
+    // Insert audit log
+    try {
+      await client.query(
+        'INSERT INTO audit_logs (username, action, details) VALUES ($1, $2, $3)',
+        [username, 'Registration', `Registered new account with role: ${userRole}`]
+      );
+    } catch (logErr) {
+      console.error('Failed to write registration audit log:', logErr);
+    }
 
     res.status(201).json({ message: 'User created successfully', role: userRole });
   } catch (error) {

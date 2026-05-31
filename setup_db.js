@@ -18,6 +18,17 @@ async function setup() {
         created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
       );
     `);
+
+    // Create audit_logs table
+    await client.query(`
+      CREATE TABLE IF NOT EXISTS audit_logs (
+        id SERIAL PRIMARY KEY,
+        username VARCHAR(255) NOT NULL,
+        action VARCHAR(255) NOT NULL,
+        details TEXT,
+        created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+      );
+    `);
     
     console.log("Database initialized successfully!");
   } catch (err) {
