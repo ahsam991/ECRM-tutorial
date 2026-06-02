@@ -371,6 +371,12 @@ consumer_dialer_list → consumer_dialer_br_assignments → consumer_dialer_cont
 
 ### Local Development
 
+Clone and enter the project directory:
+
+```bash
+git clone https://github.com/pewdiepie-archdaemon/odysseus.git && cd odysseus
+```
+
 Open `index.html` directly in any modern web browser. No build step required.
 
 ```bash
